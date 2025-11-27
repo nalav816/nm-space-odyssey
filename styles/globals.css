@@ -5,11 +5,21 @@
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-blue-lightest: #AED6DF;
+}
+
+@layer components {
+  .text-glow-blue {
+    background: #ededed;
+    padding: 5px;
+    text-shadow: 3px 3px 5px grey;
+
+  }
 }
 
 @media (prefers-color-scheme: dark) {
