@@ -20,18 +20,18 @@ const CategoryButton = ({ category, setCategory, active = true }: { category: Ca
 }
 
 interface ShopItem {
-  name: string;
-  iconUrl: string;
-  rating: number;
-  price: number;
+    name: string;
+    iconUrl: string;
+    rating: number;
+    price: number;
 }
 
 interface ShopData {
-  Rockets: ShopItem[];
-  Astronauts: ShopItem[];
+    Rockets: ShopItem[];
+    Astronauts: ShopItem[];
 }
 
-const shopData : Record<Category, ShopItem[]> = {
+const shopData: Record<Category, ShopItem[]> = {
     Rockets: [],
     Astronauts: [
         {
@@ -45,10 +45,26 @@ const shopData : Record<Category, ShopItem[]> = {
 
 const ShopItem = ({ iconUrl, rating, name, price }: { iconUrl: string, rating: number, name: string, price: number }) => {
     return (
-        <div className="bg-linear-to-b rounded shadow-md from-blue to-blue-dark w-full h-16 flex transform transition duration-100 ease-in-out hover:cursor-pointer hover:-translate-y-1">
-            <div className = "h-16 w-16 bg-blue-darker rounded-l-xs">
-                <img className = "h-16 w-16 image-pixelated" src={iconUrl}/>
+        <div className="bg-linear-to-b rounded overflow-hidden shadow-md from-blue to-blue-dark noise-texture w-full h-16 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:-translate-y-1">
+            <div className="h-16 w-16 bg-blue-darker">
+                <img className="h-16 w-16 image-pixelated" src={iconUrl} />
 
+            </div>
+            <div className="px-3 py-1 flex flex-col">
+                <div className="text-xl leading-none"> {name} </div>
+                <div className="flex py-[1px] gap-1">
+                    {Array(5)
+                        .fill(0)
+                        .map((_, index) => (
+                            <img
+                                key={index}
+                                className="h-4 w-4 image-pixelated"
+                                src="/sprites/emptyStar.png"
+                                alt={`star-${index}`}
+                            />
+                        ))}
+                </div>
+                <div className="text-green leading-none"> ${price} </div>
             </div>
         </div>
     )
@@ -64,9 +80,9 @@ export default function Shop({ className }: { className?: string }) {
                 <CategoryButton setCategory={() => setCategory(Categories.Astronauts)} category={Categories.Astronauts} active={category == Categories.Astronauts} />
             </div>
 
-            <div className = "p-4">
+            <div className="p-4">
                 {shopData[category].map((val, i) => (
-                    <ShopItem key={i} iconUrl={val.iconUrl} rating={val.rating} name={val.name} price={val.price}/>
+                    <ShopItem key={i} iconUrl={val.iconUrl} rating={val.rating} name={val.name} price={val.price} />
                 ))}
             </div>
 
