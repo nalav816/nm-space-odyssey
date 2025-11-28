@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div className="bg-blue-darkest w-screen h-screen flex justify-center relative text-white font-jaro">
-      <img className="h-screen opacity-25 blur-xs w-screen object-cover absolute z-0" src="/imgs/starBackground.jpg"></img>
+      <img className="h-screen opacity-25 w-screen object-cover absolute z-0" src="/imgs/starBackground.jpg"></img>
       <div className="px-12 py-8 flex gap-8 h-screen w-screen max-w-7xl absolute z-10">
         <div className="h-full basis-1/3 flex flex-col">
           <div className="flex flex-col gap-4 pb-24">
