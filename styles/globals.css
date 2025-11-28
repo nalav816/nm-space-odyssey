@@ -45,4 +45,23 @@
   .section-card {
     background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
   }
+
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: var(--color-blue-dark); 
+    
+  }
+
+  
 }
+
+
+
+

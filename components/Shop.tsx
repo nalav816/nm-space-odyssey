@@ -12,9 +12,9 @@ type Category = typeof Categories[keyof typeof Categories]
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
-        <button onClick={setCategory} className={`rounded shadow-md w-32 h-6 text-blue-lightest
+        <button onClick={setCategory} className={`rounded shadow-md w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
-            ${active ? "bg-blue-dark text-white" : "bg-blue-darkest hover:cursor-pointer hover:scale-105 hover:bg-blue-dark"}
+            ${active ? "bg-blue-dark" : "bg-blue-darkest hover:cursor-pointer hover:scale-105 hover:bg-blue-dark"}
             `}> {category} </button>
     )
 }
@@ -39,6 +39,48 @@ const shopData: Record<Category, ShopItem[]> = {
             iconUrl: "/sprites/scrubShopIcon.png",
             rating: 1,
             price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
+        },
+        {
+            name: "Scrub",
+            iconUrl: "/sprites/scrubShopIcon.png",
+            rating: 1,
+            price: 100,
         }
     ]
 }
@@ -56,12 +98,15 @@ const ShopItem = ({ iconUrl, rating, name, price }: { iconUrl: string, rating: n
                     {Array(5)
                         .fill(0)
                         .map((_, index) => (
-                            <img
+                            
+                                <img
                                 key={index}
                                 className="h-4 w-4 image-pixelated"
                                 src="/sprites/emptyStar.png"
                                 alt={`star-${index}`}
                             />
+                            
+                            
                         ))}
                 </div>
                 <div className="text-green leading-none"> ${price} </div>
@@ -74,16 +119,23 @@ export default function Shop({ className }: { className?: string }) {
     const [category, setCategory] = useState<Category>(Categories.Rockets)
 
     return (
-        <SectionCard className={className} sectionName="Shop">
+        <SectionCard className={"flex flex-col " + className} sectionName="Shop">
             <div className="px-4 py-2 flex gap-2">
                 <CategoryButton setCategory={() => setCategory(Categories.Rockets)} category={Categories.Rockets} active={category == Categories.Rockets} />
                 <CategoryButton setCategory={() => setCategory(Categories.Astronauts)} category={Categories.Astronauts} active={category == Categories.Astronauts} />
             </div>
 
-            <div className="p-4">
-                {shopData[category].map((val, i) => (
+            <div className="p-4 pb-6 flex-1 overflow-hidden">
+                <div className="h-full overflow-y-auto scrollbar-custom">
+                    <div className="flex flex-col gap-4 pr-3">
+
+                    
+                    {shopData[category].map((val, i) => (
                     <ShopItem key={i} iconUrl={val.iconUrl} rating={val.rating} name={val.name} price={val.price} />
                 ))}
+                </div>
+                </div>
+                
             </div>
 
         </SectionCard>
