@@ -18,12 +18,14 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-white: #CCE1E3;
-  --color-blue-lightest: #AED6DF;
-  --color-blue-light: #99B8DF;
-  --color-blue-dark: #181C25;
-  --color-blue-darkest: #14161D;
-  --color-green: #87D893;
+  --color-white: #DBECED;
+  --color-blue-lightest: #B4E1E0;
+  --color-blue-light: #7CB4C0;
+  --color-blue: #57768A;
+  --color-blue-dark: #344859;
+  --color-blue-darker: #1E2A39;
+  --color-blue-darkest: #111721;
+  --color-green: #89C097;
 
   --font-jaro: "Jaro", sans-serif;
 
@@ -31,15 +33,34 @@
 }
 
 @layer components {
+  .image-pixelated {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+
   .title-glow {
     text-shadow: 0px 0px 70px var(--color-blue-lightest);
   }
-  
-  .section-card {
-    background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darkest));
-  }
-}
 
+  .section-card {
+    background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
+  }
+
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-track {
+    background: transparent; 
+  }
+
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    background: var(--color-blue-dark); 
+    
+  }
+
+  
+}
 
 
 
