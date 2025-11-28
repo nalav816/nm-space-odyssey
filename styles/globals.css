@@ -21,7 +21,9 @@
   --color-white: #CCE1E3;
   --color-blue-lightest: #AED6DF;
   --color-blue-light: #99B8DF;
-  --color-blue-dark: #181C25;
+  --color-blue: #3D4652;
+  --color-blue-dark: #212933;
+  --color-blue-darker: #181C25;
   --color-blue-darkest: #14161D;
   --color-green: #87D893;
 
@@ -36,7 +38,7 @@
   }
   
   .section-card {
-    background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darkest));
+    background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
   }
 }
 
