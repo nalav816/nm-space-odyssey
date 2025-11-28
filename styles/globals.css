@@ -5,32 +5,42 @@
   --foreground: #171717;
 }
 
+@font-face {
+  font-family: "Jaro";
+  src: url("/fonts/jaro.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-white: #CCE1E3;
   --color-blue-lightest: #AED6DF;
+  --color-blue-light: #99B8DF;
+  --color-blue-dark: #181C25;
+  --color-blue-darkest: #14161D;
+  --color-green: #87D893;
+
+  --font-jaro: "Jaro", sans-serif;
+
+
 }
 
 @layer components {
-  .text-glow-blue {
-    background: #ededed;
-    padding: 5px;
-    text-shadow: 3px 3px 5px grey;
-
+  .title-glow {
+    text-shadow: 0px 0px 70px var(--color-blue-lightest);
+  }
+  
+  .section-card {
+    background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darkest));
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+
+
+
