@@ -11,17 +11,17 @@ export default function Home() {
 
   return (
     <div className="bg-blue-darkest w-screen h-screen relative text-white font-jaro">
-      <img className="h-screen opacity-25  w-screen object-cover absolute z-0" src="/imgs/starBackground.jpg"></img>
+      <img className="h-screen opacity-25 blur-xs w-screen object-cover absolute z-0" src="/imgs/starBackground.jpg"></img>
       <div className="px-12 py-8 flex gap-8 h-screen w-screen absolute z-10">
         <div className="h-full basis-1/3 flex flex-col">
           <div className="flex flex-col gap-4 pb-24">
-            <div className="text-glow-blue text-6xl">
+            <div className="text-glow-blue text-5xl title-glow">
               <span className="text-2xl text-blue-light"> n&m </span>
               Space <br /> <span className="text-blue-lightest"> Odyssey </span> </div>
-            <div className="text-glow-blue text-blue-light text-2xl"> {name}'s Space Station </div>
+            <div className="text-glow-blue text-blue-lightest text-xl"> {name}'s Space Station </div>
             <div className="flex gap-4">
               <img className="h-8 w-8" src="/sprites/cash.png" />
-              <div className="text-glow-green text-green text-2xl"> ${cash} </div>
+              <div className="text-glow-green text-green text-xl"> ${cash} </div>
             </div>
 
           </div>

@@ -31,14 +31,9 @@
 }
 
 @layer components {
-  .text-glow-blue {
-    text-shadow: 0px 0px 6px var(--color-blue-lightest);
+  .title-glow {
+    text-shadow: 0px 0px 70px var(--color-blue-lightest);
   }
-
-  .text-glow-green {
-    text-shadow: 0px 0px 6px var(--color-green);
-  }
-
   .section-card {
     background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darkest));
   }
