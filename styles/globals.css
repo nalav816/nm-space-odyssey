@@ -34,6 +34,7 @@
   .title-glow {
     text-shadow: 0px 0px 70px var(--color-blue-lightest);
   }
+  
   .section-card {
     background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darkest));
   }
