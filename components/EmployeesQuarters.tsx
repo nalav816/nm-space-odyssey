@@ -17,8 +17,8 @@ export default function EmployeesQuarters({className} : {className?: string}){
             modelUrl: "/sprites/scrub.png"
         },
         {
-            name: "Scrub",
-            modelUrl: "/sprites/scrub.png"
+            name: "Ace",
+            modelUrl: "/sprites/ace.png"
         },
         {
             name: "Scrub",
