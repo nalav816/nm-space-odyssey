@@ -40,42 +40,6 @@ const shopData: Record<Category, ShopItem[]> = {
             rating: 1,
             price: 100,
         },
-        {
-            name: "Scrub",
-            iconUrl: "/sprites/scrubShopIcon.png",
-            rating: 1,
-            price: 100,
-        },
-        {
-            name: "Scrub",
-            iconUrl: "/sprites/scrubShopIcon.png",
-            rating: 1,
-            price: 100,
-        },
-        {
-            name: "Scrub",
-            iconUrl: "/sprites/scrubShopIcon.png",
-            rating: 1,
-            price: 100,
-        },
-        {
-            name: "Scrub",
-            iconUrl: "/sprites/scrubShopIcon.png",
-            rating: 1,
-            price: 100,
-        },
-        {
-            name: "Scrub",
-            iconUrl: "/sprites/scrubShopIcon.png",
-            rating: 1,
-            price: 100,
-        },
-        {
-            name: "Scrub",
-            iconUrl: "/sprites/scrubShopIcon.png",
-            rating: 1,
-            price: 100,
-        },
     ]
 }
 
