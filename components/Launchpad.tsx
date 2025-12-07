@@ -2,6 +2,6 @@ import SectionCard from "./SectionCard"
 
 export default function Launchpad({className} : {className?: string}){
     return (
-        <SectionCard className = {className} sectionName = "Launchpad"/>
+        <SectionCard className = {className} sectionName = "Launchpad" iconUrl="/sprites/launchpadIcon.png"/>
     )
 }

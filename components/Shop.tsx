@@ -90,7 +90,7 @@ export default function Shop({ className }: { className?: string }) {
     const [category, setCategory] = useState<Category>(Categories.Astronauts)
 
     return (
-        <SectionCard className={"flex flex-col " + className} sectionName="Shop">
+        <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="px-4 py-2 flex gap-2">
                 <CategoryButton setCategory={() => setCategory(Categories.Rockets)} category={Categories.Rockets} active={category == Categories.Rockets} />
                 <CategoryButton setCategory={() => setCategory(Categories.Astronauts)} category={Categories.Astronauts} active={category == Categories.Astronauts} />
