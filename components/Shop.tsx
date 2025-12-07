@@ -32,7 +32,14 @@ interface ShopData {
 }
 
 const shopData: Record<Category, ShopItem[]> = {
-    Rockets: [],
+    Rockets: [
+        {
+            name: "Big Red",
+            iconUrl: "/sprites/bigRedIcon.png",
+            rating: 3,
+            price: 2500
+        }
+    ],
     Astronauts: [
         {
             name: "Scrub",
