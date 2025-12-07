@@ -20,7 +20,7 @@ export default function Home() {
               Space <br /> <span className="text-blue-lightest"> Odyssey </span> </div>
             <div className="text-blue-lightest text-xl"> {name}'s Space Station </div>
             <div className="flex gap-4">
-              <img className="h-8 w-8" src="/sprites/cash.png" />
+              <img className="h-8 w-8 image-pixelated" src="/sprites/cash.png" />
               <div className=" text-green text-xl"> ${cash} </div>
             </div>
 
