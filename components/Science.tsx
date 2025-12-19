@@ -32,7 +32,7 @@ export default function Science({ className }: { className?: string }) {
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
-                    <div className="h-full absolute bg-blue-darkest/60 w-full flex justify-center items-center backdrop-blur-sm">
+                    <div className="h-full absolute bg-blue-darkest/60 w-full flex justify-center items-center backdrop-blur-md">
                         <div className="text-center text-white"> Hire A Researcher <br /> To Unlock Science </div>
                     </div>
                 )}
