@@ -6,6 +6,8 @@ import SectionCard from "./SectionCard"
 
 export default function EmployeesQuarters({className} : {className?: string}){
     const ROOM_SIZE = 4
+    const currRoom = 1
+    const roomCount = 2
 
     const [employees, setEmployees] = useState([
         {
@@ -29,23 +31,23 @@ export default function EmployeesQuarters({className} : {className?: string}){
     return (
         <SectionCard iconUrl={"/sprites/employeeIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
             <div className ="flex-1 flex-col flex justify-between">
-                <div className="h-12 w-full flex p-4">
-                    <div className = "basis-1/4 flex gap-2 items-center">
-                        <img className="h-4 w-4 image-pixelated" src="/sprites/star.png"/>
-                        <div className="text-sm"> 0 / {ROOM_SIZE} </div>
+                <div className="h-12 w-full flex justify-between p-4">
+                    <div className = "flex items-center gap-2">
+                        <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
+                        <div className="text-sm"> 4 / {ROOM_SIZE} </div>
                     </div>
                     <div className = "basis-2/4 gap-4 flex justify-center items-center">
-                        <button> &lt; </button>
-                        <div className="text-sm"> Room 1 / 2 </div>
-                        <button> &gt; </button>
+                        <button className="hover:-translate-y-0.5 transform transition ease-in-out duration-200 hover:cursor-pointer text-2xl"> &lt; </button>
+                        <div className="text-md"> Room <span className="text-blue">{" " + currRoom} / {roomCount}</span> </div>
+                        <button className="hover:-translate-y-0.5 transform transition ease-in-out duration-200 hover:cursor-pointer text-2xl"> &gt; </button>
                     </div>
-                    <div className = "basis-1/4 flex gap-2 justify-end ">
-                        <img className="h-4 w-4 image-pixelated" src="/sprites/star.png"/>
+                    <div className = "flex justify-end gap-2">
+                        <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
                         <div className="text-sm"> Rooms </div>
                     </div>
                 </div>
-                <div className = "h-24 w-full flex flex-col">
-                    <div className="flex justify-center">
+                <div className = "h-24 w-full flex flex-col items-center">
+                    <div className="flex w-64 h-16">
                         {employees.map((employee, i) => (
                             <img key={i} className="h-16 w-16 image-pixelated" src={employee.modelUrl}></img>
                         ))}
