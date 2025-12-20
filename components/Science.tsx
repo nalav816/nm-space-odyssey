@@ -9,7 +9,7 @@ const ResearchIcon = () => {
 }
 
 const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, className?: string, maxItemCount?: number}) => {
-    const itemCount = 16
+    const itemCount = 4
     const items = new Array(itemCount).fill(0);
 
     return (
@@ -26,7 +26,7 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
 }
 
 export default function Science({ className }: { className?: string }) {
-    const available = true;
+    const available = false;
 
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
