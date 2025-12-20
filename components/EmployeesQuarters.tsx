@@ -27,7 +27,7 @@ export default function EmployeesQuarters({className} : {className?: string}){
     ])
 
     return (
-        <SectionCard className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
+        <SectionCard iconUrl={"/sprites/employeeIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
             <div className ="flex-1 flex-col flex justify-between">
                 <div className="h-12 w-full flex p-4">
                     <div className = "basis-1/4 flex gap-2 items-center">
