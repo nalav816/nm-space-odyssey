@@ -1,6 +1,6 @@
 import Shop from "../components/Shop";
 import Leaderboard from "../components/Leaderboard";
-import Manual from "@/components/Manual";
+import Science from "@/components/Science";
 import Launchpad from "@/components/Launchpad";
 import EmployeesQuarters from "@/components/EmployeesQuarters";
 
@@ -19,8 +19,8 @@ export default function Home() {
               <span className="text-2xl text-blue-light"> n&m </span>
               Space <br /> <span className="text-blue-lightest"> Odyssey </span> </div>
             <div className="text-blue-lightest text-xl"> {name}'s Space Station </div>
-            <div className="flex gap-4">
-              <img className="h-8 w-8" src="/sprites/cash.png" />
+            <div className="flex gap-4 items-center">
+              <img className="h-8 w-8 image-pixelated" src="/sprites/cash.png" />
               <div className=" text-green text-xl"> ${cash} </div>
             </div>
 
@@ -34,7 +34,7 @@ export default function Home() {
         </div>
 
         <div className="h-full basis-1/3 flex flex-col gap-8">
-          <Manual className="basis-1/2 w-full"/>
+          <Science className="basis-1/2 w-full"/>
           <Leaderboard className="basis-1/2 w-full"/>
         </div>
       </div>
