@@ -9,13 +9,13 @@ const ResearchIcon = () => {
 }
 
 const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, className?: string, maxItemCount?: number}) => {
-    const itemCount = 4
+    const itemCount = 16
     const items = new Array(itemCount).fill(0);
 
     return (
         <div className={`w-full flex flex-col ${className}`}>
-            <div className="w-full px-4 pt-2"> {name + " "} <span className="text-blue text-xs">  ({itemCount + (maxItemCount > 0 ? "/" + maxItemCount : "")}) </span> </div>
-            <div className="mx-4 pt-2 flex flex-1 overflow-auto min-h-0 gap-2 flex-wrap mb-2 scrollbar-custom ">
+            <div className="w-full pb-1 px-4 pt-2"> {name + " "} <span className="text-blue text-xs">  ({itemCount + (maxItemCount > 0 ? "/" + maxItemCount : "")}) </span> </div>
+            <div className="mx-4 pt-1 flex flex-1 overflow-auto min-h-0 gap-2 flex-wrap mb-2 scrollbar-custom ">
                 {items.map((_, i) => (
                     <ResearchIcon key={i}/>
                 ))}
@@ -26,7 +26,7 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
 }
 
 export default function Science({ className }: { className?: string }) {
-    const available = false;
+    const available = true;
 
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
