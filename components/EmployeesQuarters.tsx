@@ -37,9 +37,9 @@ export default function EmployeesQuarters({className} : {className?: string}){
                         <div className="text-sm"> 4 / {ROOM_SIZE} </div>
                     </div>
                     <div className = "basis-2/4 gap-4 flex justify-center items-center">
-                        <button className="hover:-translate-y-0.5 transform transition ease-in-out duration-200 hover:cursor-pointer text-2xl"> &lt; </button>
+                        <button className="hover:text-blue-lightest hover:cursor-pointer text-2xl"> &lt; </button>
                         <div className="text-md"> Room <span className="text-blue">{" " + currRoom} / {roomCount}</span> </div>
-                        <button className="hover:-translate-y-0.5 transform transition ease-in-out duration-200 hover:cursor-pointer text-2xl"> &gt; </button>
+                        <button className="hover:text-blue-lightest hover:cursor-pointer text-2xl"> &gt; </button>
                     </div>
                     <div className = "flex justify-end gap-2">
                         <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
