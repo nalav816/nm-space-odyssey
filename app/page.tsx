@@ -1,6 +1,6 @@
 import Shop from "../components/Shop";
 import Leaderboard from "../components/Leaderboard";
-import Manual from "@/components/Manual";
+import Science from "@/components/Science";
 import Launchpad from "@/components/Launchpad";
 import EmployeesQuarters from "@/components/EmployeesQuarters";
 
@@ -34,7 +34,7 @@ export default function Home() {
         </div>
 
         <div className="h-full basis-1/3 flex flex-col gap-8">
-          <Manual className="basis-1/2 w-full"/>
+          <Science className="basis-1/2 w-full"/>
           <Leaderboard className="basis-1/2 w-full"/>
         </div>
       </div>
