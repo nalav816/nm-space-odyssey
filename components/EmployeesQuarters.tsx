@@ -1,7 +1,63 @@
+"use client"
+
+import { useState } from "react"
 import SectionCard from "./SectionCard"
 
+
 export default function EmployeesQuarters({className} : {className?: string}){
+    const ROOM_SIZE = 4
+    const currRoom = 1
+    const roomCount = 2
+
+    const [employees, setEmployees] = useState([
+        {
+            name: "Scrub",
+            modelUrl: "/sprites/scrub.png"
+        },
+        {
+            name: "Scrub",
+            modelUrl: "/sprites/scrub.png"
+        },
+        {
+            name: "Ace",
+            modelUrl: "/sprites/ace.png"
+        },
+        {
+            name: "Scrub",
+            modelUrl: "/sprites/scrub.png"
+        },
+    ])
+
     return (
-        <SectionCard className = {className} sectionName = "Employee's Quarters" iconUrl="/sprites/employeeIcon.png"/>
+        <SectionCard iconUrl={"/sprites/employeeIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
+            <div className ="flex-1 flex-col flex justify-between">
+                <div className="h-12 w-full flex justify-between p-4">
+                    <div className = "flex items-center gap-2">
+                        <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
+                        <div className="text-sm"> 4 / {ROOM_SIZE} </div>
+                    </div>
+                    <div className = "basis-2/4 gap-4 flex justify-center items-center">
+                        <button className="hover:-translate-y-0.5 transform transition ease-in-out duration-200 hover:cursor-pointer text-2xl"> &lt; </button>
+                        <div className="text-md"> Room <span className="text-blue">{" " + currRoom} / {roomCount}</span> </div>
+                        <button className="hover:-translate-y-0.5 transform transition ease-in-out duration-200 hover:cursor-pointer text-2xl"> &gt; </button>
+                    </div>
+                    <div className = "flex justify-end gap-2">
+                        <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
+                        <div className="text-sm"> Rooms </div>
+                    </div>
+                </div>
+                <div className = "h-24 w-full flex flex-col items-center">
+                    <div className="flex w-64 h-16">
+                        {employees.map((employee, i) => (
+                            <img key={i} className="h-16 w-16 image-pixelated" src={employee.modelUrl}></img>
+                        ))}
+
+                    </div>
+                    <div className="bg-repeat bg-[url('/sprites/floorTile.png')] w-full h-8 bg-size-[32px_32px] image-pixelated"></div>
+                </div>
+                
+            </div>
+            
+        </SectionCard>
     )
 }
