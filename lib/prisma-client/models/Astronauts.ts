@@ -257,7 +257,7 @@ export type AstronautsCreateInput = {
   rating: number
   modelUrl: string
   shopIconUrl: string
-  ownedAstronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutAstronautInput
+  ownedAstronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutAstronautDataInput
 }
 
 export type AstronautsUncheckedCreateInput = {
@@ -265,7 +265,7 @@ export type AstronautsUncheckedCreateInput = {
   rating: number
   modelUrl: string
   shopIconUrl: string
-  ownedAstronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutAstronautInput
+  ownedAstronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutAstronautDataInput
 }
 
 export type AstronautsUpdateInput = {
@@ -273,7 +273,7 @@ export type AstronautsUpdateInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  ownedAstronauts?: Prisma.OwnedAstronautsUpdateManyWithoutAstronautNestedInput
+  ownedAstronauts?: Prisma.OwnedAstronautsUpdateManyWithoutAstronautDataNestedInput
 }
 
 export type AstronautsUncheckedUpdateInput = {
@@ -281,7 +281,7 @@ export type AstronautsUncheckedUpdateInput = {
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  ownedAstronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutAstronautNestedInput
+  ownedAstronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput
 }
 
 export type AstronautsCreateManyInput = {

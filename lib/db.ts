@@ -1,8 +1,15 @@
-import { PrismaClient } from  "./prisma-client";
+import { PrismaClient } from  "./prisma-client/client"
+import { PrismaPg } from "@prisma/adapter-pg"
 
-const clientGlobal = global as unknown as {prisma?: PrismaClient};
-export const db = clientGlobal.prisma ?? new PrismaClient();
+//Global variable is necessary to prevent multiple instances of db on Next.js hot reload
+const prismaGlobal = global as unknown as {prisma?: PrismaClient};
+
+const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL
+});
+
+export const db = prismaGlobal.prisma ?? new PrismaClient({ adapter });
 
 if(process.env.NODE_ENV != "production") {
-    clientGlobal.prisma = db;
+    prismaGlobal.prisma = db;
 }

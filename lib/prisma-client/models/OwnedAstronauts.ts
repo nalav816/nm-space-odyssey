@@ -167,7 +167,7 @@ export type OwnedAstronautsWhereInput = {
   ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  astronaut?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
+  astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
 }
 
 export type OwnedAstronautsOrderByWithRelationInput = {
@@ -175,7 +175,7 @@ export type OwnedAstronautsOrderByWithRelationInput = {
   ownerName?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
-  astronaut?: Prisma.AstronautsOrderByWithRelationInput
+  astronautData?: Prisma.AstronautsOrderByWithRelationInput
 }
 
 export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
@@ -186,7 +186,7 @@ export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
   ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  astronaut?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
+  astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
 }, "id">
 
 export type OwnedAstronautsOrderByWithAggregationInput = {
@@ -210,7 +210,7 @@ export type OwnedAstronautsScalarWhereWithAggregatesInput = {
 export type OwnedAstronautsCreateInput = {
   id?: string
   owner: Prisma.UserCreateNestedOneWithoutAstronautsInput
-  astronaut: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
+  astronautData: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
 }
 
 export type OwnedAstronautsUncheckedCreateInput = {
@@ -222,7 +222,7 @@ export type OwnedAstronautsUncheckedCreateInput = {
 export type OwnedAstronautsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   owner?: Prisma.UserUpdateOneRequiredWithoutAstronautsNestedInput
-  astronaut?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
+  astronautData?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
 }
 
 export type OwnedAstronautsUncheckedUpdateInput = {
@@ -317,51 +317,51 @@ export type OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput = {
   deleteMany?: Prisma.OwnedAstronautsScalarWhereInput | Prisma.OwnedAstronautsScalarWhereInput[]
 }
 
-export type OwnedAstronautsCreateNestedManyWithoutAstronautInput = {
-  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput> | Prisma.OwnedAstronautsCreateWithoutAstronautInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput[]
-  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput[]
-  createMany?: Prisma.OwnedAstronautsCreateManyAstronautInputEnvelope
+export type OwnedAstronautsCreateNestedManyWithoutAstronautDataInput = {
+  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput> | Prisma.OwnedAstronautsCreateWithoutAstronautDataInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput[]
+  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput[]
+  createMany?: Prisma.OwnedAstronautsCreateManyAstronautDataInputEnvelope
   connect?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
 }
 
-export type OwnedAstronautsUncheckedCreateNestedManyWithoutAstronautInput = {
-  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput> | Prisma.OwnedAstronautsCreateWithoutAstronautInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput[]
-  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput[]
-  createMany?: Prisma.OwnedAstronautsCreateManyAstronautInputEnvelope
+export type OwnedAstronautsUncheckedCreateNestedManyWithoutAstronautDataInput = {
+  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput> | Prisma.OwnedAstronautsCreateWithoutAstronautDataInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput[]
+  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput[]
+  createMany?: Prisma.OwnedAstronautsCreateManyAstronautDataInputEnvelope
   connect?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
 }
 
-export type OwnedAstronautsUpdateManyWithoutAstronautNestedInput = {
-  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput> | Prisma.OwnedAstronautsCreateWithoutAstronautInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput[]
-  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput[]
-  upsert?: Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautInput | Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautInput[]
-  createMany?: Prisma.OwnedAstronautsCreateManyAstronautInputEnvelope
+export type OwnedAstronautsUpdateManyWithoutAstronautDataNestedInput = {
+  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput> | Prisma.OwnedAstronautsCreateWithoutAstronautDataInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput[]
+  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput[]
+  upsert?: Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautDataInput | Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautDataInput[]
+  createMany?: Prisma.OwnedAstronautsCreateManyAstronautDataInputEnvelope
   set?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
   disconnect?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
   delete?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
   connect?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
-  update?: Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautInput | Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautInput[]
-  updateMany?: Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautInput | Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautInput[]
+  update?: Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautDataInput | Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautDataInput[]
+  updateMany?: Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautDataInput | Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautDataInput[]
   deleteMany?: Prisma.OwnedAstronautsScalarWhereInput | Prisma.OwnedAstronautsScalarWhereInput[]
 }
 
-export type OwnedAstronautsUncheckedUpdateManyWithoutAstronautNestedInput = {
-  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput> | Prisma.OwnedAstronautsCreateWithoutAstronautInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput[]
-  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautInput[]
-  upsert?: Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautInput | Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautInput[]
-  createMany?: Prisma.OwnedAstronautsCreateManyAstronautInputEnvelope
+export type OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput = {
+  create?: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput> | Prisma.OwnedAstronautsCreateWithoutAstronautDataInput[] | Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput[]
+  connectOrCreate?: Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput | Prisma.OwnedAstronautsCreateOrConnectWithoutAstronautDataInput[]
+  upsert?: Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautDataInput | Prisma.OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautDataInput[]
+  createMany?: Prisma.OwnedAstronautsCreateManyAstronautDataInputEnvelope
   set?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
   disconnect?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
   delete?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
   connect?: Prisma.OwnedAstronautsWhereUniqueInput | Prisma.OwnedAstronautsWhereUniqueInput[]
-  update?: Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautInput | Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautInput[]
-  updateMany?: Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautInput | Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautInput[]
+  update?: Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautDataInput | Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautDataInput[]
+  updateMany?: Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautDataInput | Prisma.OwnedAstronautsUpdateManyWithWhereWithoutAstronautDataInput[]
   deleteMany?: Prisma.OwnedAstronautsScalarWhereInput | Prisma.OwnedAstronautsScalarWhereInput[]
 }
 
 export type OwnedAstronautsCreateWithoutOwnerInput = {
   id?: string
-  astronaut: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
+  astronautData: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
 }
 
 export type OwnedAstronautsUncheckedCreateWithoutOwnerInput = {
@@ -404,40 +404,40 @@ export type OwnedAstronautsScalarWhereInput = {
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
 }
 
-export type OwnedAstronautsCreateWithoutAstronautInput = {
+export type OwnedAstronautsCreateWithoutAstronautDataInput = {
   id?: string
   owner: Prisma.UserCreateNestedOneWithoutAstronautsInput
 }
 
-export type OwnedAstronautsUncheckedCreateWithoutAstronautInput = {
+export type OwnedAstronautsUncheckedCreateWithoutAstronautDataInput = {
   id?: string
   ownerName: string
 }
 
-export type OwnedAstronautsCreateOrConnectWithoutAstronautInput = {
+export type OwnedAstronautsCreateOrConnectWithoutAstronautDataInput = {
   where: Prisma.OwnedAstronautsWhereUniqueInput
-  create: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput>
+  create: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput>
 }
 
-export type OwnedAstronautsCreateManyAstronautInputEnvelope = {
-  data: Prisma.OwnedAstronautsCreateManyAstronautInput | Prisma.OwnedAstronautsCreateManyAstronautInput[]
+export type OwnedAstronautsCreateManyAstronautDataInputEnvelope = {
+  data: Prisma.OwnedAstronautsCreateManyAstronautDataInput | Prisma.OwnedAstronautsCreateManyAstronautDataInput[]
   skipDuplicates?: boolean
 }
 
-export type OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautInput = {
+export type OwnedAstronautsUpsertWithWhereUniqueWithoutAstronautDataInput = {
   where: Prisma.OwnedAstronautsWhereUniqueInput
-  update: Prisma.XOR<Prisma.OwnedAstronautsUpdateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedUpdateWithoutAstronautInput>
-  create: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautInput>
+  update: Prisma.XOR<Prisma.OwnedAstronautsUpdateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedUpdateWithoutAstronautDataInput>
+  create: Prisma.XOR<Prisma.OwnedAstronautsCreateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedCreateWithoutAstronautDataInput>
 }
 
-export type OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautInput = {
+export type OwnedAstronautsUpdateWithWhereUniqueWithoutAstronautDataInput = {
   where: Prisma.OwnedAstronautsWhereUniqueInput
-  data: Prisma.XOR<Prisma.OwnedAstronautsUpdateWithoutAstronautInput, Prisma.OwnedAstronautsUncheckedUpdateWithoutAstronautInput>
+  data: Prisma.XOR<Prisma.OwnedAstronautsUpdateWithoutAstronautDataInput, Prisma.OwnedAstronautsUncheckedUpdateWithoutAstronautDataInput>
 }
 
-export type OwnedAstronautsUpdateManyWithWhereWithoutAstronautInput = {
+export type OwnedAstronautsUpdateManyWithWhereWithoutAstronautDataInput = {
   where: Prisma.OwnedAstronautsScalarWhereInput
-  data: Prisma.XOR<Prisma.OwnedAstronautsUpdateManyMutationInput, Prisma.OwnedAstronautsUncheckedUpdateManyWithoutAstronautInput>
+  data: Prisma.XOR<Prisma.OwnedAstronautsUpdateManyMutationInput, Prisma.OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataInput>
 }
 
 export type OwnedAstronautsCreateManyOwnerInput = {
@@ -447,7 +447,7 @@ export type OwnedAstronautsCreateManyOwnerInput = {
 
 export type OwnedAstronautsUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  astronaut?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
+  astronautData?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
 }
 
 export type OwnedAstronautsUncheckedUpdateWithoutOwnerInput = {
@@ -460,22 +460,22 @@ export type OwnedAstronautsUncheckedUpdateManyWithoutOwnerInput = {
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type OwnedAstronautsCreateManyAstronautInput = {
+export type OwnedAstronautsCreateManyAstronautDataInput = {
   id?: string
   ownerName: string
 }
 
-export type OwnedAstronautsUpdateWithoutAstronautInput = {
+export type OwnedAstronautsUpdateWithoutAstronautDataInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   owner?: Prisma.UserUpdateOneRequiredWithoutAstronautsNestedInput
 }
 
-export type OwnedAstronautsUncheckedUpdateWithoutAstronautInput = {
+export type OwnedAstronautsUncheckedUpdateWithoutAstronautDataInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerName?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type OwnedAstronautsUncheckedUpdateManyWithoutAstronautInput = {
+export type OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ownerName?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -487,7 +487,7 @@ export type OwnedAstronautsSelect<ExtArgs extends runtime.Types.Extensions.Inter
   ownerName?: boolean
   astronautName?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  astronaut?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -495,7 +495,7 @@ export type OwnedAstronautsSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   ownerName?: boolean
   astronautName?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  astronaut?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -503,7 +503,7 @@ export type OwnedAstronautsSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   ownerName?: boolean
   astronautName?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  astronaut?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectScalar = {
@@ -515,22 +515,22 @@ export type OwnedAstronautsSelectScalar = {
 export type OwnedAstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerName" | "astronautName", ExtArgs["result"]["ownedAstronauts"]>
 export type OwnedAstronautsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  astronaut?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
 }
 export type OwnedAstronautsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  astronaut?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
 }
 export type OwnedAstronautsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  astronaut?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
 }
 
 export type $OwnedAstronautsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OwnedAstronauts"
   objects: {
     owner: Prisma.$UserPayload<ExtArgs>
-    astronaut: Prisma.$AstronautsPayload<ExtArgs>
+    astronautData: Prisma.$AstronautsPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -931,7 +931,7 @@ readonly fields: OwnedAstronautsFieldRefs;
 export interface Prisma__OwnedAstronautsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  astronaut<T extends Prisma.AstronautsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AstronautsDefaultArgs<ExtArgs>>): Prisma.Prisma__AstronautsClient<runtime.Types.Result.GetResult<Prisma.$AstronautsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  astronautData<T extends Prisma.AstronautsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AstronautsDefaultArgs<ExtArgs>>): Prisma.Prisma__AstronautsClient<runtime.Types.Result.GetResult<Prisma.$AstronautsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
