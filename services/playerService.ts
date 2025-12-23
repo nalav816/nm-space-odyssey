@@ -13,6 +13,7 @@ export async function getPlayerData(userName: string){
         }
     })
 
+    console.log(data)
     if (!data) throw new Error()
 
     const packet = {

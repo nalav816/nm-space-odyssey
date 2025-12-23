@@ -10,7 +10,7 @@ type Employee = {
     shopIconUrl: string,
 }
 
-export default function EmployeesQuarters({employeeData, className} : {employeeData: Employee[], className?: string}){
+export default function EmployeesQuarters({employeeData = [], className} : {employeeData?: Employee[], className?: string}){
     const ROOM_SIZE = 4
     const currRoom = 1
     const roomCount = 2
