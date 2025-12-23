@@ -35,7 +35,7 @@ const RocketPlatform = ({ rocketSprite }: { rocketSprite: string }) => {
                 i % 3 == 0 && i != 0 ? (
                     <div className="flex" key={i}>
                         {new Array(minXTileToFill / 2 - 1).fill(0).map((_, i) => (
-                            <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformBridgeTile.png" />
+                            <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformBridgeTile.png" key={i}/>
                         ))}
                         <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformBridgeRightTile.png" />
                         <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformVertTile.png" />
