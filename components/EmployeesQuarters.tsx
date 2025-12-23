@@ -31,7 +31,7 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
                         <button className="hover:text-blue-lightest hover:cursor-pointer text-2xl"> &gt; </button>
                     </div>
                     <div className = "flex justify-end gap-2 w-16">
-                        <button className="bg-blue rounded-full shadow hover:cursor-pointer hover:bg-blue-dark">
+                        <button className="bg-blue rounded-md shadow hover:cursor-pointer hover:bg-blue-dark">
                             <img className="h-4 w-4 image-pixelated" src="/sprites/plusIcon.png"/>
                         </button>
                         
