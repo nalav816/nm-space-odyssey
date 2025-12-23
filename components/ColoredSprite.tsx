@@ -1,12 +1,12 @@
-export default function ColoredSprite({ iconUrl, className, style }: { iconUrl: string, className?: string, style?: React.CSSProperties }) {
+export default function ColoredSprite({ spriteUrl, className, style }: { spriteUrl: string, className?: string, style?: React.CSSProperties }) {
     return (
         <div className={`${className}`} style={
             {
                 ...{
-                    maskImage: `url(${iconUrl})`,
+                    maskImage: `url(${spriteUrl})`,
                     maskRepeat: "no-repeat",
                     maskSize: "contain",
-                    WebkitMaskImage: `url(${iconUrl})`,
+                    WebkitMaskImage: `url(${spriteUrl})`,
                     WebkitMaskRepeat: 'no-repeat',
                     WebkitMaskSize: "contain"
                 }, ...style
