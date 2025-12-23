@@ -1,8 +1,8 @@
 "use client"
-
 import { useState } from "react"
 import SectionCard from "./SectionCard"
-import  TiledSprite  from "./TiledSprite"
+import TiledSprite  from "./TiledSprite"
+import TopBar from "./TopBar"
 
 type Employee = {
     name: string,
@@ -21,24 +21,7 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
     return (
         <SectionCard iconUrl={"/sprites/employeeQuartersIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
             <div className ="flex-1 flex-col flex justify-between">
-                <div className="w-full flex justify-between py-2 px-4 items-center">
-                    <div className = "flex w-16 gap-2">
-                        <img className="h-4 w-4 image-pixelated" src="/sprites/employeeIcon.png"/>
-                        <div className="text-sm"> 4 / {ROOM_SIZE} </div>
-                    </div>
-                    <div className = "basis-2/4 gap-4 flex justify-center">
-                        <button className="hover:text-blue-lightest hover:cursor-pointer"> &lt; </button>
-                        <div className="text-md"> Room <span className="text-blue">{" " + currRoom} / {roomCount}</span> </div>
-                        <button className="hover:text-blue-lightest hover:cursor-pointer"> &gt; </button>
-                    </div>
-                    <div className = "flex justify-end gap-2 w-16 items-center">
-                        <button className="h-4 w-4 bg-blue rounded-md shadow hover:cursor-pointer hover:bg-blue-light transition duration-200 ease-in-out">
-                            <img className="h-full w-full image-pixelated" src="/sprites/plusIcon.png"/>
-                        </button>
-                        
-                        <div className="text-sm"> Rooms </div>
-                    </div>
-                </div>
+                <TopBar/>
                 <div className = "h-24 w-full flex flex-col items-center">
                     <div className="flex w-64 h-16">
                         {employees.map((employee: any, i: number) => (
