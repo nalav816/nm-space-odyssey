@@ -15,6 +15,15 @@ export default function Leaderboard({className} : {className?: string}){
     ]
 
     return (
-        <SectionCard className = {className} sectionName = "Leaderboard" iconUrl="/sprites/leaderboardIcon.png"/>
+        <SectionCard className = {className} sectionName = "Leaderboard">
+            <div className="space-y-2">
+                {leaderboardData.map((entry, index) => (
+                    <div key={index} className="flex items-center justify-between text-lg text-blue-lightest">
+                        <span>{index + 1}. {entry.name}</span>
+                        <span className="text-green">${entry.amount.toLocaleString()}</span>
+                    </div>
+                ))}
+            </div>
+        </SectionCard>
     )
 }
