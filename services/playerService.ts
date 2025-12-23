@@ -29,7 +29,7 @@ export async function getPlayerData(userName: string){
     return packet
 }
 
-export async function purchaseAstronaut(ownerName: string, astronautName: string) {
+export async function addAstronaut(ownerName: string, astronautName: string) {
     await db.ownedAstronauts.create({
         data: {
             ownerName,
