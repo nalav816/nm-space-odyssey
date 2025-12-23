@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import SectionCard from "./SectionCard"
+import  TiledSprite  from "./TiledSprite"
 
 type Employee = {
     name: string,
@@ -44,7 +45,7 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
                             <img key={i} className="h-16 w-16 image-pixelated" src={employee.modelUrl}></img>
                         ))}
                     </div>
-                    <div className="bg-repeat bg-[url('/sprites/floorTile.png')] w-full h-8 bg-size-[32px_32px] image-pixelated"></div>
+                    <TiledSprite tileUrl={"/sprites/floorTile.png"} className="bg-blue-darker w-full h-8 image-pixelated"></TiledSprite>
                 </div>
                 
             </div>
