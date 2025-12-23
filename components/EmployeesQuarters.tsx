@@ -5,6 +5,7 @@ import TiledSprite  from "./TiledSprite"
 import TopBar from "./TopBar"
 import { Employee, EmployeeData } from "./Employee"
 import ColoredSprite from "./ColoredSprite"
+import TintedSprite from "./TintedSprite"
 
 export default function EmployeesQuarters({employeeData = [], className} : {employeeData?: EmployeeData[], className?: string}){
     const ROOM_SIZE = 5
@@ -27,7 +28,7 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
                         ))}
                         {new Array(ROOM_SIZE - employees.length).fill(0).map((_, i) => (
                             <div className="w-16 h-16 flex items-end justify-center" key={i} >
-                                <ColoredSprite className="bg-blue-darkest h-[46px] w-[26px] image-pixelated" spriteUrl="/sprites/scrub.png"/>
+                                <TintedSprite className="text-blue-darkest image-pixelated" spriteUrl="/sprites/scrub.png" tintIntensity={1}/>
                             </div>
                         ))}
                     </div>

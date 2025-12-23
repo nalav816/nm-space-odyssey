@@ -6,6 +6,7 @@ export default function TintedSprite({
     spriteUrl,
     tintIntensity = .3,
     className,
+    style,
     onMouseEnter,
     onMouseLeave,
     onClick
@@ -13,6 +14,7 @@ export default function TintedSprite({
     spriteUrl: string,
     tintIntensity?: number,
     className?: string,
+    style?: React.CSSProperties
     onMouseEnter?: () => void,
     onMouseLeave?: () => void,
     onClick?: () => void
@@ -49,7 +51,7 @@ export default function TintedSprite({
             ctx.globalCompositeOperation = "source-over"
         }
 
-    }, [tintIntensity])
+    }, [tintIntensity, className])
 
-    return (<canvas onClick={onClick} className={className} ref={canvasRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />)
+    return (<canvas onClick={onClick} style={style} className={className} ref={canvasRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />)
 }
