@@ -14,7 +14,7 @@ const CategoryButton = ({ category, setCategory, active = true }: { category: Ca
     return (
         <button onClick={setCategory} className={`rounded shadow-md w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
-            ${active ? "bg-blue-dark" : "bg-blue-darkest hover:cursor-pointer hover:scale-105 hover:bg-blue-dark"}
+            ${active ? "bg-blue-darker" : "bg-blue-darkest hover:cursor-pointer hover:scale-105 hover:bg-blue-darker"}
             `}> {category} </button>
     )
 }
@@ -52,7 +52,7 @@ const shopData: Record<Category, ShopItem[]> = {
 
 const ShopItem = ({ iconUrl, rating, name, price }: { iconUrl: string, rating: number, name: string, price: number }) => {
     return (
-        <div className="mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden shadow-md from-blue to-blue-dark noise-texture h-16 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:-translate-y-1">
+        <div className="mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden shadow-md from-blue to-blue-dark noise-texture h-16 flex transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue">
             <div className="h-16 w-16 bg-blue-darker border-r-2 border-blue-dark">
                 <img className="h-16 w-16 image-pixelated" src={iconUrl} />
 
@@ -103,7 +103,7 @@ export default function Shop({ className }: { className?: string }) {
                 <CategoryButton setCategory={() => setCategory(Categories.Astronauts)} category={Categories.Astronauts} active={category == Categories.Astronauts} />
             </div>
 
-            <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 pt-1 mb-4 justify-start flex-col gap-4 scrollbar-custom">
+            <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {shopData[category].map((val, i) => (
                     <ShopItem key={i} iconUrl={val.iconUrl} rating={val.rating} name={val.name} price={val.price} />
                 ))}

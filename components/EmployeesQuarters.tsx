@@ -20,19 +20,19 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
     return (
         <SectionCard iconUrl={"/sprites/employeeQuartersIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
             <div className ="flex-1 flex-col flex justify-between">
-                <div className="h-12 w-full flex justify-between p-4">
-                    <div className = "flex items-center w-16 gap-2">
+                <div className="w-full flex justify-between py-2 px-4 items-center">
+                    <div className = "flex w-16 gap-2">
                         <img className="h-4 w-4 image-pixelated" src="/sprites/employeeIcon.png"/>
                         <div className="text-sm"> 4 / {ROOM_SIZE} </div>
                     </div>
-                    <div className = "basis-2/4 gap-4 flex justify-center items-center">
-                        <button className="hover:text-blue-lightest hover:cursor-pointer text-2xl"> &lt; </button>
+                    <div className = "basis-2/4 gap-4 flex justify-center">
+                        <button className="hover:text-blue-lightest hover:cursor-pointer"> &lt; </button>
                         <div className="text-md"> Room <span className="text-blue">{" " + currRoom} / {roomCount}</span> </div>
-                        <button className="hover:text-blue-lightest hover:cursor-pointer text-2xl"> &gt; </button>
+                        <button className="hover:text-blue-lightest hover:cursor-pointer"> &gt; </button>
                     </div>
-                    <div className = "flex justify-end gap-2 w-16">
-                        <button className="bg-blue rounded-md shadow hover:cursor-pointer hover:bg-blue-dark">
-                            <img className="h-4 w-4 image-pixelated" src="/sprites/plusIcon.png"/>
+                    <div className = "flex justify-end gap-2 w-16 items-center">
+                        <button className="h-4 w-4 bg-blue rounded-md shadow hover:cursor-pointer hover:bg-blue-light transition duration-200 ease-in-out">
+                            <img className="h-full w-full image-pixelated" src="/sprites/plusIcon.png"/>
                         </button>
                         
                         <div className="text-sm"> Rooms </div>
