@@ -14,8 +14,15 @@ const DragType = {
 
 type DragType = typeof DragType[keyof typeof DragType]
 
-const DragIndicator = ({dragType} : {dragType:DragType}) => {
-
+const DragIndicator = ({ dragType }: { dragType: DragType }) => {
+    return (
+        <div className="absolute top-full left-0 w-full pt-2 flex justify-center">
+            <div className="relative shrink-0 text-xs text-center z-20">
+                Press the <span className="text-blue-light"> {DRAG_CANCEL_KEYBIND} <br /> key </span>  to cancel
+                <div className="absolute bg-blue-light/30 blur-lg h-full w-full top-0 z-10" />
+            </div>
+        </div>
+    )
 }
 
 export type EmployeeData = {
@@ -104,27 +111,33 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
 
     return (
         <div className="relative">
-            {isBeingDragged ?
-                (
-                    <TintedSprite
-                        className="z-50 image-pixelated fixed cursor-grabbing"
-                        style={{
-                            top: `${mouse.y - 30}px`,
-                            left: `${mouse.x - 10}px`
-                        }}
-                        spriteUrl={employeeData.modelUrl}
-                        tintIntensity={0}
-                    />
-                ) : (
-                    <TintedSprite
-                        className="hover:cursor-pointer image-pixelated text-white"
-                        spriteUrl={employeeData.modelUrl}
-                        tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        onClick={onClick}
-                    />
-                )}
+
+
+            <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
+                style={{
+                    top: `${mouse.y - 30}px`,
+                    left: `${mouse.x - 10}px`
+                }}
+            >
+                <TintedSprite
+                    className="image-pixelated cursor-grabbing"
+                    spriteUrl={employeeData.modelUrl}
+                    tintIntensity={0}
+                />
+                <DragIndicator dragType={DragType.ActionDrag} />
+
+
+            </div>
+
+            <TintedSprite
+                className={`hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
+                spriteUrl={employeeData.modelUrl}
+                tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                onClick={onClick}
+            />
+
             {isSelected &&
                 <GameObjectMenu onActionClick={onActionClick} />
             }
