@@ -1,4 +1,4 @@
-export function ColoredIcon({iconUrl, className} : {iconUrl:string, className?:string}) {
+export function ColoredSprite({iconUrl, className} : {iconUrl:string, className?:string}) {
     return (
         <div className = {`${className}`} style={
             {
