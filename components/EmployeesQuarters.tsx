@@ -19,8 +19,8 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
                 <div className = "h-24 w-full flex flex-col items-center">
                     <div className="flex w-80 h-16">
                         {employees.map((employee: any, i: number) => (
-                            <div className="w-16 h-16 flex items-end justify-center">
-                                <Employee key={i} employeeData={employee}/>
+                            <div className="w-16 h-16 flex items-end justify-center" key={i} >
+                                <Employee employeeData={employee}/>
                             </div>
                             
                         ))}
