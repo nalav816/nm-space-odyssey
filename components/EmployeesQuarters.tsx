@@ -3,30 +3,19 @@
 import { useState } from "react"
 import SectionCard from "./SectionCard"
 
+type Employee = {
+    name: string,
+    rating: number,
+    modelUrl: string,
+    shopIconUrl: string,
+}
 
-export default function EmployeesQuarters({className} : {className?: string}){
+export default function EmployeesQuarters({employeeData = [], className} : {employeeData?: Employee[], className?: string}){
     const ROOM_SIZE = 4
     const currRoom = 1
     const roomCount = 2
 
-    const [employees, setEmployees] = useState([
-        {
-            name: "Scrub",
-            modelUrl: "/sprites/scrub.png"
-        },
-        {
-            name: "Scrub",
-            modelUrl: "/sprites/scrub.png"
-        },
-        {
-            name: "Ace",
-            modelUrl: "/sprites/ace.png"
-        },
-        {
-            name: "Scrub",
-            modelUrl: "/sprites/scrub.png"
-        },
-    ])
+    const [employees, setEmployees] = useState<Employee[]>(employeeData)
 
     return (
         <SectionCard iconUrl={"/sprites/employeeQuartersIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
@@ -51,10 +40,9 @@ export default function EmployeesQuarters({className} : {className?: string}){
                 </div>
                 <div className = "h-24 w-full flex flex-col items-center">
                     <div className="flex w-64 h-16">
-                        {employees.map((employee, i) => (
+                        {employees.map((employee: any, i: number) => (
                             <img key={i} className="h-16 w-16 image-pixelated" src={employee.modelUrl}></img>
                         ))}
-
                     </div>
                     <div className="bg-repeat bg-[url('/sprites/floorTile.png')] w-full h-8 bg-size-[32px_32px] image-pixelated"></div>
                 </div>

@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  userName   String            @id
+  password   String
+  netWorth   Int
+  astronauts OwnedAstronauts[]
+}
+
+model OwnedAstronauts {
+  id            String     @id @default(uuid())
+  ownerName     String
+  astronautName String
+  astronautData Astronauts @relation(fields: [astronautName], references: [name])
+  owner         User       @relation(fields: [ownerName], references: [userName])
+}
+
+model Astronauts {
+  name            String            @id
+  rating          Int
+  modelUrl        String
+  shopIconUrl     String
+  ownedAstronauts OwnedAstronauts[]
+}
