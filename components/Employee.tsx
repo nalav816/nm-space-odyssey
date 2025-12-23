@@ -2,7 +2,6 @@
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect } from "react"
 import GameObjectMenu from "./GameObjectMenu"
-import { setMaxListeners } from "events"
 
 export type EmployeeData = {
     name: string,
@@ -51,6 +50,19 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
         return () => cancelAnimationFrame(frame)
 
     }, [isMouseOver, isSelected])
+
+    useEffect(() => {
+        const onClickAnywhere = (event: MouseEvent) => {
+            if(isSelected) {
+                setIsSelected(false)
+            }
+        }
+
+        document.addEventListener("click", onClickAnywhere)
+
+        return () => document.removeEventListener("click", onClickAnywhere)
+
+    }, [isSelected])
 
     return (
         <div className="relative">

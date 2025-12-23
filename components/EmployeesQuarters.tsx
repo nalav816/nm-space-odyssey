@@ -4,9 +4,10 @@ import SectionCard from "./SectionCard"
 import TiledSprite  from "./TiledSprite"
 import TopBar from "./TopBar"
 import { Employee, EmployeeData } from "./Employee"
+import ColoredSprite from "./ColoredSprite"
 
 export default function EmployeesQuarters({employeeData = [], className} : {employeeData?: EmployeeData[], className?: string}){
-    const ROOM_SIZE = 4
+    const ROOM_SIZE = 5
     const currRoom = 1
     const roomCount = 2
 
@@ -15,7 +16,7 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
     return (
         <SectionCard iconUrl={"/sprites/employeeQuartersIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
             <div className ="flex-1 flex-col flex justify-between">
-                <TopBar/>
+                <TopBar items={employeeData.length} itemCapacity={ROOM_SIZE}/>
                 <div className = "h-24 w-full flex flex-col items-center">
                     <div className="flex w-80 h-16">
                         {employees.map((employee: any, i: number) => (
@@ -23,6 +24,11 @@ export default function EmployeesQuarters({employeeData = [], className} : {empl
                                 <Employee employeeData={employee}/>
                             </div>
                             
+                        ))}
+                        {new Array(ROOM_SIZE - employees.length).fill(0).map((_, i) => (
+                            <div className="w-16 h-16 flex items-end justify-center" key={i} >
+                                <ColoredSprite className="bg-blue-darkest h-[46px] w-[26px] image-pixelated" spriteUrl="/sprites/scrub.png"/>
+                            </div>
                         ))}
                     </div>
                     <TiledSprite tileUrl={"/sprites/floorTile.png"} className="bg-blue-darker w-full h-8 image-pixelated"></TiledSprite>
