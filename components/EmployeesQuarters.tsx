@@ -29,11 +29,11 @@ export default function EmployeesQuarters({className} : {className?: string}){
     ])
 
     return (
-        <SectionCard iconUrl={"/sprites/employeeIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
+        <SectionCard iconUrl={"/sprites/employeeQuartersIcon.png"} className = {"flex flex-col " + className} sectionName = "Employee's Quarters">
             <div className ="flex-1 flex-col flex justify-between">
                 <div className="h-12 w-full flex justify-between p-4">
-                    <div className = "flex items-center gap-2">
-                        <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
+                    <div className = "flex items-center w-16 gap-2">
+                        <img className="h-4 w-4 image-pixelated" src="/sprites/employeeIcon.png"/>
                         <div className="text-sm"> 4 / {ROOM_SIZE} </div>
                     </div>
                     <div className = "basis-2/4 gap-4 flex justify-center items-center">
@@ -41,8 +41,11 @@ export default function EmployeesQuarters({className} : {className?: string}){
                         <div className="text-md"> Room <span className="text-blue">{" " + currRoom} / {roomCount}</span> </div>
                         <button className="hover:text-blue-lightest hover:cursor-pointer text-2xl"> &gt; </button>
                     </div>
-                    <div className = "flex justify-end gap-2">
-                        <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
+                    <div className = "flex justify-end gap-2 w-16">
+                        <button className="bg-blue rounded-full shadow hover:cursor-pointer hover:bg-blue-dark">
+                            <img className="h-4 w-4 image-pixelated" src="/sprites/plusIcon.png"/>
+                        </button>
+                        
                         <div className="text-sm"> Rooms </div>
                     </div>
                 </div>
