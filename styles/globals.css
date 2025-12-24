@@ -32,6 +32,16 @@
 }
 
 @layer components {
+  @keyframes floatIn {
+    0% {
+      transform: translateY(30px);
+      opacity: 0
+    } 100% {
+      transform: translateY(0);
+      opacity: 1
+    }
+  }
+
   .image-pixelated {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
@@ -59,6 +69,10 @@
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
     background: var(--color-white); 
+  }
+
+  .animate-floatIn {
+    animation: floatIn ease-out .2s forwards;
   }
 }
 
