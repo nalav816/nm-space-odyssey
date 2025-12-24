@@ -1,6 +1,6 @@
 "use client"
 import TintedSprite from "./TintedSprite"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 
 const DRAG_CANCEL_KEYBIND = "C"
@@ -18,7 +18,8 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     return (
         <div className="absolute top-full left-0 w-full pt-2 flex justify-center">
             <div className="relative shrink-0 text-xs text-center z-20">
-                Press the <span className="text-blue-light"> {DRAG_CANCEL_KEYBIND} <br /> key </span>  to cancel
+                {dragType == DragType.ActionDrag ? (<div> Press The <span className="text-blue-light"> {DRAG_CANCEL_KEYBIND} <br /> Key </span>  To Cancel </div>) :
+                    (<div> Release Hold <br /> To Cancel </div>)}
                 <div className="absolute bg-blue-light/30 blur-lg h-full w-full top-0 z-10" />
             </div>
         </div>
@@ -40,6 +41,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
     const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false)
     const [dragType, setDragType] = useState<DragType>(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
+    const dragTimer = useRef<NodeJS.Timeout | null>(null)
 
     const onMouseEnter = () => {
         setIsMouseOver(true)
@@ -92,12 +94,36 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
 
     useEffect(() => {
         const onKeyPressed = (e: KeyboardEvent) => {
-            if (e.key.toLowerCase() == DRAG_CANCEL_KEYBIND.toLowerCase() && isBeingDragged) {
+            if (e.key.toLowerCase() == DRAG_CANCEL_KEYBIND.toLowerCase() && isBeingDragged && dragType == DragType.ActionDrag) {
                 setIsBeingDragged(false)
             }
         }
+
+        const onMouseDown = () => {
+            if (!isBeingDragged) {
+                dragTimer.current = setTimeout(() => {
+                    setDragType(DragType.HoldDrag)
+                    setIsBeingDragged(true)
+                    setIsSelected(false)
+                }, 100)
+            }
+        }
+
+        const onMouseUp = () => {
+            if (dragTimer.current) clearTimeout(dragTimer.current)
+            if (isBeingDragged && dragType == DragType.HoldDrag) setIsBeingDragged(false)
+        }
+
+
         document.addEventListener("keypress", onKeyPressed)
-        return () => document.removeEventListener("keypress", onKeyPressed)
+        document.addEventListener("mousedown", onMouseDown)
+        document.addEventListener("mouseup", onMouseUp)
+
+        return () => {
+            document.removeEventListener("keypress", onKeyPressed)
+            document.removeEventListener("mousedown", onMouseDown)
+            document.removeEventListener("mouseup", onMouseUp)
+        }
     }, [isBeingDragged])
 
     useEffect(() => {
@@ -111,8 +137,6 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
 
     return (
         <div className="relative">
-
-
             <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
                 style={{
                     top: `${mouse.y - 30}px`,
@@ -124,9 +148,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
                     spriteUrl={employeeData.modelUrl}
                     tintIntensity={0}
                 />
-                <DragIndicator dragType={DragType.ActionDrag} />
-
-
+                <DragIndicator dragType={dragType} />
             </div>
 
             <TintedSprite
