@@ -26,17 +26,17 @@ export default async function Home() {
             </div>
 
           </div>
-          <Shop className="grow w-full" />
+          <Shop className="min-w-80 grow w-full" />
         </div>
 
         <div className="h-full basis-1/3 flex flex-col gap-8">
-          <EmployeesQuarters employeeData={player.astronauts} className="basis-1/2 w-full"/>
-          <Launchpad className="basis-1/2 w-full"/>
+          <EmployeesQuarters employeeData={player.astronauts} className="min-w-80 basis-1/2 w-full"/>
+          <Launchpad className="min-w-80 basis-1/2 w-full"/>
         </div>
 
         <div className="h-full basis-1/3 flex flex-col gap-8">
-          <Science className="basis-1/2 w-full"/>
-          <Leaderboard className="basis-1/2 w-full"/>
+          <Science className="min-w-80 basis-1/2 w-full"/>
+          <Leaderboard className="min-w-80 basis-1/2 w-full"/>
         </div>
       </div>
     </div>

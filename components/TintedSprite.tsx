@@ -2,7 +2,23 @@
 
 import { useRef, useEffect } from "react"
 
-export default function TintedSprite({spriteUrl, tintIntensity=.3, className} : {spriteUrl:string, tintIntensity?:number, className?:string}) {
+export default function TintedSprite({
+    spriteUrl,
+    tintIntensity = .3,
+    className,
+    style,
+    onMouseEnter,
+    onMouseLeave,
+    onClick
+}: {
+    spriteUrl: string,
+    tintIntensity?: number,
+    className?: string,
+    style?: React.CSSProperties
+    onMouseEnter?: () => void,
+    onMouseLeave?: () => void,
+    onClick?: () => void
+}) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
@@ -10,7 +26,7 @@ export default function TintedSprite({spriteUrl, tintIntensity=.3, className} : 
         if (!canvas) return;
 
         const ctx = canvas.getContext("2d");
-        if(!ctx) return;
+        if (!ctx) return;
 
         const img = new Image()
         img.src = spriteUrl
@@ -25,8 +41,8 @@ export default function TintedSprite({spriteUrl, tintIntensity=.3, className} : 
             const color = styles.color;
             const imageRendering = styles.imageRendering
             const rgbaColor = color.replace("rgb", "rgba").replace(")", `, ${tintIntensity})`);
-            
-            if(imageRendering == "pixelated" || imageRendering == "crisp-edges") ctx.imageSmoothingEnabled = false
+
+            if (imageRendering == "pixelated" || imageRendering == "crisp-edges") ctx.imageSmoothingEnabled = false
 
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             ctx.fillStyle = rgbaColor
@@ -35,7 +51,7 @@ export default function TintedSprite({spriteUrl, tintIntensity=.3, className} : 
             ctx.globalCompositeOperation = "source-over"
         }
 
-    }, [])
+    }, [tintIntensity, className])
 
-    return (<canvas className={className} ref = {canvasRef}/>)
+    return (<canvas onClick={onClick} style={style} className={className} ref={canvasRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />)
 }

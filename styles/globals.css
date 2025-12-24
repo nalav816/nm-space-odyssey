@@ -24,7 +24,10 @@
   --color-blue-dark: #344859;
   --color-blue-darker: #1E2A39;
   --color-blue-darkest: #111721;
-  --color-green: #89C097;
+  --color-green: #87D893;
+  --color-red: #C13E40;
+  --color-red-dark: #771E2C;
+  --color-red-light: #EB665F;
 
   --font-jaro: "Jaro", sans-serif;
 }
