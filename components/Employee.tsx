@@ -105,7 +105,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
                     setDragType(DragType.HoldDrag)
                     setIsBeingDragged(true)
                     setIsSelected(false)
-                }, 100)
+                }, 250)
             }
         }
 
