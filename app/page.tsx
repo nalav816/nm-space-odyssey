@@ -10,6 +10,8 @@ export default async function Home() {
   const player = await getPlayerData(userName);
   const cash = player.netWorth;
 
+  console.log(player)
+
   return (
     <div className="bg-blue-darkest w-screen h-screen flex justify-center relative text-white font-jaro">
       <img className="h-screen opacity-25 blur-xs w-screen object-cover absolute z-0" src="/imgs/starBackground.jpg"></img>
@@ -26,7 +28,7 @@ export default async function Home() {
             </div>
 
           </div>
-          <Shop className="min-w-80 grow w-full" />
+          <Shop shopData={player.shopData} className="min-w-80 grow w-full" />
         </div>
 
         <div className="h-full basis-1/3 flex flex-col gap-8">

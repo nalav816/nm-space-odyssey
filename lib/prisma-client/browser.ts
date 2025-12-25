@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type OwnedAstronauts = Prisma.OwnedAstronautsModel
 /**
+ * Model UnlockedAstronauts
+ * 
+ */
+export type UnlockedAstronauts = Prisma.UnlockedAstronautsModel
+/**
  * Model Astronauts
  * 
  */

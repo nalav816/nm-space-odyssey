@@ -27,10 +27,10 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
 }
 
 export type EmployeeData = {
-    name: string,
-    rating: number,
     modelUrl: string,
-    shopIconUrl: string,
+    isEngineer: boolean,
+    isResearcher: boolean,
+    isPilot: boolean
 }
 
 export function Employee({ employeeData }: { employeeData: EmployeeData }) {

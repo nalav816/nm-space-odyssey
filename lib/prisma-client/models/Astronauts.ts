@@ -28,62 +28,96 @@ export type AggregateAstronauts = {
 
 export type AstronautsAvgAggregateOutputType = {
   rating: number | null
+  price: number | null
 }
 
 export type AstronautsSumAggregateOutputType = {
   rating: number | null
+  price: number | null
 }
 
 export type AstronautsMinAggregateOutputType = {
   name: string | null
   rating: number | null
+  price: number | null
   modelUrl: string | null
   shopIconUrl: string | null
+  isEngineer: boolean | null
+  isResearcher: boolean | null
+  isPilot: boolean | null
+  hiddenOnLock: boolean | null
 }
 
 export type AstronautsMaxAggregateOutputType = {
   name: string | null
   rating: number | null
+  price: number | null
   modelUrl: string | null
   shopIconUrl: string | null
+  isEngineer: boolean | null
+  isResearcher: boolean | null
+  isPilot: boolean | null
+  hiddenOnLock: boolean | null
 }
 
 export type AstronautsCountAggregateOutputType = {
   name: number
   rating: number
+  price: number
   modelUrl: number
   shopIconUrl: number
+  isEngineer: number
+  isResearcher: number
+  isPilot: number
+  hiddenOnLock: number
   _all: number
 }
 
 
 export type AstronautsAvgAggregateInputType = {
   rating?: true
+  price?: true
 }
 
 export type AstronautsSumAggregateInputType = {
   rating?: true
+  price?: true
 }
 
 export type AstronautsMinAggregateInputType = {
   name?: true
   rating?: true
+  price?: true
   modelUrl?: true
   shopIconUrl?: true
+  isEngineer?: true
+  isResearcher?: true
+  isPilot?: true
+  hiddenOnLock?: true
 }
 
 export type AstronautsMaxAggregateInputType = {
   name?: true
   rating?: true
+  price?: true
   modelUrl?: true
   shopIconUrl?: true
+  isEngineer?: true
+  isResearcher?: true
+  isPilot?: true
+  hiddenOnLock?: true
 }
 
 export type AstronautsCountAggregateInputType = {
   name?: true
   rating?: true
+  price?: true
   modelUrl?: true
   shopIconUrl?: true
+  isEngineer?: true
+  isResearcher?: true
+  isPilot?: true
+  hiddenOnLock?: true
   _all?: true
 }
 
@@ -176,8 +210,13 @@ export type AstronautsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type AstronautsGroupByOutputType = {
   name: string
   rating: number
+  price: number
   modelUrl: string
   shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock: boolean
   _count: AstronautsCountAggregateOutputType | null
   _avg: AstronautsAvgAggregateOutputType | null
   _sum: AstronautsSumAggregateOutputType | null
@@ -206,17 +245,29 @@ export type AstronautsWhereInput = {
   NOT?: Prisma.AstronautsWhereInput | Prisma.AstronautsWhereInput[]
   name?: Prisma.StringFilter<"Astronauts"> | string
   rating?: Prisma.IntFilter<"Astronauts"> | number
+  price?: Prisma.IntFilter<"Astronauts"> | number
   modelUrl?: Prisma.StringFilter<"Astronauts"> | string
   shopIconUrl?: Prisma.StringFilter<"Astronauts"> | string
+  isEngineer?: Prisma.BoolFilter<"Astronauts"> | boolean
+  isResearcher?: Prisma.BoolFilter<"Astronauts"> | boolean
+  isPilot?: Prisma.BoolFilter<"Astronauts"> | boolean
+  hiddenOnLock?: Prisma.BoolFilter<"Astronauts"> | boolean
   ownedAstronauts?: Prisma.OwnedAstronautsListRelationFilter
+  unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }
 
 export type AstronautsOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   modelUrl?: Prisma.SortOrder
   shopIconUrl?: Prisma.SortOrder
+  isEngineer?: Prisma.SortOrder
+  isResearcher?: Prisma.SortOrder
+  isPilot?: Prisma.SortOrder
+  hiddenOnLock?: Prisma.SortOrder
   ownedAstronauts?: Prisma.OwnedAstronautsOrderByRelationAggregateInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsOrderByRelationAggregateInput
 }
 
 export type AstronautsWhereUniqueInput = Prisma.AtLeast<{
@@ -225,16 +276,27 @@ export type AstronautsWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AstronautsWhereInput[]
   NOT?: Prisma.AstronautsWhereInput | Prisma.AstronautsWhereInput[]
   rating?: Prisma.IntFilter<"Astronauts"> | number
+  price?: Prisma.IntFilter<"Astronauts"> | number
   modelUrl?: Prisma.StringFilter<"Astronauts"> | string
   shopIconUrl?: Prisma.StringFilter<"Astronauts"> | string
+  isEngineer?: Prisma.BoolFilter<"Astronauts"> | boolean
+  isResearcher?: Prisma.BoolFilter<"Astronauts"> | boolean
+  isPilot?: Prisma.BoolFilter<"Astronauts"> | boolean
+  hiddenOnLock?: Prisma.BoolFilter<"Astronauts"> | boolean
   ownedAstronauts?: Prisma.OwnedAstronautsListRelationFilter
+  unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }, "name">
 
 export type AstronautsOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   modelUrl?: Prisma.SortOrder
   shopIconUrl?: Prisma.SortOrder
+  isEngineer?: Prisma.SortOrder
+  isResearcher?: Prisma.SortOrder
+  isPilot?: Prisma.SortOrder
+  hiddenOnLock?: Prisma.SortOrder
   _count?: Prisma.AstronautsCountOrderByAggregateInput
   _avg?: Prisma.AstronautsAvgOrderByAggregateInput
   _max?: Prisma.AstronautsMaxOrderByAggregateInput
@@ -248,61 +310,105 @@ export type AstronautsScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AstronautsScalarWhereWithAggregatesInput | Prisma.AstronautsScalarWhereWithAggregatesInput[]
   name?: Prisma.StringWithAggregatesFilter<"Astronauts"> | string
   rating?: Prisma.IntWithAggregatesFilter<"Astronauts"> | number
+  price?: Prisma.IntWithAggregatesFilter<"Astronauts"> | number
   modelUrl?: Prisma.StringWithAggregatesFilter<"Astronauts"> | string
   shopIconUrl?: Prisma.StringWithAggregatesFilter<"Astronauts"> | string
+  isEngineer?: Prisma.BoolWithAggregatesFilter<"Astronauts"> | boolean
+  isResearcher?: Prisma.BoolWithAggregatesFilter<"Astronauts"> | boolean
+  isPilot?: Prisma.BoolWithAggregatesFilter<"Astronauts"> | boolean
+  hiddenOnLock?: Prisma.BoolWithAggregatesFilter<"Astronauts"> | boolean
 }
 
 export type AstronautsCreateInput = {
   name: string
   rating: number
+  price: number
   modelUrl: string
   shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
   ownedAstronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutAstronautDataInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutAstronautDataInput
 }
 
 export type AstronautsUncheckedCreateInput = {
   name: string
   rating: number
+  price: number
   modelUrl: string
   shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
   ownedAstronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutAstronautDataInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutAstronautDataInput
 }
 
 export type AstronautsUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownedAstronauts?: Prisma.OwnedAstronautsUpdateManyWithoutAstronautDataNestedInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutAstronautDataNestedInput
 }
 
 export type AstronautsUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ownedAstronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput
 }
 
 export type AstronautsCreateManyInput = {
   name: string
   rating: number
+  price: number
   modelUrl: string
   shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
 }
 
 export type AstronautsUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type AstronautsUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type AstronautsScalarRelationFilter = {
@@ -313,30 +419,47 @@ export type AstronautsScalarRelationFilter = {
 export type AstronautsCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   modelUrl?: Prisma.SortOrder
   shopIconUrl?: Prisma.SortOrder
+  isEngineer?: Prisma.SortOrder
+  isResearcher?: Prisma.SortOrder
+  isPilot?: Prisma.SortOrder
+  hiddenOnLock?: Prisma.SortOrder
 }
 
 export type AstronautsAvgOrderByAggregateInput = {
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type AstronautsMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   modelUrl?: Prisma.SortOrder
   shopIconUrl?: Prisma.SortOrder
+  isEngineer?: Prisma.SortOrder
+  isResearcher?: Prisma.SortOrder
+  isPilot?: Prisma.SortOrder
+  hiddenOnLock?: Prisma.SortOrder
 }
 
 export type AstronautsMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   modelUrl?: Prisma.SortOrder
   shopIconUrl?: Prisma.SortOrder
+  isEngineer?: Prisma.SortOrder
+  isResearcher?: Prisma.SortOrder
+  isPilot?: Prisma.SortOrder
+  hiddenOnLock?: Prisma.SortOrder
 }
 
 export type AstronautsSumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
+  price?: Prisma.SortOrder
 }
 
 export type AstronautsCreateNestedOneWithoutOwnedAstronautsInput = {
@@ -353,18 +476,48 @@ export type AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AstronautsUpdateToOneWithWhereWithoutOwnedAstronautsInput, Prisma.AstronautsUpdateWithoutOwnedAstronautsInput>, Prisma.AstronautsUncheckedUpdateWithoutOwnedAstronautsInput>
 }
 
+export type AstronautsCreateNestedOneWithoutUnlockedAstronautsInput = {
+  create?: Prisma.XOR<Prisma.AstronautsCreateWithoutUnlockedAstronautsInput, Prisma.AstronautsUncheckedCreateWithoutUnlockedAstronautsInput>
+  connectOrCreate?: Prisma.AstronautsCreateOrConnectWithoutUnlockedAstronautsInput
+  connect?: Prisma.AstronautsWhereUniqueInput
+}
+
+export type AstronautsUpdateOneRequiredWithoutUnlockedAstronautsNestedInput = {
+  create?: Prisma.XOR<Prisma.AstronautsCreateWithoutUnlockedAstronautsInput, Prisma.AstronautsUncheckedCreateWithoutUnlockedAstronautsInput>
+  connectOrCreate?: Prisma.AstronautsCreateOrConnectWithoutUnlockedAstronautsInput
+  upsert?: Prisma.AstronautsUpsertWithoutUnlockedAstronautsInput
+  connect?: Prisma.AstronautsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AstronautsUpdateToOneWithWhereWithoutUnlockedAstronautsInput, Prisma.AstronautsUpdateWithoutUnlockedAstronautsInput>, Prisma.AstronautsUncheckedUpdateWithoutUnlockedAstronautsInput>
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type AstronautsCreateWithoutOwnedAstronautsInput = {
   name: string
   rating: number
+  price: number
   modelUrl: string
   shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
+  unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutAstronautDataInput
 }
 
 export type AstronautsUncheckedCreateWithoutOwnedAstronautsInput = {
   name: string
   rating: number
+  price: number
   modelUrl: string
   shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutAstronautDataInput
 }
 
 export type AstronautsCreateOrConnectWithoutOwnedAstronautsInput = {
@@ -386,15 +539,95 @@ export type AstronautsUpdateToOneWithWhereWithoutOwnedAstronautsInput = {
 export type AstronautsUpdateWithoutOwnedAstronautsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutAstronautDataNestedInput
 }
 
 export type AstronautsUncheckedUpdateWithoutOwnedAstronautsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
   shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput
+}
+
+export type AstronautsCreateWithoutUnlockedAstronautsInput = {
+  name: string
+  rating: number
+  price: number
+  modelUrl: string
+  shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
+  ownedAstronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutAstronautDataInput
+}
+
+export type AstronautsUncheckedCreateWithoutUnlockedAstronautsInput = {
+  name: string
+  rating: number
+  price: number
+  modelUrl: string
+  shopIconUrl: string
+  isEngineer: boolean
+  isResearcher: boolean
+  isPilot: boolean
+  hiddenOnLock?: boolean
+  ownedAstronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutAstronautDataInput
+}
+
+export type AstronautsCreateOrConnectWithoutUnlockedAstronautsInput = {
+  where: Prisma.AstronautsWhereUniqueInput
+  create: Prisma.XOR<Prisma.AstronautsCreateWithoutUnlockedAstronautsInput, Prisma.AstronautsUncheckedCreateWithoutUnlockedAstronautsInput>
+}
+
+export type AstronautsUpsertWithoutUnlockedAstronautsInput = {
+  update: Prisma.XOR<Prisma.AstronautsUpdateWithoutUnlockedAstronautsInput, Prisma.AstronautsUncheckedUpdateWithoutUnlockedAstronautsInput>
+  create: Prisma.XOR<Prisma.AstronautsCreateWithoutUnlockedAstronautsInput, Prisma.AstronautsUncheckedCreateWithoutUnlockedAstronautsInput>
+  where?: Prisma.AstronautsWhereInput
+}
+
+export type AstronautsUpdateToOneWithWhereWithoutUnlockedAstronautsInput = {
+  where?: Prisma.AstronautsWhereInput
+  data: Prisma.XOR<Prisma.AstronautsUpdateWithoutUnlockedAstronautsInput, Prisma.AstronautsUncheckedUpdateWithoutUnlockedAstronautsInput>
+}
+
+export type AstronautsUpdateWithoutUnlockedAstronautsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownedAstronauts?: Prisma.OwnedAstronautsUpdateManyWithoutAstronautDataNestedInput
+}
+
+export type AstronautsUncheckedUpdateWithoutUnlockedAstronautsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  modelUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  shopIconUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  isEngineer?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isResearcher?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPilot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hiddenOnLock?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ownedAstronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput
 }
 
 
@@ -404,10 +637,12 @@ export type AstronautsUncheckedUpdateWithoutOwnedAstronautsInput = {
 
 export type AstronautsCountOutputType = {
   ownedAstronauts: number
+  unlockedAstronauts: number
 }
 
 export type AstronautsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ownedAstronauts?: boolean | AstronautsCountOutputTypeCountOwnedAstronautsArgs
+  unlockedAstronauts?: boolean | AstronautsCountOutputTypeCountUnlockedAstronautsArgs
 }
 
 /**
@@ -427,40 +662,69 @@ export type AstronautsCountOutputTypeCountOwnedAstronautsArgs<ExtArgs extends ru
   where?: Prisma.OwnedAstronautsWhereInput
 }
 
+/**
+ * AstronautsCountOutputType without action
+ */
+export type AstronautsCountOutputTypeCountUnlockedAstronautsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UnlockedAstronautsWhereInput
+}
+
 
 export type AstronautsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   name?: boolean
   rating?: boolean
+  price?: boolean
   modelUrl?: boolean
   shopIconUrl?: boolean
+  isEngineer?: boolean
+  isResearcher?: boolean
+  isPilot?: boolean
+  hiddenOnLock?: boolean
   ownedAstronauts?: boolean | Prisma.Astronauts$ownedAstronautsArgs<ExtArgs>
+  unlockedAstronauts?: boolean | Prisma.Astronauts$unlockedAstronautsArgs<ExtArgs>
   _count?: boolean | Prisma.AstronautsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["astronauts"]>
 
 export type AstronautsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   name?: boolean
   rating?: boolean
+  price?: boolean
   modelUrl?: boolean
   shopIconUrl?: boolean
+  isEngineer?: boolean
+  isResearcher?: boolean
+  isPilot?: boolean
+  hiddenOnLock?: boolean
 }, ExtArgs["result"]["astronauts"]>
 
 export type AstronautsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   name?: boolean
   rating?: boolean
+  price?: boolean
   modelUrl?: boolean
   shopIconUrl?: boolean
+  isEngineer?: boolean
+  isResearcher?: boolean
+  isPilot?: boolean
+  hiddenOnLock?: boolean
 }, ExtArgs["result"]["astronauts"]>
 
 export type AstronautsSelectScalar = {
   name?: boolean
   rating?: boolean
+  price?: boolean
   modelUrl?: boolean
   shopIconUrl?: boolean
+  isEngineer?: boolean
+  isResearcher?: boolean
+  isPilot?: boolean
+  hiddenOnLock?: boolean
 }
 
-export type AstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"name" | "rating" | "modelUrl" | "shopIconUrl", ExtArgs["result"]["astronauts"]>
+export type AstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"name" | "rating" | "price" | "modelUrl" | "shopIconUrl" | "isEngineer" | "isResearcher" | "isPilot" | "hiddenOnLock", ExtArgs["result"]["astronauts"]>
 export type AstronautsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ownedAstronauts?: boolean | Prisma.Astronauts$ownedAstronautsArgs<ExtArgs>
+  unlockedAstronauts?: boolean | Prisma.Astronauts$unlockedAstronautsArgs<ExtArgs>
   _count?: boolean | Prisma.AstronautsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AstronautsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -470,12 +734,18 @@ export type $AstronautsPayload<ExtArgs extends runtime.Types.Extensions.Internal
   name: "Astronauts"
   objects: {
     ownedAstronauts: Prisma.$OwnedAstronautsPayload<ExtArgs>[]
+    unlockedAstronauts: Prisma.$UnlockedAstronautsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     name: string
     rating: number
+    price: number
     modelUrl: string
     shopIconUrl: string
+    isEngineer: boolean
+    isResearcher: boolean
+    isPilot: boolean
+    hiddenOnLock: boolean
   }, ExtArgs["result"]["astronauts"]>
   composites: {}
 }
@@ -871,6 +1141,7 @@ readonly fields: AstronautsFieldRefs;
 export interface Prisma__AstronautsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   ownedAstronauts<T extends Prisma.Astronauts$ownedAstronautsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Astronauts$ownedAstronautsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnedAstronautsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  unlockedAstronauts<T extends Prisma.Astronauts$unlockedAstronautsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Astronauts$unlockedAstronautsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnlockedAstronautsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -902,8 +1173,13 @@ export interface Prisma__AstronautsClient<T, Null = never, ExtArgs extends runti
 export interface AstronautsFieldRefs {
   readonly name: Prisma.FieldRef<"Astronauts", 'String'>
   readonly rating: Prisma.FieldRef<"Astronauts", 'Int'>
+  readonly price: Prisma.FieldRef<"Astronauts", 'Int'>
   readonly modelUrl: Prisma.FieldRef<"Astronauts", 'String'>
   readonly shopIconUrl: Prisma.FieldRef<"Astronauts", 'String'>
+  readonly isEngineer: Prisma.FieldRef<"Astronauts", 'Boolean'>
+  readonly isResearcher: Prisma.FieldRef<"Astronauts", 'Boolean'>
+  readonly isPilot: Prisma.FieldRef<"Astronauts", 'Boolean'>
+  readonly hiddenOnLock: Prisma.FieldRef<"Astronauts", 'Boolean'>
 }
     
 
@@ -1313,6 +1589,30 @@ export type Astronauts$ownedAstronautsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.OwnedAstronautsScalarFieldEnum | Prisma.OwnedAstronautsScalarFieldEnum[]
+}
+
+/**
+ * Astronauts.unlockedAstronauts
+ */
+export type Astronauts$unlockedAstronautsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UnlockedAstronauts
+   */
+  select?: Prisma.UnlockedAstronautsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UnlockedAstronauts
+   */
+  omit?: Prisma.UnlockedAstronautsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnlockedAstronautsInclude<ExtArgs> | null
+  where?: Prisma.UnlockedAstronautsWhereInput
+  orderBy?: Prisma.UnlockedAstronautsOrderByWithRelationInput | Prisma.UnlockedAstronautsOrderByWithRelationInput[]
+  cursor?: Prisma.UnlockedAstronautsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UnlockedAstronautsScalarFieldEnum | Prisma.UnlockedAstronautsScalarFieldEnum[]
 }
 
 /**

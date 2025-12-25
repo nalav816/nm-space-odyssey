@@ -33,10 +33,10 @@
 
 @layer components {
   @keyframes floatIn {
-    0% {
+    from {
       transform: translateY(30px);
       opacity: 0
-    } 100% {
+    } to {
       transform: translateY(0);
       opacity: 1
     }

@@ -10,5 +10,6 @@
  */
 export type * from './models/User'
 export type * from './models/OwnedAstronauts'
+export type * from './models/UnlockedAstronauts'
 export type * from './models/Astronauts'
 export type * from './commonInputTypes'

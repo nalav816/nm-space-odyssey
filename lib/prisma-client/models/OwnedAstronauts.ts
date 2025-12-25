@@ -166,16 +166,16 @@ export type OwnedAstronautsWhereInput = {
   id?: Prisma.StringFilter<"OwnedAstronauts"> | string
   ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type OwnedAstronautsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   ownerName?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
-  owner?: Prisma.UserOrderByWithRelationInput
   astronautData?: Prisma.AstronautsOrderByWithRelationInput
+  owner?: Prisma.UserOrderByWithRelationInput
 }
 
 export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
@@ -185,8 +185,8 @@ export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.OwnedAstronautsWhereInput | Prisma.OwnedAstronautsWhereInput[]
   ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type OwnedAstronautsOrderByWithAggregationInput = {
@@ -209,8 +209,8 @@ export type OwnedAstronautsScalarWhereWithAggregatesInput = {
 
 export type OwnedAstronautsCreateInput = {
   id?: string
-  owner: Prisma.UserCreateNestedOneWithoutAstronautsInput
   astronautData: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
+  owner: Prisma.UserCreateNestedOneWithoutAstronautsInput
 }
 
 export type OwnedAstronautsUncheckedCreateInput = {
@@ -221,8 +221,8 @@ export type OwnedAstronautsUncheckedCreateInput = {
 
 export type OwnedAstronautsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  owner?: Prisma.UserUpdateOneRequiredWithoutAstronautsNestedInput
   astronautData?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutAstronautsNestedInput
 }
 
 export type OwnedAstronautsUncheckedUpdateInput = {
@@ -486,24 +486,24 @@ export type OwnedAstronautsSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   ownerName?: boolean
   astronautName?: boolean
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ownerName?: boolean
   astronautName?: boolean
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ownerName?: boolean
   astronautName?: boolean
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectScalar = {
@@ -514,23 +514,23 @@ export type OwnedAstronautsSelectScalar = {
 
 export type OwnedAstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerName" | "astronautName", ExtArgs["result"]["ownedAstronauts"]>
 export type OwnedAstronautsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type OwnedAstronautsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type OwnedAstronautsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $OwnedAstronautsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OwnedAstronauts"
   objects: {
-    owner: Prisma.$UserPayload<ExtArgs>
     astronautData: Prisma.$AstronautsPayload<ExtArgs>
+    owner: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -930,8 +930,8 @@ readonly fields: OwnedAstronautsFieldRefs;
  */
 export interface Prisma__OwnedAstronautsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   astronautData<T extends Prisma.AstronautsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AstronautsDefaultArgs<ExtArgs>>): Prisma.Prisma__AstronautsClient<runtime.Types.Result.GetResult<Prisma.$AstronautsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
