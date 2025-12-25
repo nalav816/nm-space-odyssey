@@ -1,14 +1,31 @@
+"use client"
 import Shop from "../components/Shop";
 import Leaderboard from "../components/Leaderboard";
 import Science from "@/components/Science";
 import Launchpad from "@/components/Launchpad";
 import EmployeesQuarters from "@/components/EmployeesQuarters";
-import { getPlayerData } from "@/services/playerService";
+import { EmployeeData } from "@/components/Employee";
+import { useState } from "react";
+
+type PlayerData = {
+  netWorth: number,
+  astronauts: EmployeeData[]
+}
+
+async function getPlayerData(username: string): Promise<PlayerData> {
+  const res = await fetch(`/api/players/${username}`)
+
+  if (res.ok) {
+    return await res.json as unknown as PlayerData
+  } else {
+    throw new Error()
+  }
+}
 
 export default async function Home() {
   const userName = "Nadden"
-  const player = await getPlayerData(userName);
-  const cash = player.netWorth;
+  const [player, setPlayerData] = useState<PlayerData>(await getPlayerData(userName));
+  const [cash, setCash] = useState<number>(player.netWorth);
 
   return (
     <div className="bg-blue-darkest w-screen h-screen flex justify-center relative text-white font-jaro">
