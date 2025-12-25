@@ -30,9 +30,9 @@ type ShopData = {
 
 type Category = keyof ShopData;
 
-const ShopItem = ({ plrDollarAmount, shopItem, disabled = false, locked = false } : { plrDollarAmount:number, shopItem:ShopItem, disabled?: boolean, locked?: boolean }) => {
+const ShopItem = ({ plrDollarAmount, shopItem, disabled = false} : { plrDollarAmount:number, shopItem:ShopItem, disabled?: boolean, locked?: boolean }) => {
     
-    if (locked || plrDollarAmount < shopItem.price) disabled = true
+    if (shopItem.isLocked || plrDollarAmount < shopItem.price) disabled = true
 
     return (
         <div className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
@@ -41,7 +41,7 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false, locked = false 
             ${disabled ? "" : "hover:cursor-pointer hover:to-blue"}`
         }>
             <div className="h-16 w-16 bg-blue-darker border-r-2 border-blue-dark">
-                {locked ? 
+                {shopItem.isLocked ? 
                     (<ColoredSprite className="h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl}/>)  
                     :
                     (<img className="h-16 w-16 image-pixelated" src={shopItem.iconUrl} />)
@@ -52,7 +52,7 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false, locked = false 
             {disabled && (<div className="absolute w-full h-full bg-blue-darkest/50 rounded z-50" />)}
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className="text-2xl leading-none"> {locked ? "???" : shopItem.name} </div>
+                <div className="text-2xl leading-none"> {shopItem.isLocked ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(shopItem.rating)
                         .fill(0)
