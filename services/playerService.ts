@@ -13,7 +13,6 @@ export async function getPlayerData(userName: string){
         }
     })
 
-    console.log(data)
     if (!data) throw new Error()
 
     const packet = {
@@ -52,7 +51,7 @@ export async function getPlayerShopData (userName: string) {
     if (!plrData || !visibleOnLock) throw new Error()
     
     const unlocked = plrData.unlockedAstronauts.map((unlockedAstronaut) => unlockedAstronaut.astronautData)
-    const visibleYetLocked = visibleOnLock.filter((item) => !(item.name in unlocked))
+    const visibleYetLocked = visibleOnLock.filter((v) => !unlocked.some((v2) => v2.name == v.name))
 
     const shopItemView = (shopItemEntry: Astronauts) => {
         return { 
@@ -63,7 +62,7 @@ export async function getPlayerShopData (userName: string) {
             isEngineer: shopItemEntry.isEngineer,
             isResearcher: shopItemEntry.isResearcher,
             isPilot: shopItemEntry.isPilot,
-            isLocked: shopItemEntry.name in visibleYetLocked
+            isLocked: visibleYetLocked.some((item) => item.name == shopItemEntry.name)
         }
     }
 
