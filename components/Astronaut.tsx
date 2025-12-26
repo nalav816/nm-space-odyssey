@@ -69,7 +69,8 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             setPlayer((prev) => ({
                 ...prev,
                 ...{
-                    astronauts: prev.astronauts.filter((a) => a.id != astronautData.id)
+                    astronauts: prev.astronauts.filter((a) => a.id != astronautData.id),
+                    netWorth: prev.netWorth + astronautData.price
                 }
             }))
         }
