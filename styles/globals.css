@@ -42,6 +42,13 @@
     }
   }
 
+  .noise-texture {
+    background-image: url("/imgs/noiseTexture.jpg");
+    background-size: cover;
+    pointer-events: none;
+    opacity: .2;
+  }
+
   .image-pixelated {
     image-rendering: pixelated;
     image-rendering: crisp-edges;

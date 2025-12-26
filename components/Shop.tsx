@@ -35,7 +35,7 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
 
     return (
         <div className="absolute right-0 top-0">
-            <div className="absolute rounded-lg w-full h-full z-20 blur-xs bg-blue-darkest/80" />
+            <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darkest/50" />
             <div className="flex flex-col p-1 z-30 relative gap-1">
                 {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png"/>)}
                 {shopItem.isResearcher && (<img className="w-4 h-4 image-pixelated" src="/sprites/researcherIcon.png"/>)}
@@ -56,7 +56,8 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false }: { plrDollarAm
             h-16 flex transition duration-200 ease-in-out
             ${disabled ? "" : "hover:cursor-pointer hover:to-blue"}`
         }>
-            <div className="h-16 w-18 bg-blue-darker border-r-2 border-blue-dark relative">
+            <div className="absolute noise-texture w-full h-full rounded"/>
+            <div className="z-30 h-16 w-16 bg-blue-darker border-r-2 border-blue-dark relative">
                 {shopItem.isLocked ?
                     (<ColoredSprite className="h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)
                     :
