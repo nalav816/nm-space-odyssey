@@ -1,15 +1,11 @@
-import Shop from "../components/Shop";
-import Leaderboard from "../components/Leaderboard";
-import Science from "@/components/Science";
-import Launchpad from "@/components/Launchpad";
-import EmployeesQuarters from "@/components/EmployeesQuarters";
 import { getPlayerData } from "@/services/playerService";
+import Game from "@/components/Game";
 
 export default async function Home() {
-  const userName = "Nadden"
-  const player = await getPlayerData(userName);
-  const cash = player.netWorth;
+  const username = "Nadden"
+  const player = await getPlayerData(username)
 
+<<<<<<< HEAD
   console.log(player)
 
   return (
@@ -43,4 +39,7 @@ export default async function Home() {
       </div>
     </div>
   );
+=======
+  return <Game player={player}/>
+>>>>>>> master
 }
