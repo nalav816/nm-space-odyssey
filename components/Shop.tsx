@@ -30,8 +30,24 @@ type ShopData = {
 
 type Category = keyof ShopData;
 
-const ShopItem = ({ plrDollarAmount, shopItem, disabled = false} : { plrDollarAmount:number, shopItem:ShopItem, disabled?: boolean, locked?: boolean }) => {
-    
+const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
+    const jobCount = (shopItem.isEngineer ? 1 : 0) + (shopItem.isResearcher ? 1 : 0) + (shopItem.isPilot ? 1 : 0)
+
+    return (
+        <div className="absolute right-0 top-0">
+            <div className="absolute rounded-lg w-full h-full z-20 blur-xs bg-blue-darkest/80" />
+            <div className="flex flex-col p-1 z-30 relative gap-1">
+                {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png"/>)}
+                {shopItem.isResearcher && (<img className="w-4 h-4 image-pixelated" src="/sprites/researcherIcon.png"/>)}
+                {shopItem.isEngineer && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineerIcon.png"/>)}
+            </div>
+        </div>
+    )
+
+}
+
+const ShopItem = ({ plrDollarAmount, shopItem, disabled = false }: { plrDollarAmount: number, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
+
     if (shopItem.isLocked || plrDollarAmount < shopItem.price) disabled = true
 
     return (
@@ -40,12 +56,13 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false} : { plrDollarAm
             h-16 flex transition duration-200 ease-in-out
             ${disabled ? "" : "hover:cursor-pointer hover:to-blue"}`
         }>
-            <div className="h-16 w-16 bg-blue-darker border-r-2 border-blue-dark">
-                {shopItem.isLocked ? 
-                    (<ColoredSprite className="h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl}/>)  
+            <div className="h-16 w-18 bg-blue-darker border-r-2 border-blue-dark relative">
+                {shopItem.isLocked ?
+                    (<ColoredSprite className="h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)
                     :
                     (<img className="h-16 w-16 image-pixelated" src={shopItem.iconUrl} />)
                 }
+                <JobIndicator shopItem={shopItem}/>
             </div>
 
 
@@ -94,7 +111,7 @@ export default function Shop({ shopData, className, plrDollarAmount = 900 }: { s
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {shopData[category].map((shopItem, i) => (
-                    <ShopItem plrDollarAmount={plrDollarAmount} key={i} shopItem={shopItem}/>
+                    <ShopItem plrDollarAmount={plrDollarAmount} key={i} shopItem={shopItem} />
                 ))}
             </div>
         </SectionCard>
