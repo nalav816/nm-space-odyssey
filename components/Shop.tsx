@@ -99,7 +99,7 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false }: { plrDollarAm
     )
 }
 
-export default function Shop({ shopData, className, plrDollarAmount = 900 }: { shopData: ShopData, className?: string, plrDollarAmount?: number }) {
+export default function Shop({ shopData, className, plrDollarAmount=900 }: { shopData: ShopData, className?: string, plrDollarAmount?: number }) {
     const [category, setCategory] = useState<Category>("Astronauts")
 
     return (

@@ -28,7 +28,7 @@ export default async function Home() {
             </div>
 
           </div>
-          <Shop shopData={player.shopData} className="min-w-80 grow w-full" />
+          <Shop plrDollarAmount={cash} shopData={player.shopData} className="min-w-80 grow w-full" />
         </div>
 
         <div className="h-full basis-1/3 flex flex-col gap-8">
