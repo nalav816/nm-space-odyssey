@@ -60,7 +60,7 @@ export async function getPlayerShopData (username: string) {
     return packet
 }
 
-export async function addAstronaut(ownerName: string, astronautName: string) {
+export async function purchaseAstronaut(ownerName: string, astronautName: string) {
     const astronaut = await db.ownedAstronauts.create({
         data: {
             ownerName,
@@ -73,12 +73,21 @@ export async function addAstronaut(ownerName: string, astronautName: string) {
 
     if (!astronaut) throw new Error()
 
+    const player = await db.user.update({
+        where : { userName: ownerName },
+        data : {
+            netWorth : {
+                decrement : astronaut.astronautData.price
+            }
+        }
+    })
+
+    if(!player) throw new Error("Player could not be charged for purchase.")
+
     return getAstronautView(astronaut)
 }
 
-export async function removeAstronaut(ownerName: string, astronautId: string) {
-
-    console.log(astronautId);
+export async function sellAstronaut(ownerName: string, astronautId: string) {
     const astronaut = await db.ownedAstronauts.delete({
         where: {id: astronautId},
         include : {
@@ -86,7 +95,18 @@ export async function removeAstronaut(ownerName: string, astronautId: string) {
         }
     })
 
-    if (!astronaut) throw new Error()
+    if (!astronaut) throw new Error("Astronaut to remove could not be found.")
+
+    const player = await db.user.update({
+        where : { userName: ownerName },
+        data : {
+            netWorth : {
+                increment : astronaut.astronautData.price
+            }
+        }
+    })
+
+    if(!player) throw new Error("Player could not be refunded.")
 
     return getAstronautView(astronaut)
 }
