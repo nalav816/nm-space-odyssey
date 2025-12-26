@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   OwnedAstronauts: 'OwnedAstronauts',
+  UnlockedAstronauts: 'UnlockedAstronauts',
   Astronauts: 'Astronauts'
 } as const
 
@@ -90,11 +91,24 @@ export const OwnedAstronautsScalarFieldEnum = {
 export type OwnedAstronautsScalarFieldEnum = (typeof OwnedAstronautsScalarFieldEnum)[keyof typeof OwnedAstronautsScalarFieldEnum]
 
 
+export const UnlockedAstronautsScalarFieldEnum = {
+  astronautName: 'astronautName',
+  ownerName: 'ownerName'
+} as const
+
+export type UnlockedAstronautsScalarFieldEnum = (typeof UnlockedAstronautsScalarFieldEnum)[keyof typeof UnlockedAstronautsScalarFieldEnum]
+
+
 export const AstronautsScalarFieldEnum = {
   name: 'name',
   rating: 'rating',
+  price: 'price',
   modelUrl: 'modelUrl',
-  shopIconUrl: 'shopIconUrl'
+  shopIconUrl: 'shopIconUrl',
+  isEngineer: 'isEngineer',
+  isResearcher: 'isResearcher',
+  isPilot: 'isPilot',
+  hiddenOnLock: 'hiddenOnLock'
 } as const
 
 export type AstronautsScalarFieldEnum = (typeof AstronautsScalarFieldEnum)[keyof typeof AstronautsScalarFieldEnum]

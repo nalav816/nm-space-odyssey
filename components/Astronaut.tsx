@@ -2,8 +2,11 @@
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
+import type { Astronaut } from "@/views/astronaut"
+import type { Player } from "@/views/player"
 
 const DRAG_CANCEL_KEYBIND = "C"
+
 const DragType = {
     //employee drag trigger mechanisms
     //Triggred by action button
@@ -26,14 +29,7 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export type EmployeeData = {
-    name: string,
-    rating: number,
-    modelUrl: string,
-    shopIconUrl: string,
-}
-
-export function Employee({ employeeData }: { employeeData: EmployeeData }) {
+export function Astronaut({ astronautData, player, setPlayer }: { astronautData: Astronaut, player:Player, setPlayer:React.Dispatch<React.SetStateAction<Player>>}) {
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
     const [isMouseOver, setIsMouseOver] = useState<boolean>(false)
@@ -58,6 +54,26 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
     const onActionClick = () => {
         setDragType(DragType.ActionDrag)
         setIsBeingDragged(true)
+    }
+
+    const onSellClick = async () => {
+        const res = await fetch("/api/astronauts", {
+            method: "DELETE",
+            body: JSON.stringify({
+                username: player.username,
+                id: astronautData.id
+            })
+        })
+
+        if (res.ok) {
+            setPlayer((prev) => ({
+                ...prev,
+                ...{
+                    astronauts: prev.astronauts.filter((a) => a.id != astronautData.id),
+                    netWorth: prev.netWorth + astronautData.price
+                }
+            }))
+        }
     }
 
     useEffect(() => {
@@ -145,7 +161,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
             >
                 <TintedSprite
                     className="image-pixelated cursor-grabbing"
-                    spriteUrl={employeeData.modelUrl}
+                    spriteUrl={astronautData.modelUrl}
                     tintIntensity={0}
                 />
                 <DragIndicator dragType={dragType} />
@@ -153,7 +169,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
 
             <TintedSprite
                 className={`hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
-                spriteUrl={employeeData.modelUrl}
+                spriteUrl={astronautData.modelUrl}
                 tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -161,7 +177,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
             />
 
             {isSelected &&
-                <GameObjectMenu onActionClick={onActionClick} />
+                <GameObjectMenu onActionClick={onActionClick} onSellClick={onSellClick}/>
             }
         </div>
 

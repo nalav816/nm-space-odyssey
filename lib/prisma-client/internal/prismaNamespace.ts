@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   OwnedAstronauts: 'OwnedAstronauts',
+  UnlockedAstronauts: 'UnlockedAstronauts',
   Astronauts: 'Astronauts'
 } as const
 
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "ownedAstronauts" | "astronauts"
+    modelProps: "user" | "ownedAstronauts" | "unlockedAstronauts" | "astronauts"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -554,6 +555,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UnlockedAstronauts: {
+      payload: Prisma.$UnlockedAstronautsPayload<ExtArgs>
+      fields: Prisma.UnlockedAstronautsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UnlockedAstronautsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UnlockedAstronautsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>
+        }
+        findFirst: {
+          args: Prisma.UnlockedAstronautsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UnlockedAstronautsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>
+        }
+        findMany: {
+          args: Prisma.UnlockedAstronautsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>[]
+        }
+        create: {
+          args: Prisma.UnlockedAstronautsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>
+        }
+        createMany: {
+          args: Prisma.UnlockedAstronautsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UnlockedAstronautsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>[]
+        }
+        delete: {
+          args: Prisma.UnlockedAstronautsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>
+        }
+        update: {
+          args: Prisma.UnlockedAstronautsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>
+        }
+        deleteMany: {
+          args: Prisma.UnlockedAstronautsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UnlockedAstronautsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UnlockedAstronautsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>[]
+        }
+        upsert: {
+          args: Prisma.UnlockedAstronautsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UnlockedAstronautsPayload>
+        }
+        aggregate: {
+          args: Prisma.UnlockedAstronautsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUnlockedAstronauts>
+        }
+        groupBy: {
+          args: Prisma.UnlockedAstronautsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UnlockedAstronautsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UnlockedAstronautsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UnlockedAstronautsCountAggregateOutputType> | number
+        }
+      }
+    }
     Astronauts: {
       payload: Prisma.$AstronautsPayload<ExtArgs>
       fields: Prisma.AstronautsFieldRefs
@@ -685,11 +760,24 @@ export const OwnedAstronautsScalarFieldEnum = {
 export type OwnedAstronautsScalarFieldEnum = (typeof OwnedAstronautsScalarFieldEnum)[keyof typeof OwnedAstronautsScalarFieldEnum]
 
 
+export const UnlockedAstronautsScalarFieldEnum = {
+  astronautName: 'astronautName',
+  ownerName: 'ownerName'
+} as const
+
+export type UnlockedAstronautsScalarFieldEnum = (typeof UnlockedAstronautsScalarFieldEnum)[keyof typeof UnlockedAstronautsScalarFieldEnum]
+
+
 export const AstronautsScalarFieldEnum = {
   name: 'name',
   rating: 'rating',
+  price: 'price',
   modelUrl: 'modelUrl',
-  shopIconUrl: 'shopIconUrl'
+  shopIconUrl: 'shopIconUrl',
+  isEngineer: 'isEngineer',
+  isResearcher: 'isResearcher',
+  isPilot: 'isPilot',
+  hiddenOnLock: 'hiddenOnLock'
 } as const
 
 export type AstronautsScalarFieldEnum = (typeof AstronautsScalarFieldEnum)[keyof typeof AstronautsScalarFieldEnum]
@@ -742,6 +830,13 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -855,6 +950,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   ownedAstronauts?: Prisma.OwnedAstronautsOmit
+  unlockedAstronauts?: Prisma.UnlockedAstronautsOmit
   astronauts?: Prisma.AstronautsOmit
 }
 

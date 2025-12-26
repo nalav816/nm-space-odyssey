@@ -11,21 +11,39 @@ model User {
   userName   String            @id
   password   String
   netWorth   Int
+
   astronauts OwnedAstronauts[]
+  unlockedAstronauts UnlockedAstronauts[]
 }
 
 model OwnedAstronauts {
   id            String     @id @default(uuid())
   ownerName     String
   astronautName String
+
   astronautData Astronauts @relation(fields: [astronautName], references: [name])
   owner         User       @relation(fields: [ownerName], references: [userName])
+}
+
+model UnlockedAstronauts { 
+  astronautName String @id
+  ownerName String
+
+  astronautData Astronauts @relation(fields: [astronautName], references: [name])
+  owner User @relation(fields: [ownerName], references: [userName])
 }
 
 model Astronauts {
   name            String            @id
   rating          Int
+  price           Int
   modelUrl        String
   shopIconUrl     String
+  isEngineer      Boolean
+  isResearcher    Boolean 
+  isPilot         Boolean 
+  hiddenOnLock    Boolean @default(false)
+
   ownedAstronauts OwnedAstronauts[]
+  unlockedAstronauts UnlockedAstronauts[]
 }

@@ -201,6 +201,7 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   netWorth?: Prisma.IntFilter<"User"> | number
   astronauts?: Prisma.OwnedAstronautsListRelationFilter
+  unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -208,6 +209,7 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
   astronauts?: Prisma.OwnedAstronautsOrderByRelationAggregateInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -218,6 +220,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.StringFilter<"User"> | string
   netWorth?: Prisma.IntFilter<"User"> | number
   astronauts?: Prisma.OwnedAstronautsListRelationFilter
+  unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }, "userName">
 
 export type UserOrderByWithAggregationInput = {
@@ -245,6 +248,7 @@ export type UserCreateInput = {
   password: string
   netWorth: number
   astronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutOwnerInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -252,6 +256,7 @@ export type UserUncheckedCreateInput = {
   password: string
   netWorth: number
   astronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUpdateInput = {
@@ -259,6 +264,7 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUpdateManyWithoutOwnerNestedInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -266,6 +272,7 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -343,16 +350,32 @@ export type UserUpdateOneRequiredWithoutAstronautsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAstronautsInput, Prisma.UserUpdateWithoutAstronautsInput>, Prisma.UserUncheckedUpdateWithoutAstronautsInput>
 }
 
+export type UserCreateNestedOneWithoutUnlockedAstronautsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUnlockedAstronautsInput, Prisma.UserUncheckedCreateWithoutUnlockedAstronautsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUnlockedAstronautsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUnlockedAstronautsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUnlockedAstronautsInput, Prisma.UserUncheckedCreateWithoutUnlockedAstronautsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUnlockedAstronautsInput
+  upsert?: Prisma.UserUpsertWithoutUnlockedAstronautsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUnlockedAstronautsInput, Prisma.UserUpdateWithoutUnlockedAstronautsInput>, Prisma.UserUncheckedUpdateWithoutUnlockedAstronautsInput>
+}
+
 export type UserCreateWithoutAstronautsInput = {
   userName: string
   password: string
   netWorth: number
+  unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutAstronautsInput = {
   userName: string
   password: string
   netWorth: number
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserCreateOrConnectWithoutAstronautsInput = {
@@ -375,12 +398,58 @@ export type UserUpdateWithoutAstronautsInput = {
   userName?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAstronautsInput = {
   userName?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutUnlockedAstronautsInput = {
+  userName: string
+  password: string
+  netWorth: number
+  astronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutUnlockedAstronautsInput = {
+  userName: string
+  password: string
+  netWorth: number
+  astronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutUnlockedAstronautsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUnlockedAstronautsInput, Prisma.UserUncheckedCreateWithoutUnlockedAstronautsInput>
+}
+
+export type UserUpsertWithoutUnlockedAstronautsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUnlockedAstronautsInput, Prisma.UserUncheckedUpdateWithoutUnlockedAstronautsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUnlockedAstronautsInput, Prisma.UserUncheckedCreateWithoutUnlockedAstronautsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUnlockedAstronautsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUnlockedAstronautsInput, Prisma.UserUncheckedUpdateWithoutUnlockedAstronautsInput>
+}
+
+export type UserUpdateWithoutUnlockedAstronautsInput = {
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronauts?: Prisma.OwnedAstronautsUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUnlockedAstronautsInput = {
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 
@@ -390,10 +459,12 @@ export type UserUncheckedUpdateWithoutAstronautsInput = {
 
 export type UserCountOutputType = {
   astronauts: number
+  unlockedAstronauts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   astronauts?: boolean | UserCountOutputTypeCountAstronautsArgs
+  unlockedAstronauts?: boolean | UserCountOutputTypeCountUnlockedAstronautsArgs
 }
 
 /**
@@ -413,12 +484,20 @@ export type UserCountOutputTypeCountAstronautsArgs<ExtArgs extends runtime.Types
   where?: Prisma.OwnedAstronautsWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUnlockedAstronautsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UnlockedAstronautsWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   userName?: boolean
   password?: boolean
   netWorth?: boolean
   astronauts?: boolean | Prisma.User$astronautsArgs<ExtArgs>
+  unlockedAstronauts?: boolean | Prisma.User$unlockedAstronautsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -443,6 +522,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userName" | "password" | "netWorth", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   astronauts?: boolean | Prisma.User$astronautsArgs<ExtArgs>
+  unlockedAstronauts?: boolean | Prisma.User$unlockedAstronautsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -452,6 +532,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     astronauts: Prisma.$OwnedAstronautsPayload<ExtArgs>[]
+    unlockedAstronauts: Prisma.$UnlockedAstronautsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userName: string
@@ -852,6 +933,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   astronauts<T extends Prisma.User$astronautsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$astronautsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OwnedAstronautsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  unlockedAstronauts<T extends Prisma.User$unlockedAstronautsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$unlockedAstronautsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnlockedAstronautsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1293,6 +1375,30 @@ export type User$astronautsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.OwnedAstronautsScalarFieldEnum | Prisma.OwnedAstronautsScalarFieldEnum[]
+}
+
+/**
+ * User.unlockedAstronauts
+ */
+export type User$unlockedAstronautsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UnlockedAstronauts
+   */
+  select?: Prisma.UnlockedAstronautsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UnlockedAstronauts
+   */
+  omit?: Prisma.UnlockedAstronautsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnlockedAstronautsInclude<ExtArgs> | null
+  where?: Prisma.UnlockedAstronautsWhereInput
+  orderBy?: Prisma.UnlockedAstronautsOrderByWithRelationInput | Prisma.UnlockedAstronautsOrderByWithRelationInput[]
+  cursor?: Prisma.UnlockedAstronautsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UnlockedAstronautsScalarFieldEnum | Prisma.UnlockedAstronautsScalarFieldEnum[]
 }
 
 /**

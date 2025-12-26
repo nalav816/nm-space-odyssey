@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../lib/prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  userName   String            @id\n  password   String\n  netWorth   Int\n  astronauts OwnedAstronauts[]\n}\n\nmodel OwnedAstronauts {\n  id String @id @default(uuid())\n\n  owner     User   @relation(fields: [ownerName], references: [userName])\n  ownerName String\n\n  astronautData Astronauts @relation(fields: [astronautName], references: [name])\n  astronautName String\n}\n\nmodel Astronauts {\n  name            String            @id\n  rating          Int\n  modelUrl        String\n  shopIconUrl     String\n  ownedAstronauts OwnedAstronauts[]\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../lib/prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  userName String @id\n  password String\n  netWorth Int\n\n  astronauts         OwnedAstronauts[]\n  unlockedAstronauts UnlockedAstronauts[]\n}\n\nmodel OwnedAstronauts {\n  id            String @id @default(uuid())\n  ownerName     String\n  astronautName String\n\n  astronautData Astronauts @relation(fields: [astronautName], references: [name])\n  owner         User       @relation(fields: [ownerName], references: [userName])\n}\n\nmodel UnlockedAstronauts {\n  astronautName String @id\n  ownerName     String\n\n  astronautData Astronauts @relation(fields: [astronautName], references: [name])\n  owner         User       @relation(fields: [ownerName], references: [userName])\n}\n\nmodel Astronauts {\n  name         String  @id\n  rating       Int\n  price        Int\n  modelUrl     String\n  shopIconUrl  String\n  isEngineer   Boolean\n  isResearcher Boolean\n  isPilot      Boolean\n  hiddenOnLock Boolean @default(false)\n\n  ownedAstronauts    OwnedAstronauts[]\n  unlockedAstronauts UnlockedAstronauts[]\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"userName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"netWorth\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"astronauts\",\"kind\":\"object\",\"type\":\"OwnedAstronauts\",\"relationName\":\"OwnedAstronautsToUser\"}],\"dbName\":null},\"OwnedAstronauts\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"owner\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"OwnedAstronautsToUser\"},{\"name\":\"ownerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"astronautData\",\"kind\":\"object\",\"type\":\"Astronauts\",\"relationName\":\"AstronautsToOwnedAstronauts\"},{\"name\":\"astronautName\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Astronauts\":{\"fields\":[{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"modelUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"shopIconUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ownedAstronauts\",\"kind\":\"object\",\"type\":\"OwnedAstronauts\",\"relationName\":\"AstronautsToOwnedAstronauts\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"userName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"netWorth\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"astronauts\",\"kind\":\"object\",\"type\":\"OwnedAstronauts\",\"relationName\":\"OwnedAstronautsToUser\"},{\"name\":\"unlockedAstronauts\",\"kind\":\"object\",\"type\":\"UnlockedAstronauts\",\"relationName\":\"UnlockedAstronautsToUser\"}],\"dbName\":null},\"OwnedAstronauts\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ownerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"astronautName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"astronautData\",\"kind\":\"object\",\"type\":\"Astronauts\",\"relationName\":\"AstronautsToOwnedAstronauts\"},{\"name\":\"owner\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"OwnedAstronautsToUser\"}],\"dbName\":null},\"UnlockedAstronauts\":{\"fields\":[{\"name\":\"astronautName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ownerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"astronautData\",\"kind\":\"object\",\"type\":\"Astronauts\",\"relationName\":\"AstronautsToUnlockedAstronauts\"},{\"name\":\"owner\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UnlockedAstronautsToUser\"}],\"dbName\":null},\"Astronauts\":{\"fields\":[{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rating\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"modelUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"shopIconUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isEngineer\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isResearcher\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isPilot\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"hiddenOnLock\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"ownedAstronauts\",\"kind\":\"object\",\"type\":\"OwnedAstronauts\",\"relationName\":\"AstronautsToOwnedAstronauts\"},{\"name\":\"unlockedAstronauts\",\"kind\":\"object\",\"type\":\"UnlockedAstronauts\",\"relationName\":\"AstronautsToUnlockedAstronauts\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -193,6 +193,16 @@ export interface PrismaClient<
     * ```
     */
   get ownedAstronauts(): Prisma.OwnedAstronautsDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.unlockedAstronauts`: Exposes CRUD operations for the **UnlockedAstronauts** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UnlockedAstronauts
+    * const unlockedAstronauts = await prisma.unlockedAstronauts.findMany()
+    * ```
+    */
+  get unlockedAstronauts(): Prisma.UnlockedAstronautsDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
    * `prisma.astronauts`: Exposes CRUD operations for the **Astronauts** model.

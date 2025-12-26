@@ -33,13 +33,20 @@
 
 @layer components {
   @keyframes floatIn {
-    0% {
+    from {
       transform: translateY(30px);
       opacity: 0
-    } 100% {
+    } to {
       transform: translateY(0);
       opacity: 1
     }
+  }
+
+  .noise-texture {
+    background-image: url("/imgs/noiseTexture.jpg");
+    background-size: cover;
+    pointer-events: none;
+    opacity: .25;
   }
 
   .image-pixelated {
@@ -55,6 +62,14 @@
     text-shadow: 0px 0px 4px var(--color-blue-lightest);
   }
 
+  .text-glow-red {
+    text-shadow: 0px 0px 4px var(--color-red-light);
+  }
+
+  .text-glow-green {
+    text-shadow: 0px 0px 4px var(--color-green);
+  }
+  
   .section-card {
     background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
   }
