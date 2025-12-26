@@ -6,10 +6,12 @@ import Launchpad from "@/components/Launchpad";
 import EmployeesQuarters from "@/components/EmployeesQuarters";
 import { useState } from "react";
 import { EmployeeData } from "@/components/Employee";
+import { ShopData } from "../components/Shop";
 
 type PlayerData = {
     netWorth: number,
     astronauts: EmployeeData[]
+    shopData: ShopData
 }
 
 export default function Game({ player }: { player:PlayerData }) {
@@ -32,7 +34,7 @@ export default function Game({ player }: { player:PlayerData }) {
                         </div>
 
                     </div>
-                    <Shop className="min-w-80 grow w-full" />
+                    <Shop setCash={setCash} cash={cash} shopData={player.shopData} className="min-w-80 grow w-full" />
                 </div>
 
                 <div className="h-full basis-1/3 flex flex-col gap-8">

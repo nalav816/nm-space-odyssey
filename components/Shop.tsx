@@ -23,7 +23,7 @@ type ShopItem = {
     isPilot?: boolean;
 }
 
-type ShopData = {
+export type ShopData = {
     Astronauts: ShopItem[];
     Rockets: ShopItem[];
 }
@@ -31,8 +31,6 @@ type ShopData = {
 type Category = keyof ShopData;
 
 const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
-    const jobCount = (shopItem.isEngineer ? 1 : 0) + (shopItem.isResearcher ? 1 : 0) + (shopItem.isPilot ? 1 : 0)
-
     return (
         <div className="absolute right-0 top-0">
             <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darkest/50" />
@@ -46,12 +44,19 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
 
 }
 
-const ShopItem = ({ plrDollarAmount, shopItem, disabled = false }: { plrDollarAmount: number, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
+const ShopItem = ({ cash, setCash, shopItem, disabled = false }
+    : { cash: number, setCash: React.Dispatch<React.SetStateAction<number>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
 
-    if (shopItem.isLocked || plrDollarAmount < shopItem.price) disabled = true
+    if (shopItem.isLocked || cash < shopItem.price) disabled = true
+
+    const onClick = () => {
+        if(shopItem.price <= cash){
+            setCash((prev) => prev - shopItem.price)
+        }
+    }
 
     return (
-        <div className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
+        <div onClick={onClick} className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
             shadow-md from-blue to-blue-dark
             h-16 flex transition duration-200 ease-in-out
             ${disabled ? "" : "hover:cursor-pointer hover:to-blue"}`
@@ -65,7 +70,6 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false }: { plrDollarAm
                 }
                 <JobIndicator shopItem={shopItem}/>
             </div>
-
 
             {disabled && (<div className="absolute w-full h-full bg-blue-darkest/50 rounded z-50" />)}
 
@@ -100,7 +104,8 @@ const ShopItem = ({ plrDollarAmount, shopItem, disabled = false }: { plrDollarAm
     )
 }
 
-export default function Shop({ shopData, className, plrDollarAmount=900 }: { shopData: ShopData, className?: string, plrDollarAmount?: number }) {
+export default function Shop({ shopData, className, cash, setCash }: 
+    { shopData: ShopData, className?: string, cash: number, setCash: React.Dispatch<React.SetStateAction<number>>}) {
     const [category, setCategory] = useState<Category>("Astronauts")
 
     return (
@@ -112,7 +117,7 @@ export default function Shop({ shopData, className, plrDollarAmount=900 }: { sho
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {shopData[category].map((shopItem, i) => (
-                    <ShopItem plrDollarAmount={plrDollarAmount} key={i} shopItem={shopItem} />
+                    <ShopItem cash={cash} setCash={setCash}key={i} shopItem={shopItem} />
                 ))}
             </div>
         </SectionCard>
