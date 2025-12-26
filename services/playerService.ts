@@ -1,4 +1,7 @@
 import { Astronauts } from "@/lib/prisma-client/client"
+import { getAstronautView } from "@/views/astronaut"
+import { getShopItemView } from "@/views/shop"
+import { getPlayerView } from "@/views/player"
 import { db } from "../lib/db"
 
 export async function getPlayerData(username: string){
@@ -15,19 +18,7 @@ export async function getPlayerData(username: string){
 
     if (!data) throw new Error()
 
-    const player = {
-        username: username,
-        netWorth: data.netWorth,
-        astronauts: data.astronauts.map((a) => ({
-            modelUrl: a.astronautData.modelUrl,
-            isEngineer: a.astronautData.isEngineer,
-            isResearcher: a.astronautData.isResearcher,
-            isPilot: a.astronautData.isPilot
-        })),
-        shopData: await getPlayerShopData(username)
-    }
-
-    return player
+    return await getPlayerView(data)
 }
 
 export async function getPlayerShopData (username: string) {
@@ -56,13 +47,7 @@ export async function getPlayerShopData (username: string) {
 
     const shopItemView = (shopItemEntry: Astronauts) => {
         return { 
-            name: shopItemEntry.name,
-            rating: shopItemEntry.rating,
-            price: shopItemEntry.price,
-            iconUrl: shopItemEntry.shopIconUrl,
-            isEngineer: shopItemEntry.isEngineer,
-            isResearcher: shopItemEntry.isResearcher,
-            isPilot: shopItemEntry.isPilot,
+            ...getShopItemView(shopItemEntry),
             isLocked: visibleYetLocked.some((item) => item.name == shopItemEntry.name)
         }
     }
@@ -82,4 +67,10 @@ export async function addAstronaut(ownerName: string, astronautName: string) {
             astronautName
         }
     })
+
+    const data = await db.astronauts.findFirst({where: {name: astronautName}})
+
+    if (!data) throw new Error()
+
+    return getAstronautView(data)
 }

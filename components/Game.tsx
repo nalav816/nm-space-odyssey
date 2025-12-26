@@ -5,18 +5,10 @@ import Science from "@/components/Science";
 import Launchpad from "@/components/Launchpad";
 import EmployeesQuarters from "@/components/EmployeesQuarters";
 import { useState } from "react";
-import { EmployeeData } from "@/components/Employee";
-import { ShopData } from "../components/Shop";
+import { Player } from "@/views/player";
 
-export type PlayerData = {
-    username: string,
-    netWorth: number,
-    astronauts: EmployeeData[]
-    shopData: ShopData
-}
-
-export default function Game({ playerData }: { playerData:PlayerData }) {
-    const [player, setPlayer] = useState<PlayerData>(playerData);
+export default function Game({ playerData }: { playerData:Player }) {
+    const [player, setPlayer] = useState<Player>(playerData);
     
     return (
         <div className="bg-blue-darkest w-screen h-screen flex justify-center relative text-white font-jaro">
@@ -34,7 +26,7 @@ export default function Game({ playerData }: { playerData:PlayerData }) {
                         </div>
 
                     </div>
-                    <Shop player={player} setPlayer={setPlayer} shopData={player.shopData} className="min-w-80 grow w-full" />
+                    <Shop player={player} setPlayer={setPlayer} className="min-w-80 grow w-full" />
                 </div>
 
                 <div className="h-full basis-1/3 flex flex-col gap-8">

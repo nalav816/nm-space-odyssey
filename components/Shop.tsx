@@ -2,7 +2,8 @@
 import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
 import { useState } from "react"
-import { PlayerData } from "./Game"
+import type { Player } from "@/views/player"
+import type { Shop, ShopItem } from "@/views/shop"
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
@@ -13,32 +14,16 @@ const CategoryButton = ({ category, setCategory, active = true }: { category: Ca
     )
 }
 
-type ShopItem = {
-    name: string;
-    rating: number;
-    price: number
-    iconUrl: string;
-    isLocked: boolean;
-    isEngineer?: boolean;
-    isResearcher?: boolean;
-    isPilot?: boolean;
-}
-
-export type ShopData = {
-    Astronauts: ShopItem[];
-    Rockets: ShopItem[];
-}
-
-type Category = keyof ShopData;
+type Category = keyof Shop;
 
 const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
     return (
         <div className="absolute right-0 top-0">
             <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darkest/50" />
             <div className="flex flex-col p-1 z-30 relative gap-1">
-                {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png"/>)}
-                {shopItem.isResearcher && (<img className="w-4 h-4 image-pixelated" src="/sprites/researcherIcon.png"/>)}
-                {shopItem.isEngineer && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineerIcon.png"/>)}
+                {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png" />)}
+                {shopItem.isResearcher && (<img className="w-4 h-4 image-pixelated" src="/sprites/researcherIcon.png" />)}
+                {shopItem.isEngineer && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineerIcon.png" />)}
             </div>
         </div>
     )
@@ -46,17 +31,12 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
 }
 
 const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
-    : { player:PlayerData, setPlayer: React.Dispatch<React.SetStateAction<PlayerData>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
+    : { player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
 
     if (shopItem.isLocked || player.netWorth < shopItem.price) disabled = true
 
     const onClick = async () => {
-        if(shopItem.price <= player.netWorth){
-            setPlayer((prev) => ({
-                ...prev,
-                netWorth: prev.netWorth - shopItem.price
-            }))
-
+        if (shopItem.price <= player.netWorth) {
             const res = await fetch("/api/astronauts", {
                 method: "POST",
                 body: JSON.stringify({
@@ -66,7 +46,16 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
             })
 
             if (res.ok) {
+                const data = await res.json();
+                const newAstronaut = data.newAstronaut;
                 console.log(shopItem.name + " Purchased!")
+                setPlayer((prev) => ({
+                    ...prev,
+                    ...{
+                        netWorth: prev.netWorth - shopItem.price,
+                        astronauts: [...prev.astronauts, newAstronaut]
+                    }
+                }))
             }
         }
     }
@@ -77,14 +66,14 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
             h-16 flex transition duration-200 ease-in-out
             ${disabled ? "" : "hover:cursor-pointer hover:to-blue"}`
         }>
-            <div className="absolute noise-texture w-full h-full rounded"/>
+            <div className="absolute noise-texture w-full h-full rounded" />
             <div className="z-30 h-16 w-16 bg-blue-darker border-r-2 border-blue-dark relative">
                 {shopItem.isLocked ?
                     (<ColoredSprite className="h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)
                     :
                     (<img className="h-16 w-16 image-pixelated" src={shopItem.iconUrl} />)
                 }
-                <JobIndicator shopItem={shopItem}/>
+                <JobIndicator shopItem={shopItem} />
             </div>
 
             {disabled && (<div className="absolute w-full h-full bg-blue-darkest/50 rounded z-50" />)}
@@ -120,8 +109,8 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
     )
 }
 
-export default function Shop({ player, shopData, className, setPlayer }: 
-    { player:PlayerData, username:string, shopData: ShopData, className?: string, setPlayer: React.Dispatch<React.SetStateAction<PlayerData>>}) {
+export default function Shop({ player, className, setPlayer }:
+    { player: Player, username: string, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
     const [category, setCategory] = useState<Category>("Astronauts")
 
     return (
@@ -132,7 +121,7 @@ export default function Shop({ player, shopData, className, setPlayer }:
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
-                {shopData[category].map((shopItem, i) => (
+                {player.shop[category].map((shopItem, i) => (
                     <ShopItem player={player} setPlayer={setPlayer} key={i} shopItem={shopItem} />
                 ))}
             </div>

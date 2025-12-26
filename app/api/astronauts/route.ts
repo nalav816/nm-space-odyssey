@@ -6,7 +6,10 @@ export async function POST(request: Request) {
     const username = body.username
     const astronautName = body.name
 
-    await addAstronaut(username, astronautName)
+    const newAstronaut = await addAstronaut(username, astronautName)
 
-    return NextResponse.json({status: 201})
+    return NextResponse.json({
+        astronaut: newAstronaut,
+        status: 201
+    })
 }
