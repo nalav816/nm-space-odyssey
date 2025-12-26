@@ -2,6 +2,7 @@
 import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
 import { useState } from "react"
+import { PlayerData } from "./Game"
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
@@ -44,14 +45,29 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
 
 }
 
-const ShopItem = ({ cash, setCash, shopItem, disabled = false }
-    : { cash: number, setCash: React.Dispatch<React.SetStateAction<number>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
+const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
+    : { player:PlayerData, setPlayer: React.Dispatch<React.SetStateAction<PlayerData>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
 
-    if (shopItem.isLocked || cash < shopItem.price) disabled = true
+    if (shopItem.isLocked || player.netWorth < shopItem.price) disabled = true
 
-    const onClick = () => {
-        if(shopItem.price <= cash){
-            setCash((prev) => prev - shopItem.price)
+    const onClick = async () => {
+        if(shopItem.price <= player.netWorth){
+            setPlayer((prev) => ({
+                ...prev,
+                netWorth: prev.netWorth - shopItem.price
+            }))
+
+            const res = await fetch("/api/astronauts", {
+                method: "POST",
+                body: JSON.stringify({
+                    username: player.username,
+                    name: shopItem.name
+                })
+            })
+
+            if (res.ok) {
+                console.log(shopItem.name + " Purchased!")
+            }
         }
     }
 
@@ -104,8 +120,8 @@ const ShopItem = ({ cash, setCash, shopItem, disabled = false }
     )
 }
 
-export default function Shop({ shopData, className, cash, setCash }: 
-    { shopData: ShopData, className?: string, cash: number, setCash: React.Dispatch<React.SetStateAction<number>>}) {
+export default function Shop({ player, shopData, className, setPlayer }: 
+    { player:PlayerData, username:string, shopData: ShopData, className?: string, setPlayer: React.Dispatch<React.SetStateAction<PlayerData>>}) {
     const [category, setCategory] = useState<Category>("Astronauts")
 
     return (
@@ -117,7 +133,7 @@ export default function Shop({ shopData, className, cash, setCash }:
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {shopData[category].map((shopItem, i) => (
-                    <ShopItem cash={cash} setCash={setCash}key={i} shopItem={shopItem} />
+                    <ShopItem player={player} setPlayer={setPlayer} key={i} shopItem={shopItem} />
                 ))}
             </div>
         </SectionCard>

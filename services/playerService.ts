@@ -1,9 +1,9 @@
 import { Astronauts } from "@/lib/prisma-client/client"
 import { db } from "../lib/db"
 
-export async function getPlayerData(userName: string){
+export async function getPlayerData(username: string){
     const data = await db.user.findUnique({
-        where: { userName },
+        where: { userName: username },
         include: {
             astronauts: {
                 include: {
@@ -15,7 +15,8 @@ export async function getPlayerData(userName: string){
 
     if (!data) throw new Error()
 
-    const packet = {
+    const player = {
+        username: username,
         netWorth: data.netWorth,
         astronauts: data.astronauts.map((a) => ({
             modelUrl: a.astronautData.modelUrl,
@@ -23,16 +24,16 @@ export async function getPlayerData(userName: string){
             isResearcher: a.astronautData.isResearcher,
             isPilot: a.astronautData.isPilot
         })),
-        shopData: await getPlayerShopData(userName)
+        shopData: await getPlayerShopData(username)
     }
 
-    return packet
+    return player
 }
 
-export async function getPlayerShopData (userName: string) {
+export async function getPlayerShopData (username: string) {
     //The shop displays unlocked items and locked items marked visible
     const plrData = await db.user.findUnique({
-        where: {userName},
+        where: {userName: username},
         include: {
             unlockedAstronauts: {
                 include: {
