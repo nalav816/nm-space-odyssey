@@ -3,6 +3,7 @@ import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 import type { Astronaut } from "@/views/astronaut"
+import type { Player } from "@/views/player"
 
 const DRAG_CANCEL_KEYBIND = "C"
 
@@ -28,7 +29,7 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
+export function Astronaut({ astronautData, player, setPlayer }: { astronautData: Astronaut, player:Player, setPlayer:React.Dispatch<React.SetStateAction<Player>>}) {
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
     const [isMouseOver, setIsMouseOver] = useState<boolean>(false)
@@ -53,6 +54,25 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
     const onActionClick = () => {
         setDragType(DragType.ActionDrag)
         setIsBeingDragged(true)
+    }
+
+    const onSellClick = async () => {
+        const res = await fetch("/api/astronauts", {
+            method: "DELETE",
+            body: JSON.stringify({
+                username: player.username,
+                id: astronautData.id
+            })
+        })
+
+        if (res.ok) {
+            setPlayer((prev) => ({
+                ...prev,
+                ...{
+                    astronauts: prev.astronauts.filter((a) => a.id != astronautData.id)
+                }
+            }))
+        }
     }
 
     useEffect(() => {
@@ -156,7 +176,7 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
             />
 
             {isSelected &&
-                <GameObjectMenu onActionClick={onActionClick} />
+                <GameObjectMenu onActionClick={onActionClick} onSellClick={onSellClick}/>
             }
         </div>
 

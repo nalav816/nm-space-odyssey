@@ -30,7 +30,7 @@ export default function Game({ playerData }: { playerData:Player }) {
                 </div>
 
                 <div className="h-full basis-1/3 flex flex-col gap-8">
-                    <EmployeesQuarters player={player} className="min-w-80 basis-1/2 w-full" />
+                    <EmployeesQuarters setPlayer={setPlayer} player={player} className="min-w-80 basis-1/2 w-full" />
                     <Launchpad className="min-w-80 basis-1/2 w-full" />
                 </div>
 

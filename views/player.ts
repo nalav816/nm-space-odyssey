@@ -13,7 +13,7 @@ export async function getPlayerView(player: any) : Promise<Player> {
     return {
         username: player.userName,
         netWorth: player.netWorth,
-        astronauts: player.astronauts.map((a: any) => getAstronautView(a.astronautData)),
+        astronauts: player.astronauts.map((a: any) => getAstronautView(a)),
         shop: await getPlayerShopData(player.userName)
     }
 }

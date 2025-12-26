@@ -19,7 +19,7 @@ type Category = keyof Shop;
 const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
     return (
         <div className="absolute right-0 top-0">
-            <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darkest/50" />
+            <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darkest/70" />
             <div className="flex flex-col p-1 z-30 relative gap-1">
                 {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png" />)}
                 {shopItem.isResearcher && (<img className="w-4 h-4 image-pixelated" src="/sprites/researcherIcon.png" />)}
@@ -27,7 +27,6 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
             </div>
         </div>
     )
-
 }
 
 const ShopItem = ({ player, setPlayer, shopItem, disabled = false }

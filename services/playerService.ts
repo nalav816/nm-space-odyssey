@@ -61,16 +61,32 @@ export async function getPlayerShopData (username: string) {
 }
 
 export async function addAstronaut(ownerName: string, astronautName: string) {
-    await db.ownedAstronauts.create({
+    const astronaut = await db.ownedAstronauts.create({
         data: {
             ownerName,
             astronautName
+        },
+        include : {
+            astronautData: true
         }
     })
 
-    const data = await db.astronauts.findFirst({where: {name: astronautName}})
+    if (!astronaut) throw new Error()
 
-    if (!data) throw new Error()
+    return getAstronautView(astronaut)
+}
 
-    return getAstronautView(data)
+export async function removeAstronaut(ownerName: string, astronautId: string) {
+
+    console.log(astronautId);
+    const astronaut = await db.ownedAstronauts.delete({
+        where: {id: astronautId},
+        include : {
+            astronautData: true
+        }
+    })
+
+    if (!astronaut) throw new Error()
+
+    return getAstronautView(astronaut)
 }

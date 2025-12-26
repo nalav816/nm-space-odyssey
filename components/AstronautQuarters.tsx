@@ -8,7 +8,7 @@ import ColoredSprite from "./ColoredSprite"
 import TintedSprite from "./TintedSprite"
 import type { Player } from "@/views/player"
 
-export default function EmployeesQuarters({player, className} : {player: Player, className?: string}){
+export default function EmployeesQuarters({player, setPlayer, className} : {player: Player, setPlayer:React.Dispatch<React.SetStateAction<Player>>, className?: string}){
     const ROOM_SIZE = 5
     const currRoom = 1
     const roomCount = 2
@@ -21,7 +21,7 @@ export default function EmployeesQuarters({player, className} : {player: Player,
                     <div className="flex w-80 h-16">
                         {player.astronauts.map((employee: any, i: number) => (
                             <div className="w-16 h-16 flex items-end justify-center" key={i} >
-                                <Astronaut astronautData={employee}/>
+                                <Astronaut astronautData={employee} player={player} setPlayer={setPlayer}/>
                             </div>
                             
                         ))}
