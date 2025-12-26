@@ -3,7 +3,7 @@ import Shop from "../components/Shop";
 import Leaderboard from "../components/Leaderboard";
 import Science from "@/components/Science";
 import Launchpad from "@/components/Launchpad";
-import EmployeesQuarters from "@/components/EmployeesQuarters";
+import EmployeesQuarters from "@/components/AstronautQuarters";
 import { useState } from "react";
 import { Player } from "@/views/player";
 
@@ -30,7 +30,7 @@ export default function Game({ playerData }: { playerData:Player }) {
                 </div>
 
                 <div className="h-full basis-1/3 flex flex-col gap-8">
-                    <EmployeesQuarters employeeData={player.astronauts} className="min-w-80 basis-1/2 w-full" />
+                    <EmployeesQuarters player={player} className="min-w-80 basis-1/2 w-full" />
                     <Launchpad className="min-w-80 basis-1/2 w-full" />
                 </div>
 

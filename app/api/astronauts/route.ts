@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const newAstronaut = await addAstronaut(username, astronautName)
 
     return NextResponse.json({
-        astronaut: newAstronaut,
+        newAstronaut: newAstronaut,
         status: 201
     })
 }

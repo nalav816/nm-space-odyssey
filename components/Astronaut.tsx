@@ -2,8 +2,10 @@
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
+import type { Astronaut } from "@/views/astronaut"
 
 const DRAG_CANCEL_KEYBIND = "C"
+
 const DragType = {
     //employee drag trigger mechanisms
     //Triggred by action button
@@ -26,14 +28,7 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export type EmployeeData = {
-    modelUrl: string,
-    isEngineer: boolean,
-    isResearcher: boolean,
-    isPilot: boolean
-}
-
-export function Employee({ employeeData }: { employeeData: EmployeeData }) {
+export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
     const [isMouseOver, setIsMouseOver] = useState<boolean>(false)
@@ -145,7 +140,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
             >
                 <TintedSprite
                     className="image-pixelated cursor-grabbing"
-                    spriteUrl={employeeData.modelUrl}
+                    spriteUrl={astronautData.modelUrl}
                     tintIntensity={0}
                 />
                 <DragIndicator dragType={dragType} />
@@ -153,7 +148,7 @@ export function Employee({ employeeData }: { employeeData: EmployeeData }) {
 
             <TintedSprite
                 className={`hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
-                spriteUrl={employeeData.modelUrl}
+                spriteUrl={astronautData.modelUrl}
                 tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}

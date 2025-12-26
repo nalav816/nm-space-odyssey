@@ -48,6 +48,7 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
             if (res.ok) {
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
+                console.log(data, newAstronaut)
                 console.log(shopItem.name + " Purchased!")
                 setPlayer((prev) => ({
                     ...prev,
