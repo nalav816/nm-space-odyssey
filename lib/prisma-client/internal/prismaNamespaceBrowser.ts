@@ -74,8 +74,9 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 
 export const UserScalarFieldEnum = {
-  userName: 'userName',
-  password: 'password',
+  username: 'username',
+  passwordHash: 'passwordHash',
+  isGuest: 'isGuest',
   netWorth: 'netWorth'
 } as const
 
@@ -84,8 +85,12 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const OwnedAstronautsScalarFieldEnum = {
   id: 'id',
-  ownerName: 'ownerName',
-  astronautName: 'astronautName'
+  username: 'username',
+  astronautName: 'astronautName',
+  lastCurrencyUpdate: 'lastCurrencyUpdate',
+  isGeneratingDollars: 'isGeneratingDollars',
+  occupiedRoom: 'occupiedRoom',
+  occupiedSlot: 'occupiedSlot'
 } as const
 
 export type OwnedAstronautsScalarFieldEnum = (typeof OwnedAstronautsScalarFieldEnum)[keyof typeof OwnedAstronautsScalarFieldEnum]
@@ -93,7 +98,7 @@ export type OwnedAstronautsScalarFieldEnum = (typeof OwnedAstronautsScalarFieldE
 
 export const UnlockedAstronautsScalarFieldEnum = {
   astronautName: 'astronautName',
-  ownerName: 'ownerName'
+  username: 'username'
 } as const
 
 export type UnlockedAstronautsScalarFieldEnum = (typeof UnlockedAstronautsScalarFieldEnum)[keyof typeof UnlockedAstronautsScalarFieldEnum]
@@ -106,9 +111,10 @@ export const AstronautsScalarFieldEnum = {
   modelUrl: 'modelUrl',
   shopIconUrl: 'shopIconUrl',
   isEngineer: 'isEngineer',
-  isResearcher: 'isResearcher',
+  isScientist: 'isScientist',
   isPilot: 'isPilot',
-  hiddenOnLock: 'hiddenOnLock'
+  hiddenOnLock: 'hiddenOnLock',
+  dollarsPerSecond: 'dollarsPerSecond'
 } as const
 
 export type AstronautsScalarFieldEnum = (typeof AstronautsScalarFieldEnum)[keyof typeof AstronautsScalarFieldEnum]

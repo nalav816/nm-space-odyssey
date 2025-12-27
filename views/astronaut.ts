@@ -5,7 +5,7 @@ export type Astronaut = {
     price: number,
     modelUrl: string,
     isEngineer: boolean,
-    isResearcher: boolean,
+    isScientist: boolean,
     isPilot: boolean
 }
 
@@ -15,7 +15,7 @@ export function getAstronautView (a: any) : Astronaut {
         price: a.astronautData.price,
         modelUrl: a.astronautData.modelUrl,
         isEngineer: a.astronautData.isEngineer,
-        isResearcher: a.astronautData.isResearcher,
+        isScientist: a.astronautData.isResearcher,
         isPilot: a.astronautData.isPilot
     }
 }

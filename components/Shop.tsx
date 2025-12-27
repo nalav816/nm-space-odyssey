@@ -22,7 +22,7 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
             <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darkest/70" />
             <div className="flex flex-col p-1 z-30 relative gap-1">
                 {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png" />)}
-                {shopItem.isResearcher && (<img className="w-4 h-4 image-pixelated" src="/sprites/researcherIcon.png" />)}
+                {shopItem.isScientist && (<img className="w-4 h-4 image-pixelated" src="/sprites/scientistIcon.png" />)}
                 {shopItem.isEngineer && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineerIcon.png" />)}
             </div>
         </div>

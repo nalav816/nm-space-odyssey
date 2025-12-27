@@ -35,20 +35,23 @@ export type UserSumAggregateOutputType = {
 }
 
 export type UserMinAggregateOutputType = {
-  userName: string | null
-  password: string | null
+  username: string | null
+  passwordHash: string | null
+  isGuest: boolean | null
   netWorth: number | null
 }
 
 export type UserMaxAggregateOutputType = {
-  userName: string | null
-  password: string | null
+  username: string | null
+  passwordHash: string | null
+  isGuest: boolean | null
   netWorth: number | null
 }
 
 export type UserCountAggregateOutputType = {
-  userName: number
-  password: number
+  username: number
+  passwordHash: number
+  isGuest: number
   netWorth: number
   _all: number
 }
@@ -63,20 +66,23 @@ export type UserSumAggregateInputType = {
 }
 
 export type UserMinAggregateInputType = {
-  userName?: true
-  password?: true
+  username?: true
+  passwordHash?: true
+  isGuest?: true
   netWorth?: true
 }
 
 export type UserMaxAggregateInputType = {
-  userName?: true
-  password?: true
+  username?: true
+  passwordHash?: true
+  isGuest?: true
   netWorth?: true
 }
 
 export type UserCountAggregateInputType = {
-  userName?: true
-  password?: true
+  username?: true
+  passwordHash?: true
+  isGuest?: true
   netWorth?: true
   _all?: true
 }
@@ -168,8 +174,9 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type UserGroupByOutputType = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest: boolean
   netWorth: number
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -197,35 +204,39 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  userName?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  username?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringFilter<"User"> | string
+  isGuest?: Prisma.BoolFilter<"User"> | boolean
   netWorth?: Prisma.IntFilter<"User"> | number
   astronauts?: Prisma.OwnedAstronautsListRelationFilter
   unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
-  userName?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  username?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
   astronauts?: Prisma.OwnedAstronautsOrderByRelationAggregateInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
-  userName?: string
+  username?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  password?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringFilter<"User"> | string
+  isGuest?: Prisma.BoolFilter<"User"> | boolean
   netWorth?: Prisma.IntFilter<"User"> | number
   astronauts?: Prisma.OwnedAstronautsListRelationFilter
   unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
-}, "userName">
+}, "username">
 
 export type UserOrderByWithAggregationInput = {
-  userName?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  username?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
@@ -238,64 +249,73 @@ export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
-  userName?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  username?: Prisma.StringWithAggregatesFilter<"User"> | string
+  passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
+  isGuest?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   netWorth?: Prisma.IntWithAggregatesFilter<"User"> | number
 }
 
 export type UserCreateInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
   astronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutOwnerInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
   astronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUpdateInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUpdateManyWithoutOwnerNestedInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateManyInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
 }
 
 export type UserUpdateManyMutationInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserUncheckedUpdateManyInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserCountOrderByAggregateInput = {
-  userName?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  username?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
 }
 
@@ -304,14 +324,16 @@ export type UserAvgOrderByAggregateInput = {
 }
 
 export type UserMaxOrderByAggregateInput = {
-  userName?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  username?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
-  userName?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  username?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
 }
 
@@ -326,6 +348,10 @@ export type UserScalarRelationFilter = {
 
 export type StringFieldUpdateOperationsInput = {
   set?: string
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -365,15 +391,17 @@ export type UserUpdateOneRequiredWithoutUnlockedAstronautsNestedInput = {
 }
 
 export type UserCreateWithoutAstronautsInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
   unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutAstronautsInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
@@ -395,29 +423,33 @@ export type UserUpdateToOneWithWhereWithoutAstronautsInput = {
 }
 
 export type UserUpdateWithoutAstronautsInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAstronautsInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateWithoutUnlockedAstronautsInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
   astronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateWithoutUnlockedAstronautsInput = {
-  userName: string
-  password: string
+  username: string
+  passwordHash: string
+  isGuest?: boolean
   netWorth: number
   astronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
@@ -439,15 +471,17 @@ export type UserUpdateToOneWithWhereWithoutUnlockedAstronautsInput = {
 }
 
 export type UserUpdateWithoutUnlockedAstronautsInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUnlockedAstronautsInput = {
-  userName?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
@@ -493,8 +527,9 @@ export type UserCountOutputTypeCountUnlockedAstronautsArgs<ExtArgs extends runti
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  userName?: boolean
-  password?: boolean
+  username?: boolean
+  passwordHash?: boolean
+  isGuest?: boolean
   netWorth?: boolean
   astronauts?: boolean | Prisma.User$astronautsArgs<ExtArgs>
   unlockedAstronauts?: boolean | Prisma.User$unlockedAstronautsArgs<ExtArgs>
@@ -502,24 +537,27 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  userName?: boolean
-  password?: boolean
+  username?: boolean
+  passwordHash?: boolean
+  isGuest?: boolean
   netWorth?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  userName?: boolean
-  password?: boolean
+  username?: boolean
+  passwordHash?: boolean
+  isGuest?: boolean
   netWorth?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
-  userName?: boolean
-  password?: boolean
+  username?: boolean
+  passwordHash?: boolean
+  isGuest?: boolean
   netWorth?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userName" | "password" | "netWorth", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"username" | "passwordHash" | "isGuest" | "netWorth", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   astronauts?: boolean | Prisma.User$astronautsArgs<ExtArgs>
   unlockedAstronauts?: boolean | Prisma.User$unlockedAstronautsArgs<ExtArgs>
@@ -535,8 +573,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     unlockedAstronauts: Prisma.$UnlockedAstronautsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    userName: string
-    password: string
+    username: string
+    passwordHash: string
+    isGuest: boolean
     netWorth: number
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -621,8 +660,8 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * // Get first 10 Users
    * const users = await prisma.user.findMany({ take: 10 })
    * 
-   * // Only select the `userName`
-   * const userWithUserNameOnly = await prisma.user.findMany({ select: { userName: true } })
+   * // Only select the `username`
+   * const userWithUsernameOnly = await prisma.user.findMany({ select: { username: true } })
    * 
    */
   findMany<T extends UserFindManyArgs>(args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -666,9 +705,9 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    *   ]
    * })
    * 
-   * // Create many Users and only return the `userName`
-   * const userWithUserNameOnly = await prisma.user.createManyAndReturn({
-   *   select: { userName: true },
+   * // Create many Users and only return the `username`
+   * const userWithUsernameOnly = await prisma.user.createManyAndReturn({
+   *   select: { username: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -757,9 +796,9 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    *   ]
    * })
    * 
-   * // Update zero or more Users and only return the `userName`
-   * const userWithUserNameOnly = await prisma.user.updateManyAndReturn({
-   *   select: { userName: true },
+   * // Update zero or more Users and only return the `username`
+   * const userWithUsernameOnly = await prisma.user.updateManyAndReturn({
+   *   select: { username: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -963,8 +1002,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly userName: Prisma.FieldRef<"User", 'String'>
-  readonly password: Prisma.FieldRef<"User", 'String'>
+  readonly username: Prisma.FieldRef<"User", 'String'>
+  readonly passwordHash: Prisma.FieldRef<"User", 'String'>
+  readonly isGuest: Prisma.FieldRef<"User", 'Boolean'>
   readonly netWorth: Prisma.FieldRef<"User", 'Int'>
 }
     

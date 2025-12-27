@@ -26,34 +26,34 @@ export type AggregateUnlockedAstronauts = {
 
 export type UnlockedAstronautsMinAggregateOutputType = {
   astronautName: string | null
-  ownerName: string | null
+  username: string | null
 }
 
 export type UnlockedAstronautsMaxAggregateOutputType = {
   astronautName: string | null
-  ownerName: string | null
+  username: string | null
 }
 
 export type UnlockedAstronautsCountAggregateOutputType = {
   astronautName: number
-  ownerName: number
+  username: number
   _all: number
 }
 
 
 export type UnlockedAstronautsMinAggregateInputType = {
   astronautName?: true
-  ownerName?: true
+  username?: true
 }
 
 export type UnlockedAstronautsMaxAggregateInputType = {
   astronautName?: true
-  ownerName?: true
+  username?: true
 }
 
 export type UnlockedAstronautsCountAggregateInputType = {
   astronautName?: true
-  ownerName?: true
+  username?: true
   _all?: true
 }
 
@@ -131,7 +131,7 @@ export type UnlockedAstronautsGroupByArgs<ExtArgs extends runtime.Types.Extensio
 
 export type UnlockedAstronautsGroupByOutputType = {
   astronautName: string
-  ownerName: string
+  username: string
   _count: UnlockedAstronautsCountAggregateOutputType | null
   _min: UnlockedAstronautsMinAggregateOutputType | null
   _max: UnlockedAstronautsMaxAggregateOutputType | null
@@ -157,14 +157,14 @@ export type UnlockedAstronautsWhereInput = {
   OR?: Prisma.UnlockedAstronautsWhereInput[]
   NOT?: Prisma.UnlockedAstronautsWhereInput | Prisma.UnlockedAstronautsWhereInput[]
   astronautName?: Prisma.StringFilter<"UnlockedAstronauts"> | string
-  ownerName?: Prisma.StringFilter<"UnlockedAstronauts"> | string
+  username?: Prisma.StringFilter<"UnlockedAstronauts"> | string
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type UnlockedAstronautsOrderByWithRelationInput = {
   astronautName?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   astronautData?: Prisma.AstronautsOrderByWithRelationInput
   owner?: Prisma.UserOrderByWithRelationInput
 }
@@ -174,14 +174,14 @@ export type UnlockedAstronautsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UnlockedAstronautsWhereInput | Prisma.UnlockedAstronautsWhereInput[]
   OR?: Prisma.UnlockedAstronautsWhereInput[]
   NOT?: Prisma.UnlockedAstronautsWhereInput | Prisma.UnlockedAstronautsWhereInput[]
-  ownerName?: Prisma.StringFilter<"UnlockedAstronauts"> | string
+  username?: Prisma.StringFilter<"UnlockedAstronauts"> | string
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "astronautName">
 
 export type UnlockedAstronautsOrderByWithAggregationInput = {
   astronautName?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   _count?: Prisma.UnlockedAstronautsCountOrderByAggregateInput
   _max?: Prisma.UnlockedAstronautsMaxOrderByAggregateInput
   _min?: Prisma.UnlockedAstronautsMinOrderByAggregateInput
@@ -192,7 +192,7 @@ export type UnlockedAstronautsScalarWhereWithAggregatesInput = {
   OR?: Prisma.UnlockedAstronautsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UnlockedAstronautsScalarWhereWithAggregatesInput | Prisma.UnlockedAstronautsScalarWhereWithAggregatesInput[]
   astronautName?: Prisma.StringWithAggregatesFilter<"UnlockedAstronauts"> | string
-  ownerName?: Prisma.StringWithAggregatesFilter<"UnlockedAstronauts"> | string
+  username?: Prisma.StringWithAggregatesFilter<"UnlockedAstronauts"> | string
 }
 
 export type UnlockedAstronautsCreateInput = {
@@ -202,7 +202,7 @@ export type UnlockedAstronautsCreateInput = {
 
 export type UnlockedAstronautsUncheckedCreateInput = {
   astronautName: string
-  ownerName: string
+  username: string
 }
 
 export type UnlockedAstronautsUpdateInput = {
@@ -212,12 +212,12 @@ export type UnlockedAstronautsUpdateInput = {
 
 export type UnlockedAstronautsUncheckedUpdateInput = {
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UnlockedAstronautsCreateManyInput = {
   astronautName: string
-  ownerName: string
+  username: string
 }
 
 export type UnlockedAstronautsUpdateManyMutationInput = {
@@ -226,7 +226,7 @@ export type UnlockedAstronautsUpdateManyMutationInput = {
 
 export type UnlockedAstronautsUncheckedUpdateManyInput = {
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UnlockedAstronautsListRelationFilter = {
@@ -241,17 +241,17 @@ export type UnlockedAstronautsOrderByRelationAggregateInput = {
 
 export type UnlockedAstronautsCountOrderByAggregateInput = {
   astronautName?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
 }
 
 export type UnlockedAstronautsMaxOrderByAggregateInput = {
   astronautName?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
 }
 
 export type UnlockedAstronautsMinOrderByAggregateInput = {
   astronautName?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
 }
 
 export type UnlockedAstronautsCreateNestedManyWithoutOwnerInput = {
@@ -377,7 +377,7 @@ export type UnlockedAstronautsScalarWhereInput = {
   OR?: Prisma.UnlockedAstronautsScalarWhereInput[]
   NOT?: Prisma.UnlockedAstronautsScalarWhereInput | Prisma.UnlockedAstronautsScalarWhereInput[]
   astronautName?: Prisma.StringFilter<"UnlockedAstronauts"> | string
-  ownerName?: Prisma.StringFilter<"UnlockedAstronauts"> | string
+  username?: Prisma.StringFilter<"UnlockedAstronauts"> | string
 }
 
 export type UnlockedAstronautsCreateWithoutAstronautDataInput = {
@@ -385,7 +385,7 @@ export type UnlockedAstronautsCreateWithoutAstronautDataInput = {
 }
 
 export type UnlockedAstronautsUncheckedCreateWithoutAstronautDataInput = {
-  ownerName: string
+  username: string
 }
 
 export type UnlockedAstronautsCreateOrConnectWithoutAstronautDataInput = {
@@ -431,7 +431,7 @@ export type UnlockedAstronautsUncheckedUpdateManyWithoutOwnerInput = {
 }
 
 export type UnlockedAstronautsCreateManyAstronautDataInput = {
-  ownerName: string
+  username: string
 }
 
 export type UnlockedAstronautsUpdateWithoutAstronautDataInput = {
@@ -439,42 +439,42 @@ export type UnlockedAstronautsUpdateWithoutAstronautDataInput = {
 }
 
 export type UnlockedAstronautsUncheckedUpdateWithoutAstronautDataInput = {
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type UnlockedAstronautsUncheckedUpdateManyWithoutAstronautDataInput = {
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type UnlockedAstronautsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   astronautName?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unlockedAstronauts"]>
 
 export type UnlockedAstronautsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   astronautName?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unlockedAstronauts"]>
 
 export type UnlockedAstronautsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   astronautName?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unlockedAstronauts"]>
 
 export type UnlockedAstronautsSelectScalar = {
   astronautName?: boolean
-  ownerName?: boolean
+  username?: boolean
 }
 
-export type UnlockedAstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"astronautName" | "ownerName", ExtArgs["result"]["unlockedAstronauts"]>
+export type UnlockedAstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"astronautName" | "username", ExtArgs["result"]["unlockedAstronauts"]>
 export type UnlockedAstronautsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -496,7 +496,7 @@ export type $UnlockedAstronautsPayload<ExtArgs extends runtime.Types.Extensions.
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     astronautName: string
-    ownerName: string
+    username: string
   }, ExtArgs["result"]["unlockedAstronauts"]>
   composites: {}
 }
@@ -923,7 +923,7 @@ export interface Prisma__UnlockedAstronautsClient<T, Null = never, ExtArgs exten
  */
 export interface UnlockedAstronautsFieldRefs {
   readonly astronautName: Prisma.FieldRef<"UnlockedAstronauts", 'String'>
-  readonly ownerName: Prisma.FieldRef<"UnlockedAstronauts", 'String'>
+  readonly username: Prisma.FieldRef<"UnlockedAstronauts", 'String'>
 }
     
 

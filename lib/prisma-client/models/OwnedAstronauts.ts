@@ -20,46 +20,92 @@ export type OwnedAstronautsModel = runtime.Types.Result.DefaultSelection<Prisma.
 
 export type AggregateOwnedAstronauts = {
   _count: OwnedAstronautsCountAggregateOutputType | null
+  _avg: OwnedAstronautsAvgAggregateOutputType | null
+  _sum: OwnedAstronautsSumAggregateOutputType | null
   _min: OwnedAstronautsMinAggregateOutputType | null
   _max: OwnedAstronautsMaxAggregateOutputType | null
 }
 
+export type OwnedAstronautsAvgAggregateOutputType = {
+  occupiedRoom: number | null
+  occupiedSlot: number | null
+}
+
+export type OwnedAstronautsSumAggregateOutputType = {
+  occupiedRoom: number | null
+  occupiedSlot: number | null
+}
+
 export type OwnedAstronautsMinAggregateOutputType = {
   id: string | null
-  ownerName: string | null
+  username: string | null
   astronautName: string | null
+  lastCurrencyUpdate: Date | null
+  isGeneratingDollars: boolean | null
+  occupiedRoom: number | null
+  occupiedSlot: number | null
 }
 
 export type OwnedAstronautsMaxAggregateOutputType = {
   id: string | null
-  ownerName: string | null
+  username: string | null
   astronautName: string | null
+  lastCurrencyUpdate: Date | null
+  isGeneratingDollars: boolean | null
+  occupiedRoom: number | null
+  occupiedSlot: number | null
 }
 
 export type OwnedAstronautsCountAggregateOutputType = {
   id: number
-  ownerName: number
+  username: number
   astronautName: number
+  lastCurrencyUpdate: number
+  isGeneratingDollars: number
+  occupiedRoom: number
+  occupiedSlot: number
   _all: number
 }
 
 
+export type OwnedAstronautsAvgAggregateInputType = {
+  occupiedRoom?: true
+  occupiedSlot?: true
+}
+
+export type OwnedAstronautsSumAggregateInputType = {
+  occupiedRoom?: true
+  occupiedSlot?: true
+}
+
 export type OwnedAstronautsMinAggregateInputType = {
   id?: true
-  ownerName?: true
+  username?: true
   astronautName?: true
+  lastCurrencyUpdate?: true
+  isGeneratingDollars?: true
+  occupiedRoom?: true
+  occupiedSlot?: true
 }
 
 export type OwnedAstronautsMaxAggregateInputType = {
   id?: true
-  ownerName?: true
+  username?: true
   astronautName?: true
+  lastCurrencyUpdate?: true
+  isGeneratingDollars?: true
+  occupiedRoom?: true
+  occupiedSlot?: true
 }
 
 export type OwnedAstronautsCountAggregateInputType = {
   id?: true
-  ownerName?: true
+  username?: true
   astronautName?: true
+  lastCurrencyUpdate?: true
+  isGeneratingDollars?: true
+  occupiedRoom?: true
+  occupiedSlot?: true
   _all?: true
 }
 
@@ -101,6 +147,18 @@ export type OwnedAstronautsAggregateArgs<ExtArgs extends runtime.Types.Extension
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: OwnedAstronautsAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: OwnedAstronautsSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: OwnedAstronautsMinAggregateInputType
@@ -131,15 +189,23 @@ export type OwnedAstronautsGroupByArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   _count?: OwnedAstronautsCountAggregateInputType | true
+  _avg?: OwnedAstronautsAvgAggregateInputType
+  _sum?: OwnedAstronautsSumAggregateInputType
   _min?: OwnedAstronautsMinAggregateInputType
   _max?: OwnedAstronautsMaxAggregateInputType
 }
 
 export type OwnedAstronautsGroupByOutputType = {
   id: string
-  ownerName: string
+  username: string
   astronautName: string
+  lastCurrencyUpdate: Date
+  isGeneratingDollars: boolean
+  occupiedRoom: number
+  occupiedSlot: number
   _count: OwnedAstronautsCountAggregateOutputType | null
+  _avg: OwnedAstronautsAvgAggregateOutputType | null
+  _sum: OwnedAstronautsSumAggregateOutputType | null
   _min: OwnedAstronautsMinAggregateOutputType | null
   _max: OwnedAstronautsMaxAggregateOutputType | null
 }
@@ -164,16 +230,24 @@ export type OwnedAstronautsWhereInput = {
   OR?: Prisma.OwnedAstronautsWhereInput[]
   NOT?: Prisma.OwnedAstronautsWhereInput | Prisma.OwnedAstronautsWhereInput[]
   id?: Prisma.StringFilter<"OwnedAstronauts"> | string
-  ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
+  username?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
+  lastCurrencyUpdate?: Prisma.DateTimeFilter<"OwnedAstronauts"> | Date | string
+  isGeneratingDollars?: Prisma.BoolFilter<"OwnedAstronauts"> | boolean
+  occupiedRoom?: Prisma.IntFilter<"OwnedAstronauts"> | number
+  occupiedSlot?: Prisma.IntFilter<"OwnedAstronauts"> | number
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type OwnedAstronautsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
+  lastCurrencyUpdate?: Prisma.SortOrder
+  isGeneratingDollars?: Prisma.SortOrder
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
   astronautData?: Prisma.AstronautsOrderByWithRelationInput
   owner?: Prisma.UserOrderByWithRelationInput
 }
@@ -183,19 +257,29 @@ export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OwnedAstronautsWhereInput | Prisma.OwnedAstronautsWhereInput[]
   OR?: Prisma.OwnedAstronautsWhereInput[]
   NOT?: Prisma.OwnedAstronautsWhereInput | Prisma.OwnedAstronautsWhereInput[]
-  ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
+  username?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
+  lastCurrencyUpdate?: Prisma.DateTimeFilter<"OwnedAstronauts"> | Date | string
+  isGeneratingDollars?: Prisma.BoolFilter<"OwnedAstronauts"> | boolean
+  occupiedRoom?: Prisma.IntFilter<"OwnedAstronauts"> | number
+  occupiedSlot?: Prisma.IntFilter<"OwnedAstronauts"> | number
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type OwnedAstronautsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
+  lastCurrencyUpdate?: Prisma.SortOrder
+  isGeneratingDollars?: Prisma.SortOrder
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
   _count?: Prisma.OwnedAstronautsCountOrderByAggregateInput
+  _avg?: Prisma.OwnedAstronautsAvgOrderByAggregateInput
   _max?: Prisma.OwnedAstronautsMaxOrderByAggregateInput
   _min?: Prisma.OwnedAstronautsMinOrderByAggregateInput
+  _sum?: Prisma.OwnedAstronautsSumOrderByAggregateInput
 }
 
 export type OwnedAstronautsScalarWhereWithAggregatesInput = {
@@ -203,48 +287,80 @@ export type OwnedAstronautsScalarWhereWithAggregatesInput = {
   OR?: Prisma.OwnedAstronautsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OwnedAstronautsScalarWhereWithAggregatesInput | Prisma.OwnedAstronautsScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"OwnedAstronauts"> | string
-  ownerName?: Prisma.StringWithAggregatesFilter<"OwnedAstronauts"> | string
+  username?: Prisma.StringWithAggregatesFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringWithAggregatesFilter<"OwnedAstronauts"> | string
+  lastCurrencyUpdate?: Prisma.DateTimeWithAggregatesFilter<"OwnedAstronauts"> | Date | string
+  isGeneratingDollars?: Prisma.BoolWithAggregatesFilter<"OwnedAstronauts"> | boolean
+  occupiedRoom?: Prisma.IntWithAggregatesFilter<"OwnedAstronauts"> | number
+  occupiedSlot?: Prisma.IntWithAggregatesFilter<"OwnedAstronauts"> | number
 }
 
 export type OwnedAstronautsCreateInput = {
   id?: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
   astronautData: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
   owner: Prisma.UserCreateNestedOneWithoutAstronautsInput
 }
 
 export type OwnedAstronautsUncheckedCreateInput = {
   id?: string
-  ownerName: string
+  username: string
   astronautName: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
 }
 
 export type OwnedAstronautsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
   astronautData?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutAstronautsNestedInput
 }
 
 export type OwnedAstronautsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OwnedAstronautsCreateManyInput = {
   id?: string
-  ownerName: string
+  username: string
   astronautName: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
 }
 
 export type OwnedAstronautsUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OwnedAstronautsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OwnedAstronautsListRelationFilter = {
@@ -259,20 +375,42 @@ export type OwnedAstronautsOrderByRelationAggregateInput = {
 
 export type OwnedAstronautsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
+  lastCurrencyUpdate?: Prisma.SortOrder
+  isGeneratingDollars?: Prisma.SortOrder
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
+}
+
+export type OwnedAstronautsAvgOrderByAggregateInput = {
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
 }
 
 export type OwnedAstronautsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
+  lastCurrencyUpdate?: Prisma.SortOrder
+  isGeneratingDollars?: Prisma.SortOrder
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
 }
 
 export type OwnedAstronautsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  ownerName?: Prisma.SortOrder
+  username?: Prisma.SortOrder
   astronautName?: Prisma.SortOrder
+  lastCurrencyUpdate?: Prisma.SortOrder
+  isGeneratingDollars?: Prisma.SortOrder
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
+}
+
+export type OwnedAstronautsSumOrderByAggregateInput = {
+  occupiedRoom?: Prisma.SortOrder
+  occupiedSlot?: Prisma.SortOrder
 }
 
 export type OwnedAstronautsCreateNestedManyWithoutOwnerInput = {
@@ -315,6 +453,10 @@ export type OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput = {
   update?: Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutOwnerInput | Prisma.OwnedAstronautsUpdateWithWhereUniqueWithoutOwnerInput[]
   updateMany?: Prisma.OwnedAstronautsUpdateManyWithWhereWithoutOwnerInput | Prisma.OwnedAstronautsUpdateManyWithWhereWithoutOwnerInput[]
   deleteMany?: Prisma.OwnedAstronautsScalarWhereInput | Prisma.OwnedAstronautsScalarWhereInput[]
+}
+
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type OwnedAstronautsCreateNestedManyWithoutAstronautDataInput = {
@@ -361,12 +503,20 @@ export type OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataNestedInput = 
 
 export type OwnedAstronautsCreateWithoutOwnerInput = {
   id?: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
   astronautData: Prisma.AstronautsCreateNestedOneWithoutOwnedAstronautsInput
 }
 
 export type OwnedAstronautsUncheckedCreateWithoutOwnerInput = {
   id?: string
   astronautName: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
 }
 
 export type OwnedAstronautsCreateOrConnectWithoutOwnerInput = {
@@ -400,18 +550,30 @@ export type OwnedAstronautsScalarWhereInput = {
   OR?: Prisma.OwnedAstronautsScalarWhereInput[]
   NOT?: Prisma.OwnedAstronautsScalarWhereInput | Prisma.OwnedAstronautsScalarWhereInput[]
   id?: Prisma.StringFilter<"OwnedAstronauts"> | string
-  ownerName?: Prisma.StringFilter<"OwnedAstronauts"> | string
+  username?: Prisma.StringFilter<"OwnedAstronauts"> | string
   astronautName?: Prisma.StringFilter<"OwnedAstronauts"> | string
+  lastCurrencyUpdate?: Prisma.DateTimeFilter<"OwnedAstronauts"> | Date | string
+  isGeneratingDollars?: Prisma.BoolFilter<"OwnedAstronauts"> | boolean
+  occupiedRoom?: Prisma.IntFilter<"OwnedAstronauts"> | number
+  occupiedSlot?: Prisma.IntFilter<"OwnedAstronauts"> | number
 }
 
 export type OwnedAstronautsCreateWithoutAstronautDataInput = {
   id?: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
   owner: Prisma.UserCreateNestedOneWithoutAstronautsInput
 }
 
 export type OwnedAstronautsUncheckedCreateWithoutAstronautDataInput = {
   id?: string
-  ownerName: string
+  username: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
 }
 
 export type OwnedAstronautsCreateOrConnectWithoutAstronautDataInput = {
@@ -443,76 +605,124 @@ export type OwnedAstronautsUpdateManyWithWhereWithoutAstronautDataInput = {
 export type OwnedAstronautsCreateManyOwnerInput = {
   id?: string
   astronautName: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
 }
 
 export type OwnedAstronautsUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
   astronautData?: Prisma.AstronautsUpdateOneRequiredWithoutOwnedAstronautsNestedInput
 }
 
 export type OwnedAstronautsUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OwnedAstronautsUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   astronautName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OwnedAstronautsCreateManyAstronautDataInput = {
   id?: string
-  ownerName: string
+  username: string
+  lastCurrencyUpdate?: Date | string
+  isGeneratingDollars?: boolean
+  occupiedRoom?: number
+  occupiedSlot?: number
 }
 
 export type OwnedAstronautsUpdateWithoutAstronautDataInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
   owner?: Prisma.UserUpdateOneRequiredWithoutAstronautsNestedInput
 }
 
 export type OwnedAstronautsUncheckedUpdateWithoutAstronautDataInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type OwnedAstronautsUncheckedUpdateManyWithoutAstronautDataInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  lastCurrencyUpdate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isGeneratingDollars?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  occupiedRoom?: Prisma.IntFieldUpdateOperationsInput | number
+  occupiedSlot?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
 
 export type OwnedAstronautsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautName?: boolean
+  lastCurrencyUpdate?: boolean
+  isGeneratingDollars?: boolean
+  occupiedRoom?: boolean
+  occupiedSlot?: boolean
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautName?: boolean
+  lastCurrencyUpdate?: boolean
+  isGeneratingDollars?: boolean
+  occupiedRoom?: boolean
+  occupiedSlot?: boolean
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautName?: boolean
+  lastCurrencyUpdate?: boolean
+  isGeneratingDollars?: boolean
+  occupiedRoom?: boolean
+  occupiedSlot?: boolean
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ownedAstronauts"]>
 
 export type OwnedAstronautsSelectScalar = {
   id?: boolean
-  ownerName?: boolean
+  username?: boolean
   astronautName?: boolean
+  lastCurrencyUpdate?: boolean
+  isGeneratingDollars?: boolean
+  occupiedRoom?: boolean
+  occupiedSlot?: boolean
 }
 
-export type OwnedAstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ownerName" | "astronautName", ExtArgs["result"]["ownedAstronauts"]>
+export type OwnedAstronautsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "astronautName" | "lastCurrencyUpdate" | "isGeneratingDollars" | "occupiedRoom" | "occupiedSlot", ExtArgs["result"]["ownedAstronauts"]>
 export type OwnedAstronautsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   astronautData?: boolean | Prisma.AstronautsDefaultArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -534,8 +744,12 @@ export type $OwnedAstronautsPayload<ExtArgs extends runtime.Types.Extensions.Int
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    ownerName: string
+    username: string
     astronautName: string
+    lastCurrencyUpdate: Date
+    isGeneratingDollars: boolean
+    occupiedRoom: number
+    occupiedSlot: number
   }, ExtArgs["result"]["ownedAstronauts"]>
   composites: {}
 }
@@ -962,8 +1176,12 @@ export interface Prisma__OwnedAstronautsClient<T, Null = never, ExtArgs extends 
  */
 export interface OwnedAstronautsFieldRefs {
   readonly id: Prisma.FieldRef<"OwnedAstronauts", 'String'>
-  readonly ownerName: Prisma.FieldRef<"OwnedAstronauts", 'String'>
+  readonly username: Prisma.FieldRef<"OwnedAstronauts", 'String'>
   readonly astronautName: Prisma.FieldRef<"OwnedAstronauts", 'String'>
+  readonly lastCurrencyUpdate: Prisma.FieldRef<"OwnedAstronauts", 'DateTime'>
+  readonly isGeneratingDollars: Prisma.FieldRef<"OwnedAstronauts", 'Boolean'>
+  readonly occupiedRoom: Prisma.FieldRef<"OwnedAstronauts", 'Int'>
+  readonly occupiedSlot: Prisma.FieldRef<"OwnedAstronauts", 'Int'>
 }
     
 

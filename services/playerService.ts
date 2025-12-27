@@ -1,12 +1,12 @@
 import { Astronauts } from "@/lib/prisma-client/client"
 import { getAstronautView } from "@/views/astronaut"
-import { getShopItemView } from "@/views/shop"
+import { getShopItemView, ShopItem, sortShopItems } from "@/views/shop"
 import { getPlayerView } from "@/views/player"
 import { db } from "../lib/db"
 
 export async function getPlayerData(username: string){
     const data = await db.user.findUnique({
-        where: { userName: username },
+        where: { username },
         include: {
             astronauts: {
                 include: {
@@ -24,7 +24,7 @@ export async function getPlayerData(username: string){
 export async function getPlayerShopData (username: string) {
     //The shop displays unlocked items and locked items marked visible
     const plrData = await db.user.findUnique({
-        where: {userName: username},
+        where: { username },
         include: {
             unlockedAstronauts: {
                 include: {
@@ -53,18 +53,19 @@ export async function getPlayerShopData (username: string) {
     }
 
     const packet = {
-        Astronauts: [...unlocked, ...visibleYetLocked].map((v) => shopItemView(v)),
+        Astronauts: [...unlocked, ...visibleYetLocked].map((v) => shopItemView(v)).sort((a:ShopItem, b:ShopItem) => sortShopItems(a, b)),
         Rockets: []
     }
 
     return packet
 }
 
-export async function purchaseAstronaut(ownerName: string, astronautName: string) {
+export async function purchaseAstronaut(username: string, astronautName: string) {
     const astronaut = await db.ownedAstronauts.create({
         data: {
-            ownerName,
-            astronautName
+           astronautName,
+           username
+           
         },
         include : {
             astronautData: true
@@ -74,7 +75,7 @@ export async function purchaseAstronaut(ownerName: string, astronautName: string
     if (!astronaut) throw new Error()
 
     const player = await db.user.update({
-        where : { userName: ownerName },
+        where : { username },
         data : {
             netWorth : {
                 decrement : astronaut.astronautData.price
@@ -87,7 +88,7 @@ export async function purchaseAstronaut(ownerName: string, astronautName: string
     return getAstronautView(astronaut)
 }
 
-export async function sellAstronaut(ownerName: string, astronautId: string) {
+export async function sellAstronaut(username: string, astronautId: string) {
     const astronaut = await db.ownedAstronauts.delete({
         where: {id: astronautId},
         include : {
@@ -98,7 +99,7 @@ export async function sellAstronaut(ownerName: string, astronautId: string) {
     if (!astronaut) throw new Error("Astronaut to remove could not be found.")
 
     const player = await db.user.update({
-        where : { userName: ownerName },
+        where : { username },
         data : {
             netWorth : {
                 increment : astronaut.astronautData.price

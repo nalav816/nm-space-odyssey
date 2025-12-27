@@ -35,7 +35,13 @@ export default function Science({ className }: { className?: string }) {
                 {!available && (
                     <div className="h-full absolute bg-blue-darkest/60 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-md">
                         <ColoredSprite className="h-16 w-16 image-pixelated bg-white" spriteUrl="/sprites/scienceLockedIcon.png" />
-                        <div className="text-center text-white"> Hire A Researcher <br /> To Unlock Science </div>
+                        <div className="text-center text-white"> 
+                            <div className="flex items-center gap-1">
+                                <div> Hire A <span className="text-purple"> Scientist </span> </div>
+                                <ColoredSprite className="h-4 w-4 image-pixelated bg-purple" spriteUrl="/sprites/scientistIcon.png"/>
+                            </div>
+                            <div> To Unlock Science </div>
+                        </div>
                     </div>
                 )}
 

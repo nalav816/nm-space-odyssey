@@ -7,7 +7,7 @@ export type ShopItem = {
     iconUrl: string;
     isLocked: boolean;
     isEngineer?: boolean;
-    isResearcher?: boolean;
+    isScientist?: boolean;
     isPilot?: boolean;
 }
 
@@ -23,9 +23,17 @@ export function getShopItemView(shopItemEntry: Astronauts) {
         price: shopItemEntry.price,
         iconUrl: shopItemEntry.shopIconUrl,
         isEngineer: shopItemEntry.isEngineer,
-        isResearcher: shopItemEntry.isResearcher,
+        isResearcher: shopItemEntry.isScientist,
         isPilot: shopItemEntry.isPilot,
         //placeholder value, we don't computer this here
         isLocked: true
     }
+}
+
+export function sortShopItems(a: ShopItem, b: ShopItem) {
+    if (a.rating !== b.rating) {
+        return a.rating - b.rating
+    }
+
+    return a.price - b.price
 }
