@@ -1,3 +1,4 @@
+import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
 
 const ResearchIcon = () => {
@@ -32,7 +33,8 @@ export default function Science({ className }: { className?: string }) {
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
-                    <div className="h-full absolute bg-blue-darkest/60 w-full flex justify-center items-center backdrop-blur-md">
+                    <div className="h-full absolute bg-blue-darkest/60 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-md">
+                        <ColoredSprite className="h-16 w-16 image-pixelated bg-white" spriteUrl="/sprites/scienceLockedIcon.png" />
                         <div className="text-center text-white"> Hire A Researcher <br /> To Unlock Science </div>
                     </div>
                 )}
