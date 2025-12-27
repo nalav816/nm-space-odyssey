@@ -70,6 +70,10 @@
   .text-glow-green {
     text-shadow: 0px 0px 4px var(--color-green);
   }
+
+  .text-shadow {
+    text-shadow: 0px 1px 2px var(--color-blue-darkest);
+  }
   
   .section-card {
     background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
@@ -91,6 +95,10 @@
     animation: floatIn ease-out .2s forwards;
   }
 }
+
+
+
+
 
 
 

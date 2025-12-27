@@ -79,7 +79,7 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
             {disabled && (<div className="absolute w-full h-full bg-blue-darkest/50 rounded z-50" />)}
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className="text-2xl leading-none"> {shopItem.isLocked ? "???" : shopItem.name} </div>
+                <div className="text-2xl leading-none text-shadow"> {shopItem.isLocked ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(shopItem.rating)
                         .fill(0)
@@ -103,16 +103,16 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
                             />
                         ))}
                 </div>
-                <div className={`py-0.5 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green"}`}> ${shopItem.price} </div>
+                <div className={`py-0.5 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green text-glow-green"}`}> ${shopItem.price} </div>
             </div>
         </div>
     )
 }
 
 export default function Shop({ player, className, setPlayer }:
-    { player: Player, username: string, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
+    { player: Player, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
     const [category, setCategory] = useState<Category>("Astronauts")
-
+    console.log(player)
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="p-4 flex gap-2">

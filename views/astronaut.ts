@@ -15,7 +15,7 @@ export function getAstronautView (a: any) : Astronaut {
         price: a.astronautData.price,
         modelUrl: a.astronautData.modelUrl,
         isEngineer: a.astronautData.isEngineer,
-        isScientist: a.astronautData.isResearcher,
+        isScientist: a.astronautData.isScientist,
         isPilot: a.astronautData.isPilot
     }
 }

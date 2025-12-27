@@ -23,7 +23,7 @@ export function getShopItemView(shopItemEntry: Astronauts) {
         price: shopItemEntry.price,
         iconUrl: shopItemEntry.shopIconUrl,
         isEngineer: shopItemEntry.isEngineer,
-        isResearcher: shopItemEntry.isScientist,
+        isScientist: shopItemEntry.isScientist,
         isPilot: shopItemEntry.isPilot,
         //placeholder value, we don't computer this here
         isLocked: true
