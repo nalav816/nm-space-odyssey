@@ -4,7 +4,7 @@ export default function TopBar({ items = 0, itemCapacity = 0, isLaunchpad = fals
     const roomName = isLaunchpad ? "Plot" : "Room"
     const roomCount = 2
     const currRoom = 1
-    const itemIconUrl = isLaunchpad ? "/sprites/shipWingIcon.png" : "/sprites/astronautIcon.png";
+    const itemIconUrl = isLaunchpad ? "/sprites/shipIcon.png" : "/sprites/astronautIcon.png";
 
     return (
         <div className="w-full flex justify-between py-2 px-4 items-center">

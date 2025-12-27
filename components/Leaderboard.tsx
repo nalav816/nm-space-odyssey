@@ -15,12 +15,12 @@ export default function Leaderboard({className} : {className?: string}){
     ]
 
     return (
-        <SectionCard className = {className} sectionName = "Leaderboard">
-            <div className="space-y-2">
+        <SectionCard className = {`flex flex-col ${className}`} sectionName = "Leaderboard" iconUrl="/sprites/leaderboardIcon.png">
+            <div className="flex-1 min-h-0 flex flex-col my-2 px-4 gap-1 overflow-y-auto scrollbar-custom mr-4">
                 {leaderboardData.map((entry, index) => (
-                    <div key={index} className="flex items-center justify-between text-lg text-blue-lightest">
+                    <div key={index} className="flex items-center justify-between text-md text-blue-lightest">
                         <span>{index + 1}. {entry.name}</span>
-                        <span className="text-green">${entry.amount.toLocaleString()}</span>
+                        <span className="text-green text-glow-green">${entry.amount.toLocaleString()}</span>
                     </div>
                 ))}
             </div>
