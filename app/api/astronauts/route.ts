@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { purchaseAstronaut, sellAstronaut } from "@/services/playerService";
+import { purchaseAstronaut, sellAstronaut } from "@/services/shopService";
 
 export async function POST(request: Request) {
     const body = await request.json()
