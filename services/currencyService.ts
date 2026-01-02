@@ -48,7 +48,8 @@ async function updateTimestamps(username: string, now: number = Date.now()) {
         const generationStartTime = a.lastCurrencyUpdate.getTime();
         const timeElapsed = now - generationStartTime
         const secondsElapsed = Math.floor(timeElapsed / 1000)
-        await db.ownedAstronauts.update({
+
+        await db.ownedAstronauts.updateMany({
             where: { id: a.id },
             data: {
                 //subtract now from millisecond layover so we can hold on to any additional milliseconds an idlly generating astronaut may
@@ -67,8 +68,6 @@ export async function getComputedDollarCount(username: string, now:number = Date
     if (!player) throw new Error();
 
     const netWorth = player.netWorth
-
-    console.log(await getIdlyGeneratedDollars(username, now))
 
     return netWorth
 }

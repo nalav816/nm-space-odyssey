@@ -112,7 +112,6 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
 export default function Shop({ player, className, setPlayer }:
     { player: Player, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
     const [category, setCategory] = useState<Category>("Astronauts")
-    console.log(player)
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="p-4 flex gap-2">
