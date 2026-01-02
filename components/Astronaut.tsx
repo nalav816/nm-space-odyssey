@@ -76,7 +76,13 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
 
             if (!res.ok) throw new Error("Astronaut could not be sold.")
         } catch {
-
+            setPlayer((prev) => ({
+                ...prev,
+                ...{
+                    astronauts: [...prev.astronauts, astronautData],
+                    netWorth: prev.netWorth - astronautData.price
+                }
+            }))
         }
     }
 

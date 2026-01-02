@@ -86,8 +86,11 @@ const ShopItem = ({
                     })
                 }))
             } catch {
-                //handle error logic later
-
+                setPlayer((prev) => ({
+                    ...prev,
+                    netWorth: prev.netWorth + shopItem.price,
+                    astronauts: prev.astronauts.filter((a) => a.id != placeholderId)
+                }))
             }
         }
     }
