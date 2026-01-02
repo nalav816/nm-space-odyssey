@@ -29,13 +29,24 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
     )
 }
 
-const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
-    : { player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
-
-    if (shopItem.isLocked || player.netWorth < shopItem.price) disabled = true
-
+const ShopItem = ({
+    player, 
+    setPlayer, 
+    shopItem, 
+    disabled = shopItem.isLocked || player.netWorth < shopItem.price
+}:{ 
+    player: Player, 
+    setPlayer: React.Dispatch<React.SetStateAction<Player>>, 
+    shopItem: ShopItem, 
+    disabled?: boolean, 
+    locked?: boolean 
+}) => {
+    const [isDebounceActive, setIsDebounceActive] = useState<boolean>(false)
+    
     const onClick = async () => {
-        if (shopItem.price <= player.netWorth) {
+        if (shopItem.price <= player.netWorth && !isDebounceActive) {
+            setIsDebounceActive(true)
+            
             const res = await fetch("/api/astronauts", {
                 method: "POST",
                 body: JSON.stringify({
@@ -57,6 +68,8 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
                     }
                 }))
             }
+
+            setIsDebounceActive(false)
         }
     }
 
