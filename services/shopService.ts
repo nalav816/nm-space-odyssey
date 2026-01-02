@@ -1,8 +1,18 @@
-import { updatePlayerDollarCount } from "./currencyService"
+import { getComputedDollarCount, updatePlayerDollarCount } from "./currencyService"
 import { getAstronautView } from "@/views/astronaut"
 import { db } from "../lib/db"
 
 export async function purchaseAstronaut(username: string, astronautName: string) {
+    const now = Date.now()
+    const astronautPrice = await db.astronauts.findUniqueOrThrow({
+        where: {name : astronautName},
+        select: {
+            price: true
+        }
+    })
+
+    if (astronautPrice.price > await getComputedDollarCount(username, now)) throw new Error("Player cannot afford astronaut.")
+
     let astronaut = await db.ownedAstronauts.create({
         data: {
            astronautName,

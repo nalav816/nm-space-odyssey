@@ -72,8 +72,7 @@ export async function getComputedDollarCount(username: string, now:number = Date
     return netWorth
 }
 
-export async function updatePlayerDollarCount(username: string, increment: number = 0) {
-    const now = Date.now()
+export async function updatePlayerDollarCount(username: string, increment: number = 0, now:number = Date.now()) {
     const result = await db.user.update({
         where: { username },
         data: {
