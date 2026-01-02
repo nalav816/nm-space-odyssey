@@ -30,46 +30,65 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
 }
 
 const ShopItem = ({
-    player, 
-    setPlayer, 
-    shopItem, 
+    player,
+    setPlayer,
+    shopItem,
     disabled = shopItem.isLocked || player.netWorth < shopItem.price
-}:{ 
-    player: Player, 
-    setPlayer: React.Dispatch<React.SetStateAction<Player>>, 
-    shopItem: ShopItem, 
-    disabled?: boolean, 
-    locked?: boolean 
+}: {
+    player: Player,
+    setPlayer: React.Dispatch<React.SetStateAction<Player>>,
+    shopItem: ShopItem,
+    disabled?: boolean,
+    locked?: boolean
 }) => {
-    const [isDebounceActive, setIsDebounceActive] = useState<boolean>(false)
-    
-    const onClick = async () => {
-        if (shopItem.price <= player.netWorth && !isDebounceActive) {
-            setIsDebounceActive(true)
-            
-            const res = await fetch("/api/astronauts", {
-                method: "POST",
-                body: JSON.stringify({
-                    username: player.username,
-                    name: shopItem.name
-                })
-            })
 
-            if (res.ok) {
+    const onClick = async () => {
+        if (shopItem.price <= player.netWorth) {
+            const placeholderId = `placeholder-${crypto.randomUUID()}`
+
+            setPlayer((prev) => ({
+                ...prev,
+                netWorth: prev.netWorth - shopItem.price,
+                astronauts: [...prev.astronauts,
+                {
+                    id: placeholderId,
+                    price: shopItem.price,
+                    modelUrl: shopItem.modelUrl,
+                    isEngineer: shopItem.isEngineer || false,
+                    isScientist: shopItem.isScientist || false,
+                    isPilot: shopItem.isPilot || false
+                }]
+            }))
+
+            try {
+                const res = await fetch("/api/astronauts", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        username: player.username,
+                        name: shopItem.name
+                    })
+                })
+
+                if (!res.ok) throw new Error("Purchase Failed")
+
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
                 console.log(data, newAstronaut)
                 console.log(shopItem.name + " Purchased!")
                 setPlayer((prev) => ({
                     ...prev,
-                    ...{
-                        netWorth: prev.netWorth - shopItem.price,
-                        astronauts: [...prev.astronauts, newAstronaut]
-                    }
+                    astronauts: prev.astronauts.map((a) => {
+                        if (a.id == placeholderId) {
+                            return newAstronaut
+                        } else {
+                            return a
+                        }
+                    })
                 }))
-            }
+            } catch {
+                //handle error logic later
 
-            setIsDebounceActive(false)
+            }
         }
     }
 

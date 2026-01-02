@@ -29,7 +29,7 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export function Astronaut({ astronautData, player, setPlayer }: { astronautData: Astronaut, player:Player, setPlayer:React.Dispatch<React.SetStateAction<Player>>}) {
+export function Astronaut({ astronautData, player, setPlayer }: { astronautData: Astronaut, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
     const [isMouseOver, setIsMouseOver] = useState<boolean>(false)
@@ -57,22 +57,26 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     }
 
     const onSellClick = async () => {
-        const res = await fetch("/api/astronauts", {
-            method: "DELETE",
-            body: JSON.stringify({
-                username: player.username,
-                id: astronautData.id
-            })
-        })
+        setPlayer((prev) => ({
+            ...prev,
+            ...{
+                astronauts: prev.astronauts.filter((a) => a.id != astronautData.id),
+                netWorth: prev.netWorth + astronautData.price
+            }
+        }))
 
-        if (res.ok) {
-            setPlayer((prev) => ({
-                ...prev,
-                ...{
-                    astronauts: prev.astronauts.filter((a) => a.id != astronautData.id),
-                    netWorth: prev.netWorth + astronautData.price
-                }
-            }))
+        try {
+            const res = await fetch("/api/astronauts", {
+                method: "DELETE",
+                body: JSON.stringify({
+                    username: player.username,
+                    id: astronautData.id
+                })
+            })
+
+            if (!res.ok) throw new Error("Astronaut could not be sold.")
+        } catch {
+
         }
     }
 
@@ -118,9 +122,11 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
         const onMouseDown = () => {
             if (!isBeingDragged && isMouseOver) {
                 dragTimer.current = setTimeout(() => {
-                    setDragType(DragType.HoldDrag)
-                    setIsBeingDragged(true)
-                    setIsSelected(false)
+                    if (isMouseOver) {
+                        setDragType(DragType.HoldDrag)
+                        setIsBeingDragged(true)
+                        setIsSelected(false)
+                    }
                 }, 250)
             }
         }
@@ -177,7 +183,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             />
 
             {isSelected &&
-                <GameObjectMenu onActionClick={onActionClick} onSellClick={onSellClick}/>
+                <GameObjectMenu onActionClick={onActionClick} onSellClick={onSellClick} />
             }
         </div>
 
