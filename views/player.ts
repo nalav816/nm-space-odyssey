@@ -1,5 +1,5 @@
 import { getPlayerShopData } from "@/services/playerService"
-import { getComputedDollarCount } from "@/services/currencyService"
+import { getComputedNetWorth } from "@/services/currencyService"
 import { Astronaut, getAstronautView } from "./astronaut"
 import { Shop } from "./shop"
 
@@ -13,7 +13,7 @@ export type Player = {
 export async function getPlayerView(player: any) : Promise<Player> {
     return {
         username: player.username,
-        netWorth: await getComputedDollarCount(player.username),
+        netWorth: await getComputedNetWorth(player.username),
         astronauts: player.astronauts.map((a: any) => getAstronautView(a)),
         shop: await getPlayerShopData(player.username)
     }

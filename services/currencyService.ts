@@ -60,7 +60,7 @@ async function updateTimestamps(username: string, now: number = Date.now()) {
     }
 }
 
-export async function getComputedDollarCount(username: string, now:number = Date.now()) {
+export async function getComputedNetWorth(username: string, now:number = Date.now()) {
     const player = await db.user.findUnique({
         where: { username }
     })
@@ -72,11 +72,11 @@ export async function getComputedDollarCount(username: string, now:number = Date
     return netWorth
 }
 
-export async function updatePlayerDollarCount(username: string, increment: number = 0, now:number = Date.now()) {
+export async function updatePlayerNetWorth(username: string, increment: number = 0, now:number = Date.now()) {
     const result = await db.user.update({
         where: { username },
         data: {
-            netWorth: (await getComputedDollarCount(username, now)) + increment
+            netWorth: (await getComputedNetWorth(username, now)) + increment
         }
     })
 
