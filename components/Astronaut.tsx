@@ -116,7 +116,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
         }
 
         const onMouseDown = () => {
-            if (!isBeingDragged) {
+            if (!isBeingDragged && isMouseOver) {
                 dragTimer.current = setTimeout(() => {
                     setDragType(DragType.HoldDrag)
                     setIsBeingDragged(true)
@@ -140,7 +140,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             document.removeEventListener("mousedown", onMouseDown)
             document.removeEventListener("mouseup", onMouseUp)
         }
-    }, [isBeingDragged])
+    }, [isBeingDragged, isMouseOver])
 
     useEffect(() => {
         const onMouseMove = (e: MouseEvent) => {
