@@ -48,7 +48,8 @@ async function updateTimestamps(username: string, now: number = Date.now()) {
         const generationStartTime = a.lastCurrencyUpdate.getTime();
         const timeElapsed = now - generationStartTime
         const secondsElapsed = Math.floor(timeElapsed / 1000)
-        await db.ownedAstronauts.update({
+
+        await db.ownedAstronauts.updateMany({
             where: { id: a.id },
             data: {
                 //subtract now from millisecond layover so we can hold on to any additional milliseconds an idlly generating astronaut may
@@ -59,7 +60,7 @@ async function updateTimestamps(username: string, now: number = Date.now()) {
     }
 }
 
-export async function getComputedDollarCount(username: string, now:number = Date.now()) {
+export async function getComputedNetWorth(username: string, now:number = Date.now()) {
     const player = await db.user.findUnique({
         where: { username }
     })
@@ -68,17 +69,14 @@ export async function getComputedDollarCount(username: string, now:number = Date
 
     const netWorth = player.netWorth
 
-    console.log(await getIdlyGeneratedDollars(username, now))
-
     return netWorth
 }
 
-export async function updatePlayerDollarCount(username: string, increment: number = 0) {
-    const now = Date.now()
+export async function updatePlayerNetWorth(username: string, increment: number = 0, now:number = Date.now()) {
     const result = await db.user.update({
         where: { username },
         data: {
-            netWorth: (await getComputedDollarCount(username, now)) + increment
+            netWorth: (await getComputedNetWorth(username, now)) + increment
         }
     })
 

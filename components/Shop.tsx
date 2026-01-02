@@ -29,32 +29,67 @@ const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
     )
 }
 
-const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
-    : { player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>>, shopItem: ShopItem, disabled?: boolean, locked?: boolean }) => {
-
-    if (shopItem.isLocked || player.netWorth < shopItem.price) disabled = true
+const ShopItem = ({
+    player,
+    setPlayer,
+    shopItem,
+    disabled = shopItem.isLocked || player.netWorth < shopItem.price
+}: {
+    player: Player,
+    setPlayer: React.Dispatch<React.SetStateAction<Player>>,
+    shopItem: ShopItem,
+    disabled?: boolean,
+    locked?: boolean
+}) => {
 
     const onClick = async () => {
         if (shopItem.price <= player.netWorth) {
-            const res = await fetch("/api/astronauts", {
-                method: "POST",
-                body: JSON.stringify({
-                    username: player.username,
-                    name: shopItem.name
-                })
-            })
+            const placeholderId = `placeholder-${crypto.randomUUID()}`
 
-            if (res.ok) {
+            setPlayer((prev) => ({
+                ...prev,
+                netWorth: prev.netWorth - shopItem.price,
+                astronauts: [...prev.astronauts,
+                {
+                    id: placeholderId,
+                    price: shopItem.price,
+                    modelUrl: shopItem.modelUrl,
+                    isEngineer: shopItem.isEngineer || false,
+                    isScientist: shopItem.isScientist || false,
+                    isPilot: shopItem.isPilot || false
+                }]
+            }))
+
+            try {
+                const res = await fetch("/api/astronauts", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        username: player.username,
+                        name: shopItem.name
+                    })
+                })
+
+                if (!res.ok) throw new Error("Purchase Failed")
+
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
                 console.log(data, newAstronaut)
                 console.log(shopItem.name + " Purchased!")
                 setPlayer((prev) => ({
                     ...prev,
-                    ...{
-                        netWorth: prev.netWorth - shopItem.price,
-                        astronauts: [...prev.astronauts, newAstronaut]
-                    }
+                    astronauts: prev.astronauts.map((a) => {
+                        if (a.id == placeholderId) {
+                            return newAstronaut
+                        } else {
+                            return a
+                        }
+                    })
+                }))
+            } catch {
+                setPlayer((prev) => ({
+                    ...prev,
+                    netWorth: prev.netWorth + shopItem.price,
+                    astronauts: prev.astronauts.filter((a) => a.id != placeholderId)
                 }))
             }
         }
@@ -112,7 +147,6 @@ const ShopItem = ({ player, setPlayer, shopItem, disabled = false }
 export default function Shop({ player, className, setPlayer }:
     { player: Player, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
     const [category, setCategory] = useState<Category>("Astronauts")
-    console.log(player)
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="p-4 flex gap-2">

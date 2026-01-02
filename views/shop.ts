@@ -5,6 +5,7 @@ export type ShopItem = {
     rating: number;
     price: number
     iconUrl: string;
+    modelUrl: string;
     isLocked: boolean;
     isEngineer?: boolean;
     isScientist?: boolean;
@@ -22,6 +23,7 @@ export function getShopItemView(shopItemEntry: Astronauts) {
         rating: shopItemEntry.rating,
         price: shopItemEntry.price,
         iconUrl: shopItemEntry.shopIconUrl,
+        modelUrl: shopItemEntry.modelUrl,
         isEngineer: shopItemEntry.isEngineer,
         isScientist: shopItemEntry.isScientist,
         isPilot: shopItemEntry.isPilot,
