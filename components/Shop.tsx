@@ -45,6 +45,7 @@ const ShopItem = ({
     const onClick = async () => {
         if (shopItem.price <= player.netWorth) {
             const placeholderId = `placeholder-${crypto.randomUUID()}`
+            const purchaseTime = Date.now()
 
             setPlayer((prev) => ({
                 ...prev,
@@ -56,7 +57,11 @@ const ShopItem = ({
                     modelUrl: shopItem.modelUrl,
                     isEngineer: shopItem.isEngineer || false,
                     isScientist: shopItem.isScientist || false,
-                    isPilot: shopItem.isPilot || false
+                    isPilot: shopItem.isPilot || false,
+                    lastCurrencyUpdate: new Date(purchaseTime).toISOString(),
+                    isGeneratingDollars: shopItem.isScientist || false,
+                    dollarsPerSecond: shopItem.dollarsPerSecond || 0
+
                 }]
             }))
 
@@ -65,7 +70,8 @@ const ShopItem = ({
                     method: "POST",
                     body: JSON.stringify({
                         username: player.username,
-                        name: shopItem.name
+                        name: shopItem.name,
+                        purchaseTime: purchaseTime
                     })
                 })
 

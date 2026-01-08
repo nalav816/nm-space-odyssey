@@ -2,8 +2,10 @@ import { getComputedNetWorth, updatePlayerNetWorth } from "./currencyService"
 import { getAstronautView } from "@/views/astronaut"
 import { db } from "../lib/db"
 
-export async function purchaseAstronaut(username: string, astronautName: string) {
-    const now = Date.now()
+export async function purchaseAstronaut(username: string, astronautName: string, now: number) {
+    //makes sure time passed from the client matches or is very similar to currentTime to prevent exploits
+    if (Math.abs(Date.now() - now) > 2000) throw new Error("Client time is not synced with server time.")
+
     const astronautPrice = await db.astronauts.findUniqueOrThrow({
         where: {name : astronautName},
         select: {
@@ -16,7 +18,8 @@ export async function purchaseAstronaut(username: string, astronautName: string)
     let astronaut = await db.ownedAstronauts.create({
         data: {
            astronautName,
-           username
+           username,
+           lastCurrencyUpdate: new Date(now)
            
         },
         include : {
@@ -36,14 +39,16 @@ export async function purchaseAstronaut(username: string, astronautName: string)
         })
     }
 
-    updatePlayerNetWorth(username, astronaut.astronautData.price * -1)
+    updatePlayerNetWorth(username, astronaut.astronautData.price * -1, now)
 
     return getAstronautView(astronaut)
 }
 
-export async function sellAstronaut(username: string, astronautId: string) {
+export async function sellAstronaut(username: string, astronautId: string, now: number) {
+    if (Math.abs(Date.now() - now) > 2000) throw new Error("Client time is not synced with server time.")
+    
     //Update player dollar count before deletion to add any dollars the deleted astronaut might have generated
-    updatePlayerNetWorth(username)
+    await updatePlayerNetWorth(username, 0, now)
 
     const astronaut = await db.ownedAstronauts.delete({
         where: {id: astronautId},
@@ -54,7 +59,7 @@ export async function sellAstronaut(username: string, astronautId: string) {
 
     if (!astronaut) throw new Error("Astronaut to remove could not be found.")
 
-    updatePlayerNetWorth(username, astronaut.astronautData.price)
+    await updatePlayerNetWorth(username, astronaut.astronautData.price, now)
 
     return getAstronautView(astronaut)
 }

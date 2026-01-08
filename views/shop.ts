@@ -10,6 +10,7 @@ export type ShopItem = {
     isEngineer?: boolean;
     isScientist?: boolean;
     isPilot?: boolean;
+    dollarsPerSecond?: number;
 }
 
 export type Shop = {
@@ -27,6 +28,7 @@ export function getShopItemView(shopItemEntry: Astronauts) {
         isEngineer: shopItemEntry.isEngineer,
         isScientist: shopItemEntry.isScientist,
         isPilot: shopItemEntry.isPilot,
+        dollarsPerSecond: shopItemEntry.dollarsPerSecond,
         //placeholder value, we don't computer this here
         isLocked: true
     }

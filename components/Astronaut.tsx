@@ -38,6 +38,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     const [dragType, setDragType] = useState<DragType>(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const dragTimer = useRef<NodeJS.Timeout | null>(null)
+    const dollarGenerationInterval= useRef<NodeJS.Timeout | null>(null)
 
     const onMouseEnter = () => {
         setIsMouseOver(true)
@@ -57,6 +58,8 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     }
 
     const onSellClick = async () => {
+        const sellTime = Date.now()
+
         setPlayer((prev) => ({
             ...prev,
             ...{
@@ -70,7 +73,8 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
                 method: "DELETE",
                 body: JSON.stringify({
                     username: player.username,
-                    id: astronautData.id
+                    id: astronautData.id,
+                    sellTime: sellTime
                 })
             })
 
@@ -142,12 +146,12 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             if (isBeingDragged && dragType == DragType.HoldDrag) setIsBeingDragged(false)
         }
 
-
         document.addEventListener("keypress", onKeyPressed)
         document.addEventListener("mousedown", onMouseDown)
         document.addEventListener("mouseup", onMouseUp)
 
         return () => {
+            if (dragTimer.current) clearTimeout(dragTimer.current)
             document.removeEventListener("keypress", onKeyPressed)
             document.removeEventListener("mousedown", onMouseDown)
             document.removeEventListener("mouseup", onMouseUp)
@@ -163,6 +167,29 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
         return () => document.removeEventListener("mousemove", onMouseMove)
     }, [])
 
+    if (astronautData.isScientist) {
+        useEffect(() => {
+            const initialTimeout = setTimeout(() => {
+                setPlayer(prev => ({
+                        ...prev,
+                        netWorth: prev.netWorth + astronautData.dollarsPerSecond
+                }))
+
+                dollarGenerationInterval.current = setInterval(() => {
+                    setPlayer(prev => ({
+                        ...prev,
+                        netWorth: prev.netWorth + astronautData.dollarsPerSecond
+                    }))
+                }, 1000)
+            }, (Date.now() - new Date(astronautData.lastCurrencyUpdate).getTime())%1000)
+
+            return () => {
+                clearTimeout(initialTimeout)
+                if (dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
+            }
+        }, [])
+    }
+    
     return (
         <div className="relative">
             <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}

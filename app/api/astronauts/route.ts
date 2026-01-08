@@ -5,8 +5,9 @@ export async function POST(request: Request) {
     const body = await request.json()
     const username = body.username
     const astronautName = body.name
+    const purchaseTime = body.purchaseTime
 
-    const newAstronaut = await purchaseAstronaut(username, astronautName)
+    const newAstronaut = await purchaseAstronaut(username, astronautName, purchaseTime)
 
     return NextResponse.json({
         newAstronaut: newAstronaut,
@@ -18,8 +19,9 @@ export async function DELETE(request: Request) {
     const body = await request.json()
     const username = body.username
     const astronautId = body.id
+    const sellTime = body.sellTime
 
-    const deletedAstronaut = await sellAstronaut(username, astronautId)
+    const deletedAstronaut = await sellAstronaut(username, astronautId, sellTime)
 
     return NextResponse.json({
         deletedAstronaut: deletedAstronaut,

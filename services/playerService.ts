@@ -1,5 +1,4 @@
 import { Astronauts } from "@/lib/prisma-client/client"
-import { getAstronautView } from "@/views/astronaut"
 import { getShopItemView, ShopItem, sortShopItems } from "@/views/shop"
 import { getPlayerView } from "@/views/player"
 import { db } from "../lib/db"
