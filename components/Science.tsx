@@ -1,10 +1,12 @@
 import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
+import type { Player } from "@/views/player"
 
 const ResearchIcon = () => {
     return (
-        <div className="h-8 w-8 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
-            <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
+        <div className="relative h-8 w-8 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
+            <div className="absolute noise-texture w-full h-full rounded z-30" />
+            <img className="h-4 w-4 image-pixelated relative z-20" src="/sprites/placeholder.png"/>
         </div>
     );
 }
@@ -26,14 +28,14 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
     )
 }
 
-export default function Science({ className }: { className?: string }) {
-    const available = false;
+export default function Science({ player, className }: { player: Player, className?: string }) {
+    const available = player.astronauts.some((a) => a.isScientist);
 
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
-                    <div className="h-full absolute bg-blue-darkest/60 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-md">
+                    <div className="h-full z-50 absolute bg-blue-darkest/60 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-md">
                         <ColoredSprite className="h-16 w-16 image-pixelated bg-white" spriteUrl="/sprites/scienceLockedIcon.png" />
                         <div className="text-center text-white"> 
                             <div className="flex items-center gap-1">
@@ -45,7 +47,7 @@ export default function Science({ className }: { className?: string }) {
                     </div>
                 )}
 
-                <div className="h-full w-full flex flex-col">
+                <div className="relative h-full w-full flex flex-col">
                     <ResearchSection className="flex-1 min-h-0 border-b border-blue-dark" name="Current Research" maxItemCount={7}/>
                     <ResearchSection className="flex-1 min-h-0 border-b border-blue-dark" name="Queued Research" />
                     <ResearchSection className="flex-1 min-h-0" name="Available Research" />

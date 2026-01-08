@@ -45,9 +45,9 @@
 
   .noise-texture {
     background-image: url("/imgs/noiseTexture.jpg");
-    background-size: cover;
+    background-size: contain;
     pointer-events: none;
-    opacity: .25;
+    opacity: .15;
   }
 
   .image-pixelated {
