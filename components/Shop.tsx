@@ -45,7 +45,6 @@ const ShopItem = ({
     const onClick = async () => {
         if (shopItem.price <= player.netWorth) {
             const placeholderId = `placeholder-${crypto.randomUUID()}`
-            const purchaseTime = Date.now()
 
             setPlayer((prev) => ({
                 ...prev,
@@ -58,7 +57,7 @@ const ShopItem = ({
                     isEngineer: shopItem.isEngineer || false,
                     isScientist: shopItem.isScientist || false,
                     isPilot: shopItem.isPilot || false,
-                    lastCurrencyUpdate: new Date(purchaseTime).toISOString(),
+                    lastCurrencyUpdate: new Date(Date.now()).toISOString(),
                     isGeneratingDollars: shopItem.isScientist || false,
                     dollarsPerSecond: shopItem.dollarsPerSecond || 0
 
@@ -71,7 +70,6 @@ const ShopItem = ({
                     body: JSON.stringify({
                         username: player.username,
                         name: shopItem.name,
-                        purchaseTime: purchaseTime
                     })
                 })
 

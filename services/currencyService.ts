@@ -83,7 +83,7 @@ export async function updatePlayerNetWorth(username: string, increment: number =
     if (!result) throw new Error("Player dollar count could not be set.")
 
     console.log(result.netWorth)
-
+    
     await updateTimestamps(username, now)
 }
 

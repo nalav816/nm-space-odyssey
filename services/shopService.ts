@@ -2,9 +2,8 @@ import { getComputedNetWorth, updatePlayerNetWorth } from "./currencyService"
 import { getAstronautView } from "@/views/astronaut"
 import { db } from "../lib/db"
 
-export async function purchaseAstronaut(username: string, astronautName: string, now: number) {
-    //makes sure time passed from the client matches or is very similar to currentTime to prevent exploits
-    if (Math.abs(Date.now() - now) > 2000) throw new Error("Client time is not synced with server time.")
+export async function purchaseAstronaut(username: string, astronautName: string) {
+    const now = Date.now()
 
     const astronautPrice = await db.astronauts.findUniqueOrThrow({
         where: {name : astronautName},
@@ -44,8 +43,8 @@ export async function purchaseAstronaut(username: string, astronautName: string,
     return getAstronautView(astronaut)
 }
 
-export async function sellAstronaut(username: string, astronautId: string, now: number) {
-    if (Math.abs(Date.now() - now) > 2000) throw new Error("Client time is not synced with server time.")
+export async function sellAstronaut(username: string, astronautId: string) {
+    const now = Date.now()
     
     //Update player dollar count before deletion to add any dollars the deleted astronaut might have generated
     await updatePlayerNetWorth(username, 0, now)

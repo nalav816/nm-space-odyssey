@@ -58,8 +58,6 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     }
 
     const onSellClick = async () => {
-        const sellTime = Date.now()
-
         setPlayer((prev) => ({
             ...prev,
             ...{
@@ -74,7 +72,6 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
                 body: JSON.stringify({
                     username: player.username,
                     id: astronautData.id,
-                    sellTime: sellTime
                 })
             })
 
