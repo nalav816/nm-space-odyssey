@@ -118,7 +118,7 @@ const ShopItem = ({
             {disabled && (<div className="absolute w-full h-full bg-blue-darkest/50 rounded z-50" />)}
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className="text-2xl leading-none text-shadow"> {shopItem.isLocked ? "???" : shopItem.name} </div>
+                <div className="text-2xl leading-none"> {shopItem.isLocked ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(shopItem.rating)
                         .fill(0)

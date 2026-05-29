@@ -18,7 +18,7 @@ export default function Leaderboard({className} : {className?: string}){
         <SectionCard className = {`flex flex-col ${className}`} sectionName = "Leaderboard" iconUrl="/sprites/leaderboardIcon.png">
             <div className="flex-1 min-h-0 flex flex-col my-2 pl-4 px-2 gap-1 overflow-y-auto scrollbar-custom mr-4">
                 {leaderboardData.map((entry, index) => (
-                    <div key={index} className="flex items-center justify-between text-md text-blue-lightest">
+                    <div key={index} className="flex items-center justify-between text-md text-white">
                         <span>{index + 1}. {entry.name}</span>
                         <span className="text-green text-glow-green">${entry.amount.toLocaleString()}</span>
                     </div>

@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -88,7 +87,7 @@
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: var(--color-white); 
+    background: var(--color-blue-darker); 
   }
 
   .animate-floatIn {

@@ -35,8 +35,7 @@ export default function Science({ player, className }: { player: Player, classNa
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
-                    <div className="h-full z-50 absolute bg-blue-darkest/60 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-md">
-                        <ColoredSprite className="h-16 w-16 image-pixelated bg-white" spriteUrl="/sprites/scienceLockedIcon.png" />
+                    <div className="h-full z-50 absolute bg-blue-darkest/80 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-lg">
                         <div className="text-center text-white"> 
                             <div className="flex items-center gap-1">
                                 <div> Hire A <span className="text-purple"> Scientist </span> </div>
