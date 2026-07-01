@@ -139,7 +139,7 @@ const ShopItem = ({
                             />
                         ))}
                 </div>
-                <div className={`relative z-20 py-0.5 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green text-glow-green"}`}> ${shopItem.price} </div>
+                <div className={`relative z-20 py-0.5 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green-light text-glow-green"}`}> ${shopItem.price} </div>
             </div>
         </div>
     )

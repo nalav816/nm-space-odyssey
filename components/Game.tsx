@@ -23,7 +23,7 @@ export default function Game({ playerData }: { playerData:Player }) {
                         <div className="text-blue-lightest text-lg"> {player.username}'s Space Station </div>
                         <div className="flex gap-4 items-center">
                             <img className="h-8 w-8 image-pixelated image-glow-green" src="/sprites/cash.png" />
-                            <div className=" text-green text-glow-green text-lg"> ${player.netWorth} </div>
+                            <div className=" text-green-light text-glow-green text-lg"> ${player.netWorth} </div>
                         </div>
 
                     </div>
