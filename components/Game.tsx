@@ -13,7 +13,7 @@ export default function Game({ playerData }: { playerData:Player }) {
     return (
         <div className="relative bg-radial-gradient w-screen h-screen flex justify-center relative text-white font-jaro">
             <div className= "texture opacity-2 z-10"/>
-            <img className="h-screen opacity-10 blur-[2px] w-screen object-cover absolute z-0" src="/imgs/space2.jpg"></img>
+            <img className="h-screen opacity-10 w-screen blur-[1px] object-cover absolute z-0" src="/imgs/space.jpeg"></img>
             <div className="px-12 py-8 flex gap-8 h-screen w-screen max-w-7xl absolute z-20">
                 <div className="h-full basis-1/3 flex flex-col">
                     <div className="flex flex-col gap-4 pb-24">
