@@ -180,7 +180,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             </div>
 
             <TintedSprite
-                className={`hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
+                className={`relative z-10 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
                 spriteUrl={astronautData.modelUrl}
                 tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
                 onMouseEnter={onMouseEnter}
