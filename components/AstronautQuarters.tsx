@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import SectionCard from "./SectionCard"
 import TiledSprite  from "./TiledSprite"
 import TopBar from "./TopBar"
@@ -8,6 +8,7 @@ import ColoredSprite from "./ColoredSprite"
 import TintedSprite from "./TintedSprite"
 import type { Player } from "@/views/player"
 
+
 export default function EmployeesQuarters({player, setPlayer, className} : {player: Player, setPlayer:React.Dispatch<React.SetStateAction<Player>>, className?: string}){
     const ROOM_SIZE = 5
     const currRoom = 1
@@ -15,25 +16,18 @@ export default function EmployeesQuarters({player, setPlayer, className} : {play
 
     return (
         <SectionCard iconUrl={"/sprites/astronautQuartersIcon.png"} className = {"flex flex-col " + className} sectionName = "Astronaut's Quarters">
-            <div className ="flex-1 flex-col flex justify-between">
+            <div className ="m-2 border-2 border-dashed border-blue-dark rounded relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
+                <div className="z-20 texture opacity-5"/>
                 <TopBar items={player.astronauts.length} itemCapacity={ROOM_SIZE}/>
-                <div className = "h-24 w-full flex flex-col items-center">
-                    <div className="flex w-80 h-16">
-                        {player.astronauts.map((employee: any, i: number) => (
-                            <div className="w-16 h-16 flex items-end justify-center" key={i} >
-                                <Astronaut astronautData={employee} player={player} setPlayer={setPlayer}/>
-                            </div>
-                            
-                        ))}
-                        {new Array(ROOM_SIZE - player.astronauts.length).fill(0).map((_, i) => (
-                            <div className="w-16 h-16 flex items-end justify-center" key={i} >
-                                <TintedSprite className="text-blue-darkest image-pixelated" spriteUrl="/sprites/scrub.png" tintIntensity={1}/>
-                            </div>
-                        ))}
+                <div className="flex flex-col justify-end items-center h-full w-full">
+                    <div className="flex gap-6">
+                    { player.astronauts.map((a, i) => (
+                        <Astronaut key={i} astronautData={a} player={player} setPlayer={setPlayer}/>
+                    ))}
                     </div>
-                    <TiledSprite tileUrl={"/sprites/floorTile.png"} className="bg-blue-darker w-full h-8 image-pixelated"></TiledSprite>
+                    <TiledSprite className = "w-full h-8 bg-blue-dark image-pixelated" tileUrl = "/sprites/floortile.png"/>
                 </div>
-                
+              
             </div>
             
         </SectionCard>

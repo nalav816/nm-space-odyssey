@@ -70,7 +70,8 @@ const RocketPlatform = ({ rocketSprite }: { rocketSprite: string }) => {
 export default function Launchpad({ className }: { className?: string }) {
     return (
         <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
-            <div className="flex-1 min-h-0 flex-col flex justify-between">
+            <div className="border-2 border-blue-dark border-dashed relative z-20 rounded m-2 flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">
+                <div className="texture opacity-5"/>
                 <TopBar isLaunchpad={true} />
                 <div className="flex-1 min-h-0 w-full flex flex-col items-center">
                     <div className="flex-1 w-full min-h-0 px-4">
@@ -80,7 +81,7 @@ export default function Launchpad({ className }: { className?: string }) {
                         </div>
                     </div>
 
-                    <TiledSprite tileUrl={"/sprites/grassTile.png"} className="bg-blue-darker w-full h-8 image-pixelated"></TiledSprite>
+                    <TiledSprite tileUrl={"/sprites/grassTile.png"} className="bg-blue-dark w-full h-8 image-pixelated"></TiledSprite>
                 </div>
 
             </div>
