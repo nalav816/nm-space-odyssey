@@ -19,11 +19,11 @@ export default function Game({ playerData }: { playerData:Player }) {
                 <div className=" absolute top-0 right-0 pr-2 text-blue text-xs">
                      Developed by Nadden Auguste-Laventure
                 </div>
-                <div className="flex w-full items-center max-w-7xl px-12 gap-4">
+                <div className="flex w-full items-center max-w-7xl px-12 gap-4 text-sm">
                     <div>
                         <span className="text-blue-lightest"> {player.username}'s </span>Space Station
                     </div>
-                    <button className="rounded border-[1px] border-dashed border-blue bg-blue-light h-6 w-24 text-sm">
+                    <button className="rounded border-[1px] border-dashed border-blue bg-blue-light h-6 w-24">
                         Sign out
                     </button>
                     
