@@ -54,6 +54,7 @@ const ShopItem = ({
                 astronauts: [...prev.astronauts,
                 {
                     id: placeholderId,
+                    clientId: placeholderId,
                     price: shopItem.price,
                     modelUrl: shopItem.modelUrl,
                     isEngineer: shopItem.isEngineer || false,
@@ -79,18 +80,17 @@ const ShopItem = ({
 
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
-                console.log(data, newAstronaut)
-                console.log(shopItem.name + " Purchased!")
+                
                 setPlayer((prev) => ({
                     ...prev,
                     astronauts: prev.astronauts.map((a) => {
                         if (a.id == placeholderId) {
-                            return newAstronaut
+                            return {...a, id: newAstronaut.id}
                         } else {
                             return a
                         }
                     })
-                }))
+                })) 
             } catch {
                 setPlayer((prev) => ({
                     ...prev,

@@ -8,6 +8,7 @@ export type Astronaut = {
     isGeneratingDollars: boolean,
     dollarsPerSecond: number,
     lastCurrencyUpdate: string,
+    clientId?: string
 
 
 }

@@ -38,7 +38,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     const [dragType, setDragType] = useState<DragType>(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const dragTimer = useRef<NodeJS.Timeout | null>(null)
-    const dollarGenerationInterval= useRef<NodeJS.Timeout | null>(null)
+    const dollarGenerationInterval = useRef<NodeJS.Timeout | null>(null)
 
     const onMouseEnter = () => {
         setIsMouseOver(true)
@@ -164,29 +164,29 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
         return () => document.removeEventListener("mousemove", onMouseMove)
     }, [])
 
-    if (astronautData.isScientist) {
-        useEffect(() => {
-            const initialTimeout = setTimeout(() => {
+    //Scientist idle logic
+    useEffect(() => {
+        const initialTimeout = astronautData.isScientist ? setTimeout(() => {
+            setPlayer(prev => ({
+                ...prev,
+                netWorth: prev.netWorth + astronautData.dollarsPerSecond
+            }))
+
+            dollarGenerationInterval.current = setInterval(() => {
                 setPlayer(prev => ({
-                        ...prev,
-                        netWorth: prev.netWorth + astronautData.dollarsPerSecond
+                    ...prev,
+                    netWorth: prev.netWorth + astronautData.dollarsPerSecond
                 }))
+            }, 1000)
+        }, (Date.now() - new Date(astronautData.lastCurrencyUpdate).getTime()) % 1000) : "";
 
-                dollarGenerationInterval.current = setInterval(() => {
-                    setPlayer(prev => ({
-                        ...prev,
-                        netWorth: prev.netWorth + astronautData.dollarsPerSecond
-                    }))
-                }, 1000)
-            }, (Date.now() - new Date(astronautData.lastCurrencyUpdate).getTime())%1000)
 
-            return () => {
-                clearTimeout(initialTimeout)
-                if (dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
-            }
-        }, [])
-    }
-    
+        return () => {
+            if (astronautData.isScientist) clearTimeout(initialTimeout)
+            if (astronautData.isScientist && dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
+        }
+    }, [])
+
     return (
         <div className="relative">
             <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
@@ -195,11 +195,13 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
                     left: `${mouse.x - 10}px`
                 }}
             >
+
                 <TintedSprite
                     className="image-pixelated cursor-grabbing"
                     spriteUrl={astronautData.modelUrl}
                     tintIntensity={0}
                 />
+
                 <DragIndicator dragType={dragType} />
             </div>
 

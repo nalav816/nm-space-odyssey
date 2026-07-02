@@ -72,10 +72,11 @@
     width: 100%;
     height: 100%;
     background-image: url("/imgs/noiseTexture.jpg");
-    background-size: contain;
+    background-size: cover;
     pointer-events: none;
 
-  }
+  }   
+
 
   .geometric-texture {
     background-image: url("/imgs/geometry.jpg");
@@ -123,7 +124,7 @@
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: var(--color-blue-darker); 
+    background: var(--color-white); 
   }
 
   .animate-floatIn {

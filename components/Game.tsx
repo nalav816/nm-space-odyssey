@@ -14,7 +14,7 @@ export default function Game({ playerData }: { playerData:Player }) {
         <div className="relative bg-radial-gradient w-screen h-screen flex flex-col items-center text-white font-jaro">
            
             <img className="h-screen opacity-10 w-screen blur-xs object-cover absolute z-0" src="/imgs/space.jpeg"></img>
-            <div className="flex justify-center bg-blue-dark relative border-b-2 border-blue-darker border-dashed w-full h-8 z-30">
+            <div className="flex justify-center bg-blue-dark relative border-b-2 border-blue border-dashed w-full h-8 z-30">
                 <div className=" texture opacity-5"/>
                 <div className=" absolute top-0 right-0 pr-2 text-blue text-xs">
                      Developed by Nadden Auguste-Laventure
@@ -31,7 +31,7 @@ export default function Game({ playerData }: { playerData:Player }) {
                 </div>
                 
             </div>
-            <div className="px-12 py-8 flex gap-8 h-full min-h-0 w-screen max-w-7xl relative z-20">
+            <div className="px-12 py-6 flex gap-8 h-full min-h-0 w-screen max-w-7xl relative z-20">
                 <div className=" basis-1/3 min-w-0 flex flex-col">
                     <div className="flex flex-col gap-4 pb-24">
                         <div className="text-5xl title-glow">
