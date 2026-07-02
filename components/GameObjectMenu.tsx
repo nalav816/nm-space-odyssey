@@ -11,12 +11,14 @@ export default function GameObjectMenu({ isRocketObject = false, onActionClick, 
             <button onClick={onActionClick}
                 className="relative animate-floatIn hover:cursor-pointer hover:to-blue text-xs w-24 h-5 bg-radial to-blue-dark from-blue rounded shadow-md z-50 transform transition duration-200 ease-in-out hover:scale-105 border border-dashed border-blue"
             >
+                <div className="texture geometric-texture opacity-10"/>
                 {actionButtonName}
             </button>
             <button onClick={onSellClick}
                 className="relative animate-floatIn hover:cursor-pointer hover:to-red text-xs w-24 h-5 bg-radial to-red-dark from-red rounded shadow-md z-50 transform transition duration-200 ease-in-out hover:scale-105 border border-dashed border-red"
                 style={{animationDuration: ".3s"}}
             >
+                <div className="texture geometric-texture opacity-10"/>
                 {sellButtonName}
             </button>
         </div>

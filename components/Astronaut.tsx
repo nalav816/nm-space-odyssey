@@ -164,7 +164,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     }, [])
 
     return (
-        <div className="relative z-50">
+        <div className="relative">
             <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
                 style={{
                     top: `${mouse.y - 30}px`,

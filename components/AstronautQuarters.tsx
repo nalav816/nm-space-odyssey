@@ -20,7 +20,7 @@ export default function EmployeesQuarters({player, setPlayer, className} : {play
                 <div className="z-20 texture opacity-5"/>
                 <TopBar items={player.astronauts.length} itemCapacity={ROOM_SIZE}/>
                 <div className="flex flex-col justify-end items-center h-full w-full">
-                    <div className="flex gap-6">
+                    <div className="flex items-end gap-6">
                     { player.astronauts.map((a, i) => (
                         <Astronaut key={i} astronautData={a} player={player} setPlayer={setPlayer}/>
                     ))}

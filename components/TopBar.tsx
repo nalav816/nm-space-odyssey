@@ -19,7 +19,7 @@ export default function TopBar({ items = 0, itemCapacity = 0, isLaunchpad = fals
     const itemIconUrl = isLaunchpad ? "/sprites/shipIcon.png" : "/sprites/astronautIcon.png";
 
     return (
-        <div className="px-4 py-2 w-full flex flex-col min-h-0 max-h-20">
+        <div className="px-4 py-2 w-full flex flex-col min-h-0 max-h-22">
             <div className="gap-4 flex items-center">
                 <div className="text-md"> {roomName + " " + currRoom}  </div>
                 <div className="flex gap-1">
@@ -28,7 +28,7 @@ export default function TopBar({ items = 0, itemCapacity = 0, isLaunchpad = fals
                 </div>
             </div>
 
-            <div className="flex flex-wrap py-2 gap-2 min-h-0 overflow-hidden">
+            <div className="flex flex-wrap mt-2 pb-2 gap-2 min-h-0 overflow-y-scroll scrollbar-custom border-b-2 border-blue-dark">
                 {Array.from({ length: roomCount }).map((_, i) => (
                     <RoomButton key={i} number={i + 1} isActive={i+1 == currRoom} />
                 ))}
