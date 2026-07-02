@@ -12,9 +12,9 @@ export default function Game({ playerData }: { playerData:Player }) {
     
     return (
         <div className="relative bg-radial-gradient w-screen h-screen flex flex-col items-center text-white font-jaro">
-            <div className= "texture opacity-2 z-10"/>
+           
             <img className="h-screen opacity-10 w-screen blur-xs object-cover absolute z-0" src="/imgs/space.jpeg"></img>
-            <div className="flex justify-center bg-blue-dark relative border-b-2 border-blue border-dashed w-full h-10 z-30">
+            <div className="flex justify-center bg-blue-dark relative border-b-2 border-blue-darker border-dashed w-full h-8 z-30">
                 <div className=" texture opacity-5"/>
                 <div className=" absolute top-0 right-0 pr-2 text-blue text-xs">
                      Developed by Nadden Auguste-Laventure
@@ -23,7 +23,7 @@ export default function Game({ playerData }: { playerData:Player }) {
                     <div>
                         <span className="text-blue-lightest"> {player.username}'s </span>Space Station
                     </div>
-                    <button className="rounded border-[1px] border-dashed border-blue bg-blue-light h-6 w-24">
+                    <button className="rounded border-[1px] border-dashed border-blue bg-blue-light text-xs h-5 w-24">
                         Sign out
                     </button>
                     
@@ -43,7 +43,7 @@ export default function Game({ playerData }: { playerData:Player }) {
                         </div>
 
                     </div>
-                    <Shop player={player} setPlayer={setPlayer} className="min-w-80 grow w-full" />
+                    <Shop player={player} setPlayer={setPlayer} className="grow w-full" />
                 </div>
 
                 <div className="relative z-20 h-full basis-1/3 min-w-0 flex flex-col gap-8">
