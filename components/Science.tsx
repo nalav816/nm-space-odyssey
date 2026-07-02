@@ -4,9 +4,9 @@ import type { Player } from "@/views/player"
 
 const ResearchIcon = () => {
     return (
-        <div className="relative h-8 w-8 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
-            <div className="absolute noise-texture w-full h-full rounded z-30" />
-            <img className="h-4 w-4 image-pixelated relative z-20" src="/sprites/placeholder.png"/>
+        <div className=" border-[1px] border-dashed border-blue-dark relative h-10 w-10 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
+            <div className="w-full h-full texture geometric-texture opacity-10"/>
+            <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
         </div>
     );
 }
@@ -16,9 +16,10 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
     const items = new Array(itemCount).fill(0);
 
     return (
-        <div className={`w-full flex flex-col ${className}`}>
-            <div className="w-full px-4 py-2"> {name + " "} <span className="text-blue text-xs">  ({itemCount + (maxItemCount > 0 ? "/" + maxItemCount : "")}) </span> </div>
-            <div className="mx-4 flex flex-1 overflow-auto min-h-0 gap-2 flex-wrap mb-2 scrollbar-custom ">
+        <div className={`border-2 border-dashed border-blue-dark relative rounded z-30 card-radial-gradient w-full min-h-0 min-w-0 flex flex-col ${className}`}>
+            <div className ="texture opacity-5"/>
+            <div className="relative z-10 w-full px-4 py-2"> {name + " "} <span className="text-blue text-xs">  ({itemCount + (maxItemCount > 0 ? "/" + maxItemCount : "")}) </span> </div>
+            <div className="relative z-10 mx-4 flex flex-1 overflow-auto min-h-0 gap-2 flex-wrap mb-2 scrollbar-custom ">
                 {items.map((_, i) => (
                     <ResearchIcon key={i}/>
                 ))}
@@ -35,8 +36,9 @@ export default function Science({ player, className }: { player: Player, classNa
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
-                    <div className="h-full z-50 absolute bg-blue-darkest/80 w-full flex flex-col gap-2 justify-center items-center backdrop-blur-lg">
-                        <div className="text-center text-white"> 
+                    <div className="h-full rounded-b absolute z-40 bg-blue-darker w-full flex flex-col justify-center items-center">
+                        <div className="texture locks-texture z-0 opacity-2"/>
+                        <div className="relative z-10 text-center text-white"> 
                             <div className="flex items-center gap-1">
                                 <div> Hire A <span className="text-purple"> Scientist </span> </div>
                                 <ColoredSprite className="h-4 w-4 image-pixelated bg-purple" spriteUrl="/sprites/scientistIcon.png"/>
@@ -46,10 +48,9 @@ export default function Science({ player, className }: { player: Player, classNa
                     </div>
                 )}
 
-                <div className="relative h-full w-full flex flex-col">
-                    <ResearchSection className="flex-1 min-h-0 border-b border-blue-dark" name="Current Research" maxItemCount={7}/>
-                    <ResearchSection className="flex-1 min-h-0 border-b border-blue-dark" name="Queued Research" />
-                    <ResearchSection className="flex-1 min-h-0" name="Available Research" />
+                <div className="h-full w-full flex flex-col p-2 gap-2">
+                    <ResearchSection className="basis-1/3 border-b border-blue-dark" name="Current Research" maxItemCount={7}/>
+                    <ResearchSection className="basis-2/3 border-b border-blue-dark" name="Available Research" />
                 </div>
             </div>
         </SectionCard>

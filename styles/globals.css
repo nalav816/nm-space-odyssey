@@ -23,7 +23,9 @@
   --color-blue-dark: #344859;
   --color-blue-darker: #1E2A39;
   --color-blue-darkest: #111721;
+  --color-green-light: #B6E1B2;
   --color-green: #87D893;
+  --color-green-dark: #68C590;
   --color-red: #C13E40;
   --color-red-dark: #771E2C;
   --color-red-light: #EB665F;
@@ -42,11 +44,49 @@
     }
   }
 
-  .noise-texture {
+  .bg-radial-gradient {
+    background: radial-gradient(circle, var(--color-blue-darkest), var(--color-blue-darker));
+  }
+
+  .card-radial-gradient {
+    background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darker));
+  }
+ 
+
+  .image-glow-green {
+    filter: drop-shadow(0 0 10px var(--color-green));
+  }
+
+  .box-shadow {
+    box-shadow: 0 4px 10px var(--color-blue-darkest);
+  }
+
+  .hover-shadow:hover {
+    box-shadow: 0 4px 10px var(--color-blue-darkest);
+  }
+ 
+  .texture {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
     background-image: url("/imgs/noiseTexture.jpg");
     background-size: contain;
     pointer-events: none;
-    opacity: .15;
+
+  }
+
+  .geometric-texture {
+    background-image: url("/imgs/geometry.jpg");
+  }
+
+  .metallic-texture {
+    background-image: url("/imgs/metal.jpg");
+  }
+
+  .locks-texture {
+    background-image: url("/imgs/locks.jpg");
   }
 
   .image-pixelated {
@@ -74,10 +114,6 @@
     text-shadow: 0px 1px 2px var(--color-blue-darkest);
   }
   
-  .section-card {
-    background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
-  }
-
   .scrollbar-custom::-webkit-scrollbar {
     width: 4px;
   }
