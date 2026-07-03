@@ -19,10 +19,17 @@ export default function EmployeesQuarters({player, setPlayer, className} : {play
             <div className ="m-2 border-2 border-dashed border-blue-dark rounded relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
                 <div className="z-20 texture opacity-5"/>
                 <TopBar items={player.astronauts.length} itemCapacity={ROOM_SIZE}/>
-                <div className="flex flex-col justify-end items-center h-full w-full">
-                    <div className="flex items-end gap-6">
-                    { player.astronauts.map((a, i) => (
-                        <Astronaut key={i} astronautData={a} player={player} setPlayer={setPlayer}/>
+                <div className="flex flex-col justify-end h-full w-full">
+                    <div className="px-4 flex items-end justify-center w-full h-full">
+                    { new Array(ROOM_SIZE).fill(0).map((_, i) => (
+                        <div key={i} className="basis-1/5 min-w-0 flex items-end justify-center">
+                            {i < player.astronauts.length ? (
+                                <Astronaut astronautData={player.astronauts[i]} player={player} setPlayer={setPlayer}/>
+                            ) : (
+                                <TintedSprite tintIntensity={1} spriteUrl="/sprites/scrub.png" className="text-blue-darker image-pixelated"/>
+                            )}
+                        </div>
+                        
                     ))}
                     </div>
                     <TiledSprite className = "w-full h-8 bg-blue-dark image-pixelated" tileUrl = "/sprites/floortile.png"/>

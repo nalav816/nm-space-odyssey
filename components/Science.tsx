@@ -1,5 +1,6 @@
 import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
+import type { Player } from "@/views/player"
 
 const ResearchIcon = () => {
     return (
@@ -28,8 +29,8 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
     )
 }
 
-export default function Science({ className }: { className?: string }) {
-    const available = false;
+export default function Science({ player, className }: { player: Player, className?: string }) {
+    const available = player.astronauts.some((a) => a.isScientist);
 
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">

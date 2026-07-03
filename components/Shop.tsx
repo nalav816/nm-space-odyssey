@@ -54,11 +54,16 @@ const ShopItem = ({
                 astronauts: [...prev.astronauts,
                 {
                     id: placeholderId,
+                    clientId: placeholderId,
                     price: shopItem.price,
                     modelUrl: shopItem.modelUrl,
                     isEngineer: shopItem.isEngineer || false,
                     isScientist: shopItem.isScientist || false,
-                    isPilot: shopItem.isPilot || false
+                    isPilot: shopItem.isPilot || false,
+                    lastCurrencyUpdate: new Date(Date.now()).toISOString(),
+                    isGeneratingDollars: shopItem.isScientist || false,
+                    dollarsPerSecond: shopItem.dollarsPerSecond || 0
+
                 }]
             }))
 
@@ -67,7 +72,7 @@ const ShopItem = ({
                     method: "POST",
                     body: JSON.stringify({
                         username: player.username,
-                        name: shopItem.name
+                        name: shopItem.name,
                     })
                 })
 
@@ -75,18 +80,17 @@ const ShopItem = ({
 
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
-                console.log(data, newAstronaut)
-                console.log(shopItem.name + " Purchased!")
+                
                 setPlayer((prev) => ({
                     ...prev,
                     astronauts: prev.astronauts.map((a) => {
                         if (a.id == placeholderId) {
-                            return newAstronaut
+                            return {...a, id: newAstronaut.id}
                         } else {
                             return a
                         }
                     })
-                }))
+                })) 
             } catch {
                 setPlayer((prev) => ({
                     ...prev,
@@ -115,7 +119,7 @@ const ShopItem = ({
             </div>
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className={`realtive z-20 text-2xl leading-none ${disabled ? "" : "text-shadow"}`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
+                <div className={`relative z-20 text-2xl leading-none ${disabled ? "" : "text-shadow"}`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(shopItem.rating)
                         .fill(0)
