@@ -4,7 +4,6 @@ import { db } from "../lib/db"
 
 export async function purchaseAstronaut(username: string, astronautName: string) {
     const now = Date.now()
-
     const astronautPrice = await db.astronauts.findUniqueOrThrow({
         where: {name : astronautName},
         select: {
@@ -17,8 +16,7 @@ export async function purchaseAstronaut(username: string, astronautName: string)
     let astronaut = await db.ownedAstronauts.create({
         data: {
            astronautName,
-           username,
-           lastCurrencyUpdate: new Date(now)
+           username
            
         },
         include : {
@@ -38,16 +36,14 @@ export async function purchaseAstronaut(username: string, astronautName: string)
         })
     }
 
-    updatePlayerNetWorth(username, astronaut.astronautData.price * -1, now)
+    updatePlayerNetWorth(username, astronaut.astronautData.price * -1)
 
     return getAstronautView(astronaut)
 }
 
 export async function sellAstronaut(username: string, astronautId: string) {
-    const now = Date.now()
-    
     //Update player dollar count before deletion to add any dollars the deleted astronaut might have generated
-    await updatePlayerNetWorth(username, 0, now)
+    updatePlayerNetWorth(username)
 
     const astronaut = await db.ownedAstronauts.delete({
         where: {id: astronautId},
@@ -58,7 +54,7 @@ export async function sellAstronaut(username: string, astronautId: string) {
 
     if (!astronaut) throw new Error("Astronaut to remove could not be found.")
 
-    await updatePlayerNetWorth(username, astronaut.astronautData.price, now)
+    updatePlayerNetWorth(username, astronaut.astronautData.price)
 
     return getAstronautView(astronaut)
 }

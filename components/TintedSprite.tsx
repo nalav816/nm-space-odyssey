@@ -6,7 +6,6 @@ export default function TintedSprite({
     spriteUrl,
     tintIntensity = .3,
     className,
-    scale = 2,
     style,
     onMouseEnter,
     onMouseLeave,
@@ -15,7 +14,6 @@ export default function TintedSprite({
     spriteUrl: string,
     tintIntensity?: number,
     className?: string,
-    scale?: number,
     style?: React.CSSProperties
     onMouseEnter?: () => void,
     onMouseLeave?: () => void,
@@ -35,8 +33,8 @@ export default function TintedSprite({
 
         img.onload = () => {
             //All sprites in this game are scaled by 2
-            canvas.height = img.height * scale;
-            canvas.width = img.width * scale;
+            canvas.height = img.height * 2;
+            canvas.width = img.width * 2;
 
             //Fetching color attribute
             const styles = getComputedStyle(canvas)
@@ -53,7 +51,7 @@ export default function TintedSprite({
             ctx.globalCompositeOperation = "source-over"
         }
 
-    }, [tintIntensity, className, spriteUrl])
+    }, [tintIntensity, className])
 
     return (<canvas onClick={onClick} style={style} className={className} ref={canvasRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />)
 }

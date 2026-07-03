@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -29,7 +30,6 @@
   --color-red: #C13E40;
   --color-red-dark: #771E2C;
   --color-red-light: #EB665F;
-  --color-yellow: #D8C487;
   --color-purple: #7d6096;
   --font-jaro: "Jaro", sans-serif;
 }
@@ -58,10 +58,6 @@
     filter: drop-shadow(0 0 10px var(--color-green));
   }
 
-  .image-glow-yellow {
-    filter: drop-shadow(0 0 10px var(--color-yellow));
-  }
-  
   .box-shadow {
     box-shadow: 0 4px 10px var(--color-blue-darkest);
   }
@@ -80,8 +76,7 @@
     background-size: cover;
     pointer-events: none;
 
-  }   
-
+  }
 
   .geometric-texture {
     background-image: url("/imgs/geometry.jpg");

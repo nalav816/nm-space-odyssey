@@ -1,104 +1,9 @@
 "use client"
-import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 import type { Astronaut } from "@/views/astronaut"
 import type { Player } from "@/views/player"
-
-const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:Astronaut, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
-    const dollarGenerationInterval = useRef<NodeJS.Timeout | null>(null)
-    const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
-
-    const handleParticleDeletion = (particleId:string) => {
-        setMoneyEarnedParticles(prev => (
-            prev.filter(v => v.id != particleId)
-        ))
-    }
-
-    useEffect(() => {
-        const handlePayout = () => {
-             setPlayer(prev => ({
-                ...prev,
-                netWorth: prev.netWorth + astronautData.dollarsPerSecond
-            }))
-            setMoneyEarnedParticles(prev => [
-                ...prev, 
-               {
-                    id: crypto.randomUUID(),
-                    val: astronautData.dollarsPerSecond,
-                    x: -10 + Math.random() * 20,
-                    y: -140 + Math.random() * -20
-               }
-            ])
-        }
-
-        const initialTimeout = setTimeout(() => {
-            handlePayout()
-
-            dollarGenerationInterval.current = setInterval(() => {
-                handlePayout()
-            }, 1000)
-        }, (Date.now() - new Date(astronautData.lastCurrencyUpdate).getTime()) % 1000)
-
-        return () => {
-            clearTimeout(initialTimeout)
-            if (astronautData.isScientist && dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
-        }
-    }, [])
-
-    return (
-        <motion.div className="absolute -top-16 w-24 flex justify-center"
-            animate={{ y: [0, -6, 0] }}
-            transition={{
-                duration: Math.random() * 1 + 2,
-                delay: Math.random() * 1,
-                repeat: Infinity,
-                ease: "easeInOut",
-            }}
-        >
-            <TintedSprite scale={2} className="image-glow-yellow relative z-20 image-pixelated" spriteUrl="/sprites/dollarSign.png" />
-            <motion.img
-                animate={{ rotate: 360 }}
-                transition={{
-                    duration: 11,
-                    repeat: Infinity,
-                    ease: "linear",
-                }}
-                className="absolute z-10 w-24 -top-8 opacity-80 left-0 h-24" src={"/imgs/flare.png"}
-            />
-            
-            {moneyEarnedParticles.map((p, _) => (
-                <motion.div 
-                    key={p.id} 
-                    className="absolute -top-5 text-green-light text-glow-green"
-                    initial= {{
-                        x: 0,
-                        y: 0
-                    }}
-                    animate = {{
-                        x: p.x,
-                        y: p.y,
-                        opacity: 0,
-                        scale: 0
-                    }}
-                    transition = {{
-                        duration: 3,
-                        ease: "easeOut"
-                    }}
-                    onAnimationComplete={() => handleParticleDeletion(p.id)}
-
-                >
-                    +{p.val}
-                </motion.div>
-            ))
-
-            }
-            
-
-        </motion.div>
-    )
-}
 
 const DRAG_CANCEL_KEYBIND = "C"
 
@@ -165,7 +70,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
                 method: "DELETE",
                 body: JSON.stringify({
                     username: player.username,
-                    id: astronautData.id,
+                    id: astronautData.id
                 })
             })
 
@@ -237,12 +142,12 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             if (isBeingDragged && dragType == DragType.HoldDrag) setIsBeingDragged(false)
         }
 
+
         document.addEventListener("keypress", onKeyPressed)
         document.addEventListener("mousedown", onMouseDown)
         document.addEventListener("mouseup", onMouseUp)
 
         return () => {
-            if (dragTimer.current) clearTimeout(dragTimer.current)
             document.removeEventListener("keypress", onKeyPressed)
             document.removeEventListener("mousedown", onMouseDown)
             document.removeEventListener("mouseup", onMouseUp)
@@ -259,24 +164,20 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
     }, [])
 
     return (
-        <div className="flex flex-col items-center gap-8 relative">
+        <div className="relative">
             <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
                 style={{
                     top: `${mouse.y - 30}px`,
                     left: `${mouse.x - 10}px`
                 }}
             >
-
                 <TintedSprite
                     className="image-pixelated cursor-grabbing"
                     spriteUrl={astronautData.modelUrl}
                     tintIntensity={0}
                 />
-
                 <DragIndicator dragType={dragType} />
             </div>
-
-            {astronautData.isScientist && !isBeingDragged && <IdleProductionHandler astronautData={astronautData} setPlayer={setPlayer} />}
 
             <TintedSprite
                 className={`relative z-10 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
