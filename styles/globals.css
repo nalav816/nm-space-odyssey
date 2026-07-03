@@ -62,7 +62,6 @@
     filter: drop-shadow(0 0 10px var(--color-yellow));
   }
   
-
   .box-shadow {
     box-shadow: 0 4px 10px var(--color-blue-darkest);
   }

@@ -57,7 +57,7 @@ const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:As
                 ease: "easeInOut",
             }}
         >
-            <TintedSprite scale={2} className="relative z-20 image-pixelated" spriteUrl="/sprites/dollarSign.png" />
+            <TintedSprite scale={2} className="image-glow-yellow relative z-20 image-pixelated" spriteUrl="/sprites/dollarSign.png" />
             <motion.img
                 animate={{ rotate: 360 }}
                 transition={{
@@ -65,7 +65,7 @@ const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:As
                     repeat: Infinity,
                     ease: "linear",
                 }}
-                className="image-glow-yellow absolute z-10 w-24 -top-8 opacity-80 left-0 h-24" src={"/imgs/flare.png"}
+                className="absolute z-10 w-24 -top-8 opacity-80 left-0 h-24" src={"/imgs/flare.png"}
             />
             
             {moneyEarnedParticles.map((p, _) => (
