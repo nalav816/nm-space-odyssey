@@ -20,9 +20,9 @@ export default function EmployeesQuarters({player, setPlayer, className} : {play
                 <div className="z-20 texture opacity-5"/>
                 <TopBar items={player.astronauts.length} itemCapacity={ROOM_SIZE}/>
                 <div className="flex flex-col justify-end h-full w-full">
-                    <div className="px-4 flex items-end justify-center w-full">
+                    <div className="px-4 flex items-end justify-center w-full h-full">
                     { new Array(ROOM_SIZE).fill(0).map((_, i) => (
-                        <div key={i} className="basis-1/5 min-w-0 flex h-24 items-end justify-center">
+                        <div key={i} className="basis-1/5 min-w-0 flex items-end justify-center">
                             {i < player.astronauts.length ? (
                                 <Astronaut astronautData={player.astronauts[i]} player={player} setPlayer={setPlayer}/>
                             ) : (
