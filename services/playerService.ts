@@ -12,19 +12,6 @@ export async function getPlayerData(username: string){
                     astronautData: true
                 }
             },
-        }
-    })
-
-    if (!data) throw new Error()
-
-    return await getPlayerView(data)
-}
-
-export async function getPlayerShopData (username: string) {
-    //The shop displays unlocked items and locked items marked visible
-    const plrData = await db.user.findUnique({
-        where: { username },
-        include: {
             unlockedAstronauts: {
                 include: {
                     astronautData: true
@@ -33,16 +20,20 @@ export async function getPlayerShopData (username: string) {
         }
     })
 
+    if (!data) throw new Error()
+
+    return await getPlayerView(data)
+}
+
+export async function getPlayerShopData (player: any) {
     const visibleOnLock = await db.astronauts.findMany({
         where: {
             hiddenOnLock: false
         },
     })
-
-    if (!plrData || !visibleOnLock) throw new Error()
     
-    const unlocked = plrData.unlockedAstronauts.map((unlockedAstronaut) => unlockedAstronaut.astronautData)
-    const visibleYetLocked = visibleOnLock.filter((v) => !unlocked.some((v2) => v2.name == v.name))
+    const unlocked = player.unlockedAstronauts.map((ua : any) => ua.astronautData)
+    const visibleYetLocked = visibleOnLock.filter((v) => !unlocked.some((u: any) => u.name == v.name))
 
     const shopItemView = (shopItemEntry: Astronauts) => {
         return { 

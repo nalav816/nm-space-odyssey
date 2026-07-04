@@ -12,6 +12,10 @@ model User {
   passwordHash String
   isGuest      Boolean @default(true)
   netWorth     Int
+  astronautRoomCount Int @default(1)
+  roomSpaceCap Int @default(5)
+  rocketPlotCount Int @default(1)
+  plotSpaceCap Int @default(2)
 
   astronauts         OwnedAstronauts[]
   unlockedAstronauts UnlockedAstronauts[]

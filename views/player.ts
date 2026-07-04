@@ -13,8 +13,8 @@ export type Player = {
 export async function getPlayerView(player: any) : Promise<Player> {
     return {
         username: player.username,
-        netWorth: await getComputedNetWorth(player.username),
+        netWorth: await getComputedNetWorth(player),
         astronauts: player.astronauts.map((a: any) => getAstronautView(a)),
-        shop: await getPlayerShopData(player.username)
+        shop: await getPlayerShopData(player)
     }
 }
