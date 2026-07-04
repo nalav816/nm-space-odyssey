@@ -1,7 +1,6 @@
 import { db } from "../lib/db"
 
 async function getIdlyGeneratedDollars(player: any, now: number = Date.now()) {
-    console.log(player)
     if (player.astronauts.length == 0) return 0;
 
     let generated = 0;
@@ -52,8 +51,6 @@ export async function updateNetWorth(player: any, increment: number = 0, now:num
     })
 
     if (!result) throw new Error("Player dollar count could not be set.")
-
-    console.log(result.netWorth)
     
     await updateTimestamps(player, now)
 }

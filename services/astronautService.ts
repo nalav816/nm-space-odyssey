@@ -1,7 +1,42 @@
 import { getComputedNetWorth, updateNetWorth } from "./currencyService"
 import { getAstronautView } from "@/views/astronaut"
 import { db } from "../lib/db"
-import { Player } from "@/views/player"
+
+async function assignAstronautSlot(player: any, astronaut: any) {
+    let earliestAvailableSlot = 1
+    let earliestAvailableRoom = 1
+
+    player.astronauts.sort((a: any, b: any) => {
+        if (a.occupiedRoom != b.occupiedRoom) {
+            return a.occupiedRoom - b.occupiedRoom
+        }
+
+        return a.occupiedSlot - b.occupiedSlot
+    })
+
+    for (const a of player.astronauts) {
+        if (a.occupiedSlot == earliestAvailableSlot && a.occupiedRoom == earliestAvailableRoom) {
+            console.log("RAN")
+            earliestAvailableSlot += 1
+            if (earliestAvailableSlot > player.roomSpaceCap) {
+                earliestAvailableSlot = 1
+                earliestAvailableRoom += 1
+            }
+        } else {
+            break
+        }
+    }
+
+    await db.ownedAstronauts.update({
+        where: { id: astronaut.id },
+        data: {
+            occupiedRoom: earliestAvailableRoom,
+            occupiedSlot: earliestAvailableSlot
+        }
+    })
+
+    console.log(earliestAvailableRoom + " " + earliestAvailableSlot)
+}
 
 export async function purchaseAstronaut(username: string, astronautName: string) {
     const now = Date.now()
@@ -19,31 +54,38 @@ export async function purchaseAstronaut(username: string, astronautName: string)
     if (!player) throw new Error("Player can not be found.")
 
     const astronautPrice = await db.astronauts.findUniqueOrThrow({
-        where: {name : astronautName},
+        where: { name: astronautName },
         select: {
             price: true
         }
     })
 
-    if (!astronautPrice) throw new Error ("Astronaut cannot be found.")
+    if (!astronautPrice) throw new Error("Astronaut cannot be found.")
     if (astronautPrice.price > await getComputedNetWorth(player, now)) throw new Error("Player cannot afford astronaut.")
 
     let astronaut = await db.ownedAstronauts.create({
         data: {
-           astronautName,
-           username,
-           lastCurrencyUpdate: new Date(now)
-           
+            astronautName,
+            username,
+            lastCurrencyUpdate: new Date(now)
+
         },
-        include : {
+        include: {
             astronautData: true
         }
     })
 
+    //assign astronaut slot
+    try {
+        assignAstronautSlot(player, astronaut)
+    } catch (e) {
+        console.log("Astronaut slot could not be correctly assigned because of the following error: " + e)
+    }
+
     //toggle idle generation
     if (astronaut.astronautData.isScientist) {
         await db.ownedAstronauts.update({
-            where: {id: astronaut.id},
+            where: { id: astronaut.id },
             data: {
                 isGeneratingDollars: true
             }
@@ -57,7 +99,7 @@ export async function purchaseAstronaut(username: string, astronautName: string)
 
 export async function sellAstronaut(username: string, astronautId: string) {
     const now = Date.now()
-     const player = await db.user.findUnique({
+    const player = await db.user.findUnique({
         where: { username },
         include: {
             astronauts: {
@@ -69,13 +111,13 @@ export async function sellAstronaut(username: string, astronautId: string) {
     })
 
     if (!player) throw new Error("Player can not be found.")
-    
+
     //Update player dollar count before deletion to add any dollars the deleted astronaut might have generated
     await updateNetWorth(player, 0, now)
 
     const astronaut = await db.ownedAstronauts.delete({
-        where: {id: astronautId},
-        include : {
+        where: { id: astronautId },
+        include: {
             astronautData: true
         }
     })

@@ -9,8 +9,6 @@ export type Astronaut = {
     dollarsPerSecond: number,
     lastCurrencyUpdate: string,
     clientId?: string
-
-
 }
 
 export function getAstronautView (a: any) : Astronaut {
