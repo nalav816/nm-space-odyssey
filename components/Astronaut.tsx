@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 import type { Astronaut } from "@/views/astronaut"
 import type { Player } from "@/views/player"
+import { usePlayer } from "@/hooks/usePlayer"
 
 const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:Astronaut, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
     const dollarGenerationInterval = useRef<NodeJS.Timeout | null>(null)
@@ -124,7 +125,8 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export function Astronaut({ astronautData, player, setPlayer }: { astronautData: Astronaut, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
+export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
+    const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
     const [isMouseOver, setIsMouseOver] = useState<boolean>(false)

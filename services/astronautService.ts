@@ -27,15 +27,19 @@ async function assignAstronautSlot(player: any, astronaut: any) {
         }
     }
 
-    await db.ownedAstronauts.update({
+    astronaut = await db.ownedAstronauts.update({
         where: { id: astronaut.id },
         data: {
             occupiedRoom: earliestAvailableRoom,
             occupiedSlot: earliestAvailableSlot
+        },
+        include : {
+            astronautData: true
         }
     })
 
     console.log(earliestAvailableRoom + " " + earliestAvailableSlot)
+    return astronaut
 }
 
 export async function purchaseAstronaut(username: string, astronautName: string) {
@@ -58,6 +62,7 @@ export async function purchaseAstronaut(username: string, astronautName: string)
         select: {
             price: true
         }
+        
     })
 
     if (!astronautPrice) throw new Error("Astronaut cannot be found.")
@@ -77,10 +82,12 @@ export async function purchaseAstronaut(username: string, astronautName: string)
 
     //assign astronaut slot
     try {
-        assignAstronautSlot(player, astronaut)
+        astronaut = await assignAstronautSlot(player, astronaut)
     } catch (e) {
         console.log("Astronaut slot could not be correctly assigned because of the following error: " + e)
     }
+
+    console.log(astronaut)
 
     //toggle idle generation
     if (astronaut.astronautData.isScientist) {

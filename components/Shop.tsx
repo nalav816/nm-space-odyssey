@@ -4,6 +4,7 @@ import SectionCard from "./SectionCard"
 import { useState } from "react"
 import type { Player } from "@/views/player"
 import type { Shop, ShopItem } from "@/views/shop"
+import { usePlayer } from "@/hooks/usePlayer"
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
@@ -62,7 +63,9 @@ const ShopItem = ({
                     isPilot: shopItem.isPilot || false,
                     lastCurrencyUpdate: new Date(Date.now()).toISOString(),
                     isGeneratingDollars: shopItem.isScientist || false,
-                    dollarsPerSecond: shopItem.dollarsPerSecond || 0
+                    dollarsPerSecond: shopItem.dollarsPerSecond || 0,
+                    occupiedSlot: 1,
+                    occupiedRoom: 1
 
                 }]
             }))
@@ -149,8 +152,8 @@ const ShopItem = ({
     )
 }
 
-export default function Shop({ player, className, setPlayer }:
-    { player: Player, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
+export default function Shop({  className  } : {  className?: string }) {
+    const [player, setPlayer] = usePlayer();
     const [category, setCategory] = useState<Category>("Astronauts")
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
