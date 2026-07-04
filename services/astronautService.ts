@@ -2,7 +2,7 @@ import { getComputedNetWorth, updateNetWorth } from "./currencyService"
 import { getAstronautView } from "@/views/astronaut"
 import { db } from "../lib/db"
 
-async function assignAstronautSlot(player: any, astronaut: any) {
+function getAvailableAstronautSlot(player: any) {
     let earliestAvailableSlot = 1
     let earliestAvailableRoom = 1
 
@@ -16,7 +16,6 @@ async function assignAstronautSlot(player: any, astronaut: any) {
 
     for (const a of player.astronauts) {
         if (a.occupiedSlot == earliestAvailableSlot && a.occupiedRoom == earliestAvailableRoom) {
-            console.log("RAN")
             earliestAvailableSlot += 1
             if (earliestAvailableSlot > player.roomSpaceCap) {
                 earliestAvailableSlot = 1
@@ -27,18 +26,27 @@ async function assignAstronautSlot(player: any, astronaut: any) {
         }
     }
 
+    return {
+        room: earliestAvailableRoom,
+        slot: earliestAvailableSlot
+    }
+}
+
+async function assignAstronautSlot(player: any, astronaut: any) {
+    const {slot, room} = getAvailableAstronautSlot(player)
+
     astronaut = await db.ownedAstronauts.update({
         where: { id: astronaut.id },
         data: {
-            occupiedRoom: earliestAvailableRoom,
-            occupiedSlot: earliestAvailableSlot
+            occupiedRoom: room,
+            occupiedSlot: slot
         },
-        include : {
+        include: {
             astronautData: true
         }
     })
 
-    console.log(earliestAvailableRoom + " " + earliestAvailableSlot)
+    console.log(room + " " + slot)
     return astronaut
 }
 
@@ -62,7 +70,7 @@ export async function purchaseAstronaut(username: string, astronautName: string)
         select: {
             price: true
         }
-        
+
     })
 
     if (!astronautPrice) throw new Error("Astronaut cannot be found.")

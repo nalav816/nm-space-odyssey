@@ -11,8 +11,8 @@ const CategoryButton = ({ category, setCategory, active = true }: { category: Ca
         <button onClick={setCategory} className={`relative rounded w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
             ${active ? "bg-blue-light box-shadow" : "bg-blue-dark hover-shadow hover:cursor-pointer hover:bg-blue-light transition duration-300"}
-            `}> 
-                <div className= "relative z-40"> {category}  </div> 
+            `}>
+            <div className="relative z-40"> {category}  </div>
         </button>
     )
 }
@@ -46,6 +46,39 @@ const ShopItem = ({
 }) => {
 
     const onClick = async () => {
+        function getNextAvailableSlot() {
+            let earliestAvailableSlot = 1
+            let earliestAvailableRoom = 1
+
+            player.astronauts.sort((a: any, b: any) => {
+                if (a.occupiedRoom != b.occupiedRoom) {
+                    return a.occupiedRoom - b.occupiedRoom
+                }
+
+                return a.occupiedSlot - b.occupiedSlot
+            })
+
+            for (const a of player.astronauts) {
+                if (a.occupiedSlot == earliestAvailableSlot && a.occupiedRoom == earliestAvailableRoom) {
+                    earliestAvailableSlot += 1
+                    if (earliestAvailableSlot > player.roomSpaceCap) {
+                        earliestAvailableSlot = 1
+                        earliestAvailableRoom += 1
+                    }
+                } else {
+                    break
+                }
+            }
+
+            return {
+                room: earliestAvailableRoom,
+                slot: earliestAvailableSlot
+            }
+        }
+
+        const {room, slot} = getNextAvailableSlot();
+        console.log(room, slot)
+
         if (shopItem.price <= player.netWorth) {
             const placeholderId = `placeholder-${crypto.randomUUID()}`
 
@@ -55,7 +88,6 @@ const ShopItem = ({
                 astronauts: [...prev.astronauts,
                 {
                     id: placeholderId,
-                    clientId: placeholderId,
                     price: shopItem.price,
                     modelUrl: shopItem.modelUrl,
                     isEngineer: shopItem.isEngineer || false,
@@ -64,9 +96,8 @@ const ShopItem = ({
                     lastCurrencyUpdate: new Date(Date.now()).toISOString(),
                     isGeneratingDollars: shopItem.isScientist || false,
                     dollarsPerSecond: shopItem.dollarsPerSecond || 0,
-                    occupiedSlot: 1,
-                    occupiedRoom: 1
-
+                    occupiedSlot: slot,
+                    occupiedRoom: room
                 }]
             }))
 
@@ -83,17 +114,17 @@ const ShopItem = ({
 
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
-                
+
                 setPlayer((prev) => ({
                     ...prev,
                     astronauts: prev.astronauts.map((a) => {
                         if (a.id == placeholderId) {
-                            return {...a, id: newAstronaut.id}
+                            return { ...a, id: newAstronaut.id }
                         } else {
                             return a
                         }
                     })
-                })) 
+                }))
             } catch {
                 setPlayer((prev) => ({
                     ...prev,
@@ -107,12 +138,12 @@ const ShopItem = ({
     return (
         <div onClick={onClick} className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
             h-16 flex transition duration-200 ease-in-out
-            ${disabled ? "z-0 from-blue-dark to-blue-dark" : 
-            "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
+            ${disabled ? "z-0 from-blue-dark to-blue-dark" :
+                "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
             <div className="z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative">
-                <div className="z-10 texture geometric-texture opacity-10"/>
+                <div className="z-10 texture geometric-texture opacity-10" />
                 {shopItem.isLocked ?
                     (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)
                     :
@@ -152,7 +183,7 @@ const ShopItem = ({
     )
 }
 
-export default function Shop({  className  } : {  className?: string }) {
+export default function Shop({ className }: { className?: string }) {
     const [player, setPlayer] = usePlayer();
     const [category, setCategory] = useState<Category>("Astronauts")
     return (
