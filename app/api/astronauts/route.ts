@@ -3,10 +3,9 @@ import { purchaseAstronaut, sellAstronaut } from "@/services/astronautService";
 
 export async function POST(request: Request) {
     const body = await request.json()
-    const username = body.username
-    const astronautName = body.name
+    const {username, name, room, slot} = body
 
-    const newAstronaut = await purchaseAstronaut(username, astronautName)
+    const newAstronaut = await purchaseAstronaut(username, name, room, slot)
 
     return NextResponse.json({
         newAstronaut: newAstronaut,

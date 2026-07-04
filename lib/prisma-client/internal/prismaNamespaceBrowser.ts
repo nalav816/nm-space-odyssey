@@ -77,7 +77,11 @@ export const UserScalarFieldEnum = {
   username: 'username',
   passwordHash: 'passwordHash',
   isGuest: 'isGuest',
-  netWorth: 'netWorth'
+  netWorth: 'netWorth',
+  astronautRoomCount: 'astronautRoomCount',
+  roomSpaceCap: 'roomSpaceCap',
+  rocketPlotCount: 'rocketPlotCount',
+  plotSpaceCap: 'plotSpaceCap'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

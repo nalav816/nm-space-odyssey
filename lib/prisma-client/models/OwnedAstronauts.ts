@@ -254,6 +254,7 @@ export type OwnedAstronautsOrderByWithRelationInput = {
 
 export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  username_occupiedRoom_occupiedSlot?: Prisma.OwnedAstronautsUsernameOccupiedRoomOccupiedSlotCompoundUniqueInput
   AND?: Prisma.OwnedAstronautsWhereInput | Prisma.OwnedAstronautsWhereInput[]
   OR?: Prisma.OwnedAstronautsWhereInput[]
   NOT?: Prisma.OwnedAstronautsWhereInput | Prisma.OwnedAstronautsWhereInput[]
@@ -265,7 +266,7 @@ export type OwnedAstronautsWhereUniqueInput = Prisma.AtLeast<{
   occupiedSlot?: Prisma.IntFilter<"OwnedAstronauts"> | number
   astronautData?: Prisma.XOR<Prisma.AstronautsScalarRelationFilter, Prisma.AstronautsWhereInput>
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "username_occupiedRoom_occupiedSlot">
 
 export type OwnedAstronautsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -371,6 +372,12 @@ export type OwnedAstronautsListRelationFilter = {
 
 export type OwnedAstronautsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type OwnedAstronautsUsernameOccupiedRoomOccupiedSlotCompoundUniqueInput = {
+  username: string
+  occupiedRoom: number
+  occupiedSlot: number
 }
 
 export type OwnedAstronautsCountOrderByAggregateInput = {

@@ -32,6 +32,8 @@ model OwnedAstronauts {
 
   astronautData Astronauts @relation(fields: [astronautName], references: [name])
   owner         User       @relation(fields: [username], references: [username])
+
+  @@unique([username, occupiedRoom, occupiedSlot])
 }
 
 model UnlockedAstronauts {

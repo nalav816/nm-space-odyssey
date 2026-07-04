@@ -10,6 +10,36 @@ import TintedSprite from "./TintedSprite"
 import type { Player } from "@/views/player"
 import { usePlayer } from "@/hooks/usePlayer"
 
+export function getNextAvailableQuartersSlot(player: Player) {
+    let slot = 1
+    let room = 1
+
+    player.astronauts.sort((a: any, b: any) => {
+        if (a.occupiedRoom != b.occupiedRoom) {
+            return a.occupiedRoom - b.occupiedRoom
+        }
+
+        return a.occupiedSlot - b.occupiedSlot
+    })
+
+    for (const a of player.astronauts) {
+        if (a.occupiedSlot == slot && a.occupiedRoom == room) {
+            slot += 1
+            if (slot > player.roomSpaceCap) {
+                slot = 1
+                room += 1
+            }
+        } else {
+            break
+        }
+    }
+
+    return {
+        room,
+        slot
+    }
+}
+
 export default function EmployeesQuarters({ className }: { className?: string }) {
     const [player, setPlayer] = usePlayer();
     const ROOM_SIZE = 5

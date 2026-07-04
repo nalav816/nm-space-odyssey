@@ -5,6 +5,7 @@ import { useState } from "react"
 import type { Player } from "@/views/player"
 import type { Shop, ShopItem } from "@/views/shop"
 import { usePlayer } from "@/hooks/usePlayer"
+import { getNextAvailableQuartersSlot } from "./EmployeesQuarters"
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
@@ -46,38 +47,7 @@ const ShopItem = ({
 }) => {
 
     const onClick = async () => {
-        function getNextAvailableSlot() {
-            let earliestAvailableSlot = 1
-            let earliestAvailableRoom = 1
-
-            player.astronauts.sort((a: any, b: any) => {
-                if (a.occupiedRoom != b.occupiedRoom) {
-                    return a.occupiedRoom - b.occupiedRoom
-                }
-
-                return a.occupiedSlot - b.occupiedSlot
-            })
-
-            for (const a of player.astronauts) {
-                if (a.occupiedSlot == earliestAvailableSlot && a.occupiedRoom == earliestAvailableRoom) {
-                    earliestAvailableSlot += 1
-                    if (earliestAvailableSlot > player.roomSpaceCap) {
-                        earliestAvailableSlot = 1
-                        earliestAvailableRoom += 1
-                    }
-                } else {
-                    break
-                }
-            }
-
-            return {
-                room: earliestAvailableRoom,
-                slot: earliestAvailableSlot
-            }
-        }
-
-        const {room, slot} = getNextAvailableSlot();
-        console.log(room, slot)
+        const {room, slot} = getNextAvailableQuartersSlot(player);
 
         if (shopItem.price <= player.netWorth) {
             const placeholderId = `placeholder-${crypto.randomUUID()}`
@@ -107,6 +77,8 @@ const ShopItem = ({
                     body: JSON.stringify({
                         username: player.username,
                         name: shopItem.name,
+                        room: room,
+                        slot: slot
                     })
                 })
 
