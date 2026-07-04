@@ -4,13 +4,17 @@
   --foreground: #171717;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 @font-face {
   font-family: "Jaro";
   src: url("/fonts/jaro.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
-
+  
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
