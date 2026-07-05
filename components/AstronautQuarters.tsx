@@ -66,18 +66,18 @@ export default function AstronautQuarters({ className }: { className?: string })
                     setRoom={setRoom}
                 />
                 <div className="flex flex-col flex-1 justify-end w-full overflow-hidden ">
-                    <motion.div 
+                    <motion.div
                         className="flex"
-                        animate = {{
+                        animate={{
                             x: (-100 * (room - 1)) + "%"
                         }}
-                        transition = {{
+                        transition={{
                             duration: .3,
                             ease: "easeInOut"
                         }}
                     >
-                    {new Array(player.astronautRoomCount).fill(0).map((_, i) => (
-                        <div key={i} className="flex min-w-full">
+                        {new Array(player.astronautRoomCount).fill(0).map((_, i) => (
+                            <div key={i} className="flex min-w-full">
                                 {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
                                     const astronaut = player.astronauts.find(a => a.occupiedRoom == i + 1 && a.occupiedSlot == j + 1)
                                     return (
@@ -90,26 +90,28 @@ export default function AstronautQuarters({ className }: { className?: string })
                                         </div>
                                     )
                                 })}
-                        </div>
-                    ))}
+                            </div>
+                        ))}
                     </motion.div>
 
-                    <TiledSprite className="w-full h-8 bg-blue-dark image-pixelated" tileUrl="/sprites/floortile.png" />
-                    <div className="w-full px-4 pb-2 flex justify-between">
-                        <button
-                            onClick={() => handleArrowClicked(false)}
-                            disabled={room <= 1}
-                            className="disabled:opacity-0 disabled:pointer-events-none"
-                        >
-                            <ArrowLeft className="transition-transform duration-200 hover:-translate-y-1 hover:text-blue-lightest text-blue-light h-6 w-6" />
-                        </button>
-                        <button
-                            onClick={() => handleArrowClicked(true)}
-                            disabled={room >= player.astronautRoomCount}
-                            className="disabled:opacity-0 disabled:pointer-events-none"
-                        >
-                            <ArrowRight className="transition-transform duration-200 hover:-translate-y-1 hover:text-blue-lightest text-blue-light h-6 w-6" />
-                        </button>
+                    <div className="relative w-full">
+                        <TiledSprite className="w-full mb-2 h-8 bg-blue-dark image-pixelated" tileUrl="/sprites/floortile.png" />
+                        <div className="absolute top-4 left-0 w-full px-4 flex justify-between">
+                            <button
+                                onClick={() => handleArrowClicked(false)}
+                                disabled={room <= 1}
+                                className="disabled:opacity-0 disabled:pointer-events-none"
+                            >
+                                <ArrowLeft className="transition-transform duration-200 hover:-translate-y-1 hover:text-blue-lightest text-blue-light h-5 w-5" />
+                            </button>
+                            <button
+                                onClick={() => handleArrowClicked(true)}
+                                disabled={room >= player.astronautRoomCount}
+                                className="disabled:opacity-0 disabled:pointer-events-none"
+                            >
+                                <ArrowRight className="transition-transform duration-200 hover:-translate-y-1 hover:text-blue-lightest text-blue-light h-5 w-5" />
+                            </button>
+                        </div>
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@ const RoomButton = ({ number, setRoom, isActive }: { number: number, setRoom: an
     useEffect(() => {
         if (isActive) {
             button.current?.scrollIntoView({
-                 behavior: "smooth"
+                behavior: "smooth"
             })
         }
 
@@ -20,8 +20,8 @@ const RoomButton = ({ number, setRoom, isActive }: { number: number, setRoom: an
         ${isActive ? "bg-blue-light border-blue" : "bg-blue border-blue-dark"}`
             }
             onClick={() => setRoom(number)}
-            ref = {button}
-           >
+            ref={button}
+        >
             <div className="w-full h-full texture geometric-texture opacity-10" />
             {number}
         </button>
@@ -60,10 +60,12 @@ export default function TopBar(
                 </div>
             </div>
 
-            <div className="flex flex-wrap mt-2 pb-2 gap-2 min-h-0 max-h-10 overflow-y-scroll scrollbar-custom ">
-                {Array.from({ length: roomCount }).map((_, i) => (
-                    <RoomButton key={i} setRoom={setRoom} number={i + 1} isActive={i + 1 == currRoom} />
-                ))}
+            <div className="border-b-2 border-blue-dark">
+                <div className="flex flex-wrap mt-2 pb-2 gap-2 min-h-0 max-h-10 overflow-y-scroll scrollbar-custom ">
+                    {Array.from({ length: roomCount }).map((_, i) => (
+                        <RoomButton key={i} setRoom={setRoom} number={i + 1} isActive={i + 1 == currRoom} />
+                    ))}
+                </div>
             </div>
         </div>
     );

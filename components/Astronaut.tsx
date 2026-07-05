@@ -290,7 +290,7 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
             />
 
             {isSelected &&
-                <GameObjectMenu onActionClick={onActionClick} onSellClick={onSellClick} />
+                <GameObjectMenu isXOffsetRight={astronautData.occupiedSlot == player.roomSpaceCap} onActionClick={onActionClick} onSellClick={onSellClick} />
             }
         </div>
 

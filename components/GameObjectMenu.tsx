@@ -1,12 +1,12 @@
 
 
-export default function GameObjectMenu({ isRocketObject = false, onActionClick, onSellClick }:
-    { isRocketObject?: boolean, onActionClick?: () => void, onSellClick?: () => void }) {
+export default function GameObjectMenu({ isRocketObject = false, isXOffsetRight = false, onActionClick, onSellClick }:
+    { isRocketObject?: boolean, isXOffsetRight?: boolean, onActionClick?: () => void, onSellClick?: () => void }) {
     const sellButtonName = isRocketObject ? "Deconstruct" : "Fire"
     const actionButtonName = isRocketObject ? "idk yet" : "Assign Ship"
 
     return (
-        <div className="flex flex-col items-center absolute top-full ml-1 p-2 gap-2 z-50">
+        <div className={`flex flex-col items-center absolute -top-8 ${isXOffsetRight ?  "right-full" : "left-full"} ml-1 p-2 gap-2 z-50`}>
             <div className="absolute top-0 left-0 w-full h-full blur-md bg-blue-dark/90" />
             <button onClick={onActionClick}
                 className="relative animate-floatIn hover:cursor-pointer hover:to-blue text-xs w-20 h-5 bg-radial to-blue-dark from-blue rounded shadow-md z-50 transform transition duration-200 ease-in-out hover:scale-105 border border-dashed border-blue"
