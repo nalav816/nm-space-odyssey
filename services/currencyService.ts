@@ -1,18 +1,6 @@
 import { db } from "../lib/db"
 
-async function getIdlyGeneratedDollars(username: string, now: number = Date.now()) {
-    const player = await db.user.findUnique({
-        where: { username },
-        include: {
-            astronauts: {
-                include: {
-                    astronautData: true
-                }
-            }
-        }
-    })
-
-    if (!player) throw new Error();
+async function getIdlyGeneratedDollars(player: any, now: number = Date.now()) {
     if (player.astronauts.length == 0) return 0;
 
     let generated = 0;
@@ -29,19 +17,7 @@ async function getIdlyGeneratedDollars(username: string, now: number = Date.now(
     return generated
 }
 
-async function updateTimestamps(username: string, now: number = Date.now()) {
-    const player = await db.user.findUnique({
-        where: { username },
-        include: {
-            astronauts: {
-                include: {
-                    astronautData: true
-                }
-            }
-        }
-    })
-
-    if (!player) throw new Error();
+async function updateTimestamps(player: any, now: number = Date.now()) {
     if (player.astronauts.length == 0) return;
 
     for (const a of player.astronauts) {
@@ -60,31 +36,23 @@ async function updateTimestamps(username: string, now: number = Date.now()) {
     }
 }
 
-export async function getComputedNetWorth(username: string, now:number = Date.now()) {
-    const player = await db.user.findUnique({
-        where: { username }
-    })
-
-    if (!player) throw new Error();
-
-    const netWorth = player.netWorth + await getIdlyGeneratedDollars(username, now)
+export async function getComputedNetWorth(player: any, now:number = Date.now()) {
+    const netWorth = player.netWorth + await getIdlyGeneratedDollars(player, now)
 
     return netWorth
 }
 
-export async function updatePlayerNetWorth(username: string, increment: number = 0, now:number = Date.now()) {
+export async function updateNetWorth(player: any, increment: number = 0, now:number = Date.now()) {
     const result = await db.user.update({
-        where: { username },
+        where: { username: player.username },
         data: {
-            netWorth: (await getComputedNetWorth(username, now)) + increment
+            netWorth: (await getComputedNetWorth(player, now)) + increment
         }
     })
 
     if (!result) throw new Error("Player dollar count could not be set.")
-
-    console.log(result.netWorth)
     
-    await updateTimestamps(username, now)
+    await updateTimestamps(player, now)
 }
 
 

@@ -5,12 +5,13 @@ import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 import type { Astronaut } from "@/views/astronaut"
 import type { Player } from "@/views/player"
+import { usePlayer } from "@/hooks/usePlayer"
 
-const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:Astronaut, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
+const IdleProductionHandler = ({ astronautData, setPlayer }: { astronautData: Astronaut, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
     const dollarGenerationInterval = useRef<NodeJS.Timeout | null>(null)
     const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
 
-    const handleParticleDeletion = (particleId:string) => {
+    const handleParticleDeletion = (particleId: string) => {
         setMoneyEarnedParticles(prev => (
             prev.filter(v => v.id != particleId)
         ))
@@ -18,18 +19,18 @@ const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:As
 
     useEffect(() => {
         const handlePayout = () => {
-             setPlayer(prev => ({
+            setPlayer(prev => ({
                 ...prev,
                 netWorth: prev.netWorth + astronautData.dollarsPerSecond
             }))
             setMoneyEarnedParticles(prev => [
-                ...prev, 
-               {
+                ...prev,
+                {
                     id: crypto.randomUUID(),
                     val: astronautData.dollarsPerSecond,
                     x: -10 + Math.random() * 20,
                     y: -140 + Math.random() * -20
-               }
+                }
             ])
         }
 
@@ -67,22 +68,22 @@ const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:As
                 }}
                 className="absolute z-10 w-24 -top-8 opacity-80 left-0 h-24" src={"/imgs/flare.png"}
             />
-            
+
             {moneyEarnedParticles.map((p, _) => (
-                <motion.div 
-                    key={p.id} 
+                <motion.div
+                    key={p.id}
                     className="absolute -top-5 text-green-light text-glow-green"
-                    initial= {{
+                    initial={{
                         x: 0,
                         y: 0
                     }}
-                    animate = {{
+                    animate={{
                         x: p.x,
                         y: p.y,
                         opacity: 0,
                         scale: 0
                     }}
-                    transition = {{
+                    transition={{
                         duration: 3,
                         ease: "easeOut"
                     }}
@@ -94,7 +95,7 @@ const IdleProductionHandler = ( { astronautData, setPlayer } : {astronautData:As
             ))
 
             }
-            
+
 
         </motion.div>
     )
@@ -124,7 +125,8 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export function Astronaut({ astronautData, player, setPlayer }: { astronautData: Astronaut, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
+export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
+    const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
     const [isMouseOver, setIsMouseOver] = useState<boolean>(false)
@@ -288,7 +290,7 @@ export function Astronaut({ astronautData, player, setPlayer }: { astronautData:
             />
 
             {isSelected &&
-                <GameObjectMenu onActionClick={onActionClick} onSellClick={onSellClick} />
+                <GameObjectMenu isXOffsetRight={astronautData.occupiedSlot == player.roomSpaceCap} onActionClick={onActionClick} onSellClick={onSellClick} />
             }
         </div>
 

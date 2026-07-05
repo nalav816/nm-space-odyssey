@@ -28,10 +28,18 @@ export type AggregateUser = {
 
 export type UserAvgAggregateOutputType = {
   netWorth: number | null
+  astronautRoomCount: number | null
+  roomSpaceCap: number | null
+  rocketPlotCount: number | null
+  plotSpaceCap: number | null
 }
 
 export type UserSumAggregateOutputType = {
   netWorth: number | null
+  astronautRoomCount: number | null
+  roomSpaceCap: number | null
+  rocketPlotCount: number | null
+  plotSpaceCap: number | null
 }
 
 export type UserMinAggregateOutputType = {
@@ -39,6 +47,10 @@ export type UserMinAggregateOutputType = {
   passwordHash: string | null
   isGuest: boolean | null
   netWorth: number | null
+  astronautRoomCount: number | null
+  roomSpaceCap: number | null
+  rocketPlotCount: number | null
+  plotSpaceCap: number | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -46,6 +58,10 @@ export type UserMaxAggregateOutputType = {
   passwordHash: string | null
   isGuest: boolean | null
   netWorth: number | null
+  astronautRoomCount: number | null
+  roomSpaceCap: number | null
+  rocketPlotCount: number | null
+  plotSpaceCap: number | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -53,16 +69,28 @@ export type UserCountAggregateOutputType = {
   passwordHash: number
   isGuest: number
   netWorth: number
+  astronautRoomCount: number
+  roomSpaceCap: number
+  rocketPlotCount: number
+  plotSpaceCap: number
   _all: number
 }
 
 
 export type UserAvgAggregateInputType = {
   netWorth?: true
+  astronautRoomCount?: true
+  roomSpaceCap?: true
+  rocketPlotCount?: true
+  plotSpaceCap?: true
 }
 
 export type UserSumAggregateInputType = {
   netWorth?: true
+  astronautRoomCount?: true
+  roomSpaceCap?: true
+  rocketPlotCount?: true
+  plotSpaceCap?: true
 }
 
 export type UserMinAggregateInputType = {
@@ -70,6 +98,10 @@ export type UserMinAggregateInputType = {
   passwordHash?: true
   isGuest?: true
   netWorth?: true
+  astronautRoomCount?: true
+  roomSpaceCap?: true
+  rocketPlotCount?: true
+  plotSpaceCap?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -77,6 +109,10 @@ export type UserMaxAggregateInputType = {
   passwordHash?: true
   isGuest?: true
   netWorth?: true
+  astronautRoomCount?: true
+  roomSpaceCap?: true
+  rocketPlotCount?: true
+  plotSpaceCap?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -84,6 +120,10 @@ export type UserCountAggregateInputType = {
   passwordHash?: true
   isGuest?: true
   netWorth?: true
+  astronautRoomCount?: true
+  roomSpaceCap?: true
+  rocketPlotCount?: true
+  plotSpaceCap?: true
   _all?: true
 }
 
@@ -178,6 +218,10 @@ export type UserGroupByOutputType = {
   passwordHash: string
   isGuest: boolean
   netWorth: number
+  astronautRoomCount: number
+  roomSpaceCap: number
+  rocketPlotCount: number
+  plotSpaceCap: number
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -208,6 +252,10 @@ export type UserWhereInput = {
   passwordHash?: Prisma.StringFilter<"User"> | string
   isGuest?: Prisma.BoolFilter<"User"> | boolean
   netWorth?: Prisma.IntFilter<"User"> | number
+  astronautRoomCount?: Prisma.IntFilter<"User"> | number
+  roomSpaceCap?: Prisma.IntFilter<"User"> | number
+  rocketPlotCount?: Prisma.IntFilter<"User"> | number
+  plotSpaceCap?: Prisma.IntFilter<"User"> | number
   astronauts?: Prisma.OwnedAstronautsListRelationFilter
   unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }
@@ -217,6 +265,10 @@ export type UserOrderByWithRelationInput = {
   passwordHash?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
   astronauts?: Prisma.OwnedAstronautsOrderByRelationAggregateInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsOrderByRelationAggregateInput
 }
@@ -229,6 +281,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   passwordHash?: Prisma.StringFilter<"User"> | string
   isGuest?: Prisma.BoolFilter<"User"> | boolean
   netWorth?: Prisma.IntFilter<"User"> | number
+  astronautRoomCount?: Prisma.IntFilter<"User"> | number
+  roomSpaceCap?: Prisma.IntFilter<"User"> | number
+  rocketPlotCount?: Prisma.IntFilter<"User"> | number
+  plotSpaceCap?: Prisma.IntFilter<"User"> | number
   astronauts?: Prisma.OwnedAstronautsListRelationFilter
   unlockedAstronauts?: Prisma.UnlockedAstronautsListRelationFilter
 }, "username">
@@ -238,6 +294,10 @@ export type UserOrderByWithAggregationInput = {
   passwordHash?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -253,6 +313,10 @@ export type UserScalarWhereWithAggregatesInput = {
   passwordHash?: Prisma.StringWithAggregatesFilter<"User"> | string
   isGuest?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   netWorth?: Prisma.IntWithAggregatesFilter<"User"> | number
+  astronautRoomCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  roomSpaceCap?: Prisma.IntWithAggregatesFilter<"User"> | number
+  rocketPlotCount?: Prisma.IntWithAggregatesFilter<"User"> | number
+  plotSpaceCap?: Prisma.IntWithAggregatesFilter<"User"> | number
 }
 
 export type UserCreateInput = {
@@ -260,6 +324,10 @@ export type UserCreateInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
   astronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutOwnerInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutOwnerInput
 }
@@ -269,6 +337,10 @@ export type UserUncheckedCreateInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
   astronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
@@ -278,6 +350,10 @@ export type UserUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUpdateManyWithoutOwnerNestedInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutOwnerNestedInput
 }
@@ -287,6 +363,10 @@ export type UserUncheckedUpdateInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
@@ -296,6 +376,10 @@ export type UserCreateManyInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
 }
 
 export type UserUpdateManyMutationInput = {
@@ -303,6 +387,10 @@ export type UserUpdateManyMutationInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -310,6 +398,10 @@ export type UserUncheckedUpdateManyInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -317,10 +409,18 @@ export type UserCountOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -328,6 +428,10 @@ export type UserMaxOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -335,10 +439,18 @@ export type UserMinOrderByAggregateInput = {
   passwordHash?: Prisma.SortOrder
   isGuest?: Prisma.SortOrder
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
   netWorth?: Prisma.SortOrder
+  astronautRoomCount?: Prisma.SortOrder
+  roomSpaceCap?: Prisma.SortOrder
+  rocketPlotCount?: Prisma.SortOrder
+  plotSpaceCap?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -395,6 +507,10 @@ export type UserCreateWithoutAstronautsInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
   unlockedAstronauts?: Prisma.UnlockedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
@@ -403,6 +519,10 @@ export type UserUncheckedCreateWithoutAstronautsInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
 
@@ -427,6 +547,10 @@ export type UserUpdateWithoutAstronautsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
   unlockedAstronauts?: Prisma.UnlockedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
@@ -435,6 +559,10 @@ export type UserUncheckedUpdateWithoutAstronautsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
   unlockedAstronauts?: Prisma.UnlockedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
@@ -443,6 +571,10 @@ export type UserCreateWithoutUnlockedAstronautsInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
   astronauts?: Prisma.OwnedAstronautsCreateNestedManyWithoutOwnerInput
 }
 
@@ -451,6 +583,10 @@ export type UserUncheckedCreateWithoutUnlockedAstronautsInput = {
   passwordHash: string
   isGuest?: boolean
   netWorth: number
+  astronautRoomCount?: number
+  roomSpaceCap?: number
+  rocketPlotCount?: number
+  plotSpaceCap?: number
   astronauts?: Prisma.OwnedAstronautsUncheckedCreateNestedManyWithoutOwnerInput
 }
 
@@ -475,6 +611,10 @@ export type UserUpdateWithoutUnlockedAstronautsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUpdateManyWithoutOwnerNestedInput
 }
 
@@ -483,6 +623,10 @@ export type UserUncheckedUpdateWithoutUnlockedAstronautsInput = {
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
   isGuest?: Prisma.BoolFieldUpdateOperationsInput | boolean
   netWorth?: Prisma.IntFieldUpdateOperationsInput | number
+  astronautRoomCount?: Prisma.IntFieldUpdateOperationsInput | number
+  roomSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
+  rocketPlotCount?: Prisma.IntFieldUpdateOperationsInput | number
+  plotSpaceCap?: Prisma.IntFieldUpdateOperationsInput | number
   astronauts?: Prisma.OwnedAstronautsUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
@@ -531,6 +675,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   passwordHash?: boolean
   isGuest?: boolean
   netWorth?: boolean
+  astronautRoomCount?: boolean
+  roomSpaceCap?: boolean
+  rocketPlotCount?: boolean
+  plotSpaceCap?: boolean
   astronauts?: boolean | Prisma.User$astronautsArgs<ExtArgs>
   unlockedAstronauts?: boolean | Prisma.User$unlockedAstronautsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -541,6 +689,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordHash?: boolean
   isGuest?: boolean
   netWorth?: boolean
+  astronautRoomCount?: boolean
+  roomSpaceCap?: boolean
+  rocketPlotCount?: boolean
+  plotSpaceCap?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -548,6 +700,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   passwordHash?: boolean
   isGuest?: boolean
   netWorth?: boolean
+  astronautRoomCount?: boolean
+  roomSpaceCap?: boolean
+  rocketPlotCount?: boolean
+  plotSpaceCap?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -555,9 +711,13 @@ export type UserSelectScalar = {
   passwordHash?: boolean
   isGuest?: boolean
   netWorth?: boolean
+  astronautRoomCount?: boolean
+  roomSpaceCap?: boolean
+  rocketPlotCount?: boolean
+  plotSpaceCap?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"username" | "passwordHash" | "isGuest" | "netWorth", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"username" | "passwordHash" | "isGuest" | "netWorth" | "astronautRoomCount" | "roomSpaceCap" | "rocketPlotCount" | "plotSpaceCap", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   astronauts?: boolean | Prisma.User$astronautsArgs<ExtArgs>
   unlockedAstronauts?: boolean | Prisma.User$unlockedAstronautsArgs<ExtArgs>
@@ -577,6 +737,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     passwordHash: string
     isGuest: boolean
     netWorth: number
+    astronautRoomCount: number
+    roomSpaceCap: number
+    rocketPlotCount: number
+    plotSpaceCap: number
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1006,6 +1170,10 @@ export interface UserFieldRefs {
   readonly passwordHash: Prisma.FieldRef<"User", 'String'>
   readonly isGuest: Prisma.FieldRef<"User", 'Boolean'>
   readonly netWorth: Prisma.FieldRef<"User", 'Int'>
+  readonly astronautRoomCount: Prisma.FieldRef<"User", 'Int'>
+  readonly roomSpaceCap: Prisma.FieldRef<"User", 'Int'>
+  readonly rocketPlotCount: Prisma.FieldRef<"User", 'Int'>
+  readonly plotSpaceCap: Prisma.FieldRef<"User", 'Int'>
 }
     
 

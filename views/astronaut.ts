@@ -8,9 +8,9 @@ export type Astronaut = {
     isGeneratingDollars: boolean,
     dollarsPerSecond: number,
     lastCurrencyUpdate: string,
+    occupiedSlot: number,
+    occupiedRoom: number,
     clientId?: string
-
-
 }
 
 export function getAstronautView (a: any) : Astronaut {
@@ -23,6 +23,8 @@ export function getAstronautView (a: any) : Astronaut {
         isPilot: a.astronautData.isPilot,
         isGeneratingDollars: a.isGeneratingDollars,
         dollarsPerSecond: a.astronautData.dollarsPerSecond,
-        lastCurrencyUpdate: a.lastCurrencyUpdate.toISOString()
+        lastCurrencyUpdate: a.lastCurrencyUpdate.toISOString(),
+        occupiedSlot: a.occupiedSlot,
+        occupiedRoom: a.occupiedRoom
     }
 }

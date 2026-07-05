@@ -1,3 +1,4 @@
+import { usePlayer } from "@/hooks/usePlayer";
 import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
 import type { Player } from "@/views/player"
@@ -29,7 +30,8 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
     )
 }
 
-export default function Science({ player, className }: { player: Player, className?: string }) {
+export default function Science({ className }: {  className?: string }) {
+    const [player, _] = usePlayer();
     const available = player.astronauts.some((a) => a.isScientist);
 
     return (

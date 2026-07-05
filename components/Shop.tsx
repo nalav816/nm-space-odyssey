@@ -4,14 +4,16 @@ import SectionCard from "./SectionCard"
 import { useState } from "react"
 import type { Player } from "@/views/player"
 import type { Shop, ShopItem } from "@/views/shop"
+import { usePlayer } from "@/hooks/usePlayer"
+import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
         <button onClick={setCategory} className={`relative rounded w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
             ${active ? "bg-blue-light box-shadow" : "bg-blue-dark hover-shadow hover:cursor-pointer hover:bg-blue-light transition duration-300"}
-            `}> 
-                <div className= "relative z-40"> {category}  </div> 
+            `}>
+            <div className="relative z-40"> {category}  </div>
         </button>
     )
 }
@@ -35,7 +37,7 @@ const ShopItem = ({
     player,
     setPlayer,
     shopItem,
-    disabled = shopItem.isLocked || player.netWorth < shopItem.price
+    disabled = shopItem.isLocked || player.netWorth < shopItem.price || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
 }: {
     player: Player,
     setPlayer: React.Dispatch<React.SetStateAction<Player>>,
@@ -45,6 +47,8 @@ const ShopItem = ({
 }) => {
 
     const onClick = async () => {
+        const {room, slot} = getNextAvailableQuartersSlot(player);
+
         if (shopItem.price <= player.netWorth) {
             const placeholderId = `placeholder-${crypto.randomUUID()}`
 
@@ -54,7 +58,6 @@ const ShopItem = ({
                 astronauts: [...prev.astronauts,
                 {
                     id: placeholderId,
-                    clientId: placeholderId,
                     price: shopItem.price,
                     modelUrl: shopItem.modelUrl,
                     isEngineer: shopItem.isEngineer || false,
@@ -62,8 +65,9 @@ const ShopItem = ({
                     isPilot: shopItem.isPilot || false,
                     lastCurrencyUpdate: new Date(Date.now()).toISOString(),
                     isGeneratingDollars: shopItem.isScientist || false,
-                    dollarsPerSecond: shopItem.dollarsPerSecond || 0
-
+                    dollarsPerSecond: shopItem.dollarsPerSecond || 0,
+                    occupiedSlot: slot,
+                    occupiedRoom: room
                 }]
             }))
 
@@ -73,6 +77,8 @@ const ShopItem = ({
                     body: JSON.stringify({
                         username: player.username,
                         name: shopItem.name,
+                        room: room,
+                        slot: slot
                     })
                 })
 
@@ -80,17 +86,17 @@ const ShopItem = ({
 
                 const data = await res.json();
                 const newAstronaut = data.newAstronaut;
-                
+
                 setPlayer((prev) => ({
                     ...prev,
                     astronauts: prev.astronauts.map((a) => {
                         if (a.id == placeholderId) {
-                            return {...a, id: newAstronaut.id}
+                            return { ...a, id: newAstronaut.id }
                         } else {
                             return a
                         }
                     })
-                })) 
+                }))
             } catch {
                 setPlayer((prev) => ({
                     ...prev,
@@ -104,12 +110,12 @@ const ShopItem = ({
     return (
         <div onClick={onClick} className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
             h-16 flex transition duration-200 ease-in-out
-            ${disabled ? "z-0 from-blue-dark to-blue-dark" : 
-            "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
+            ${disabled ? "z-0 from-blue-dark to-blue-dark" :
+                "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
             <div className="z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative">
-                <div className="z-10 texture geometric-texture opacity-10"/>
+                <div className="z-10 texture geometric-texture opacity-10" />
                 {shopItem.isLocked ?
                     (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)
                     :
@@ -149,8 +155,8 @@ const ShopItem = ({
     )
 }
 
-export default function Shop({ player, className, setPlayer }:
-    { player: Player, className?: string, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
+export default function Shop({ className }: { className?: string }) {
+    const [player, setPlayer] = usePlayer();
     const [category, setCategory] = useState<Category>("Astronauts")
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
