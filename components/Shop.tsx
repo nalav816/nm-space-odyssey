@@ -37,7 +37,7 @@ const ShopItem = ({
     player,
     setPlayer,
     shopItem,
-    disabled = shopItem.isLocked || player.netWorth < shopItem.price
+    disabled = shopItem.isLocked || player.netWorth < shopItem.price || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
 }: {
     player: Player,
     setPlayer: React.Dispatch<React.SetStateAction<Player>>,
