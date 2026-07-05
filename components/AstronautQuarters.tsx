@@ -6,10 +6,11 @@ import { Astronaut } from "./Astronaut"
 import TintedSprite from "./TintedSprite"
 import type { Player } from "@/views/player"
 import { usePlayer } from "@/hooks/usePlayer"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { ArrowLeft } from "lucide-react"
 import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
+import useRoom from "@/hooks/useRoom"
 
 export function getNextAvailableQuartersSlot(player: Player) {
     let slot = 1
@@ -41,9 +42,9 @@ export function getNextAvailableQuartersSlot(player: Player) {
     }
 }
 
-export default function EmployeesQuarters({ className }: { className?: string }) {
+export default function AstronautQuarters({ className }: { className?: string }) {
     const [player, setPlayer] = usePlayer();
-    const [room, setRoom] = useState(1);
+    const [room, countInRoom, setRoom] = useRoom();
 
     const handleArrowClicked = (isRightArrow: boolean) => {
         if (isRightArrow) {
@@ -53,20 +54,12 @@ export default function EmployeesQuarters({ className }: { className?: string })
         }
     }
 
-    function getCountInCurrentRoom () {
-        let count = 0
-        for (const a of player.astronauts) {
-            if (a.occupiedRoom == room) count += 1
-        }
-        return count
-    }
-
     return (
         <SectionCard iconUrl={"/sprites/astronautQuartersIcon.png"} className={"flex flex-col " + className} sectionName="Astronaut's Quarters">
             <div className="m-2 border-2 border-dashed border-blue-dark rounded relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
                 <div className="z-20 texture opacity-5" />
                 <TopBar
-                    items={getCountInCurrentRoom()}
+                    items={countInRoom}
                     itemCapacity={player.roomSpaceCap}
                     currRoom={room}
                     roomCount={player.astronautRoomCount}

@@ -3,7 +3,7 @@ import Shop from "../components/Shop";
 import Leaderboard from "../components/Leaderboard";
 import Science from "@/components/Science";
 import Launchpad from "@/components/Launchpad";
-import EmployeesQuarters from "@/components/EmployeesQuarters";
+import AstronautQuarters from "@/components/AstronautQuarters";
 import { useState, createContext, Dispatch, SetStateAction } from "react";
 import { Player } from "@/views/player";
 
@@ -50,7 +50,7 @@ export default function Game({ playerData }: { playerData: Player }) {
                     </div>
 
                     <div className="relative z-20 h-full basis-1/3 min-w-0 flex flex-col gap-8">
-                        <EmployeesQuarters className="relative z-20 basis-1/2 w-full min-h-0" />
+                        <AstronautQuarters className="relative z-20 basis-1/2 w-full min-h-0" />
                         <Launchpad className="relative z-10 basis-1/2 w-full min-h-0" />
                     </div>
 

@@ -5,7 +5,7 @@ import { useState } from "react"
 import type { Player } from "@/views/player"
 import type { Shop, ShopItem } from "@/views/shop"
 import { usePlayer } from "@/hooks/usePlayer"
-import { getNextAvailableQuartersSlot } from "./EmployeesQuarters"
+import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 
 const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
