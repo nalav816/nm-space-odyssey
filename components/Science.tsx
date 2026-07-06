@@ -42,8 +42,8 @@ export default function Science({ className }: {  className?: string }) {
                         <div className="texture locks-texture z-0 opacity-2"/>
                         <div className="relative z-10 text-center text-white"> 
                             <div className="flex items-center gap-1">
-                                <div> Hire A <span className="text-purple"> Scientist </span> </div>
-                                <ColoredSprite className="h-4 w-4 image-pixelated bg-purple" spriteUrl="/sprites/scientistIcon.png"/>
+                                <div> Hire A <span className="text-blue"> Scientist </span> </div>
+                                <ColoredSprite className="h-4 w-4 image-pixelated bg-blue" spriteUrl="/sprites/scientistIcon.png"/>
                             </div>
                             <div> To Unlock Science </div>
                         </div>
