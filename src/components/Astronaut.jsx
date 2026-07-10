@@ -1,14 +1,13 @@
-"use client"
 import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 
-const IdleProductionHandler = ({ astronautData, setPlayer }: { astronautData: Astronaut, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
+const IdleProductionHandler = ({ astronautData, setPlayer }) => {
     const dollarGenerationInterval = useRef<NodeJS.Timeout | null>(null)
     const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
 
-    const handleParticleDeletion = (particleId: string) => {
+    const handleParticleDeletion = (particleId) => {
         setMoneyEarnedParticles(prev => (
             prev.filter(v => v.id != particleId)
         ))
@@ -108,9 +107,7 @@ const DragType = {
     HoldDrag: "HoldDrag"
 }
 
-type DragType = typeof DragType[keyof typeof DragType]
-
-const DragIndicator = ({ dragType }: { dragType: DragType }) => {
+const DragIndicator = ({ dragType }) => {
     return (
         <div className="absolute top-full left-0 w-full pt-2 flex justify-center">
             <div className="relative shrink-0 text-xs text-center z-20">
@@ -122,7 +119,7 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     )
 }
 
-export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
+export function Astronaut({ astronautData }) {
     const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState<number>(0)
@@ -181,7 +178,7 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
     }
 
     useEffect(() => {
-        let frame: number;
+        let frame;
 
         const animate = () => {
             setTintAnim((prev) => {
@@ -202,7 +199,7 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
     }, [isMouseOver, isSelected])
 
     useEffect(() => {
-        const onClickAnywhere = (event: MouseEvent) => {
+        const onClickAnywhere = (event) => {
             if (isSelected) {
                 setIsSelected(false)
             }
@@ -213,7 +210,7 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
     }, [isSelected])
 
     useEffect(() => {
-        const onKeyPressed = (e: KeyboardEvent) => {
+        const onKeyPressed = (e) => {
             if (e.key.toLowerCase() == DRAG_CANCEL_KEYBIND.toLowerCase() && isBeingDragged && dragType == DragType.ActionDrag) {
                 setIsBeingDragged(false)
             }
@@ -249,7 +246,7 @@ export function Astronaut({ astronautData }: { astronautData: Astronaut }) {
     }, [isBeingDragged, isMouseOver])
 
     useEffect(() => {
-        const onMouseMove = (e: MouseEvent) => {
+        const onMouseMove = (e) => {
             setMouse({ x: e.clientX, y: e.clientY })
         }
 

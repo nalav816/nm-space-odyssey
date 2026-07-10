@@ -1,4 +1,4 @@
-export default function SectionCard({ children, className, sectionName, iconUrl = "/sprites/placeholder.png" } : {children?: React.ReactNode, className?: string, sectionName?: string, iconUrl?: string}){
+export default function SectionCard({ children, className, sectionName, iconUrl = "/sprites/placeholder.png" }){
     return (
         <div className = {"relative box-shadow bg-blue rounded-md z-10 " + className}>
             <div className = "rounded-md texture metallic-texture opacity-60 z-20" />

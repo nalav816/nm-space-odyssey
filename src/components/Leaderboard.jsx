@@ -1,6 +1,6 @@
 import SectionCard from "./SectionCard"
 
-export default function Leaderboard({className} : {className?: string}){
+export default function Leaderboard({className}){
     const leaderboardData = [
         { name: "Alex Johnson", amount: 5000 },
         { name: "Sam Williams", amount: 4750 },

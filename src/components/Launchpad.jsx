@@ -1,19 +1,13 @@
-"use client"
 import SectionCard from "./SectionCard"
 import TiledSprite from "./TiledSprite"
 import TopBar from "./TopBar"
 import ColoredSprite from "./ColoredSprite"
 import { useState, useEffect } from "react"
 
-type Size = {
-    width: number,
-    height: number
-}
-
-const RocketPlatform = ({ rocketSprite }: { rocketSprite: string }) => {
-    const [rocketSize, setRocketSize] = useState<Size>({ width: 1, height: 1 });
+const RocketPlatform = ({ rocketSprite }) => {
+    const [rocketSize, setRocketSize] = useState({ width: 1, height: 1 });
     //we can use number here cause tiles are square
-    const [platformTileSize, setPlatformTileSize] = useState<number>(1)
+    const [platformTileSize, setPlatformTileSize] = useState(1)
 
     useEffect(() => {
         const rocketImg = new Image();
@@ -67,7 +61,7 @@ const RocketPlatform = ({ rocketSprite }: { rocketSprite: string }) => {
     )
 }
 
-export default function Launchpad({ className }: { className?: string }) {
+export default function Launchpad({ className }) {
     return (
         <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
             <div className="border-2 border-blue-dark border-dashed relative z-20 rounded m-2 flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">

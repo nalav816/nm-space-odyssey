@@ -1,5 +1,4 @@
-"use client"
-import { PlayerContext } from "@/components/Game";
+import { PlayerContext } from "../components/Game";
 import { useContext } from "react";
 
 export function usePlayer() {

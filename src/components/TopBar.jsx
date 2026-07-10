@@ -1,8 +1,8 @@
 import ColoredSprite from "./ColoredSprite";
 import { useEffect, useRef } from "react";
 
-const RoomButton = ({ number, setRoom, isActive }: { number: number, setRoom: any, isActive: boolean }) => {
-    const button = useRef<HTMLButtonElement | null>(null)
+const RoomButton = ({ number, setRoom, isActive }) => {
+    const button = useRef(null)
 
     useEffect(() => {
         if (isActive) {
@@ -35,17 +35,8 @@ export default function TopBar(
         currRoom = 1,
         roomCount = 0,
         isLaunchpad = false,
-        setRoom = (a: number) => 1 + 2
+        setRoom = (a) => 1 + 2
     }
-        :
-        {
-            items?: number,
-            itemCapacity?: number,
-            currRoom?: number,
-            roomCount?: number,
-            isLaunchpad?: boolean,
-            setRoom?: any
-        }
 ) {
     const roomName = isLaunchpad ? "Plot" : "Room"
     const itemIconUrl = isLaunchpad ? "/sprites/shipIcon.png" : "/sprites/astronautIcon.png";

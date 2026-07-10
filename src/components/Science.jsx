@@ -1,18 +1,17 @@
-import { usePlayer } from "@/hooks/usePlayer";
+import { usePlayer } from "../hooks/usePlayer";
 import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
-import type { Player } from "@/views/player"
 
 const ResearchIcon = () => {
     return (
-        <div className=" border-[1px] border-dashed border-blue-dark relative h-10 w-10 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
+        <div className=" border border-dashed border-blue-dark relative h-10 w-10 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
             <div className="w-full h-full texture geometric-texture opacity-10"/>
             <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
         </div>
     );
 }
 
-const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, className?: string, maxItemCount?: number}) => {
+const ResearchSection = ({ name, className, maxItemCount=-1 }) => {
     const itemCount = 4
     const items = new Array(itemCount).fill(0);
 
@@ -30,7 +29,7 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
     )
 }
 
-export default function Science({ className }: {  className?: string }) {
+export default function Science({ className }) {
     const [player, _] = usePlayer();
     const available = player.astronauts.some((a) => a.isScientist);
 

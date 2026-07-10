@@ -1,22 +1,20 @@
-"use client"
 import SectionCard from "./SectionCard"
 import TiledSprite from "./TiledSprite"
 import TopBar from "./TopBar"
 import { Astronaut } from "./Astronaut"
 import TintedSprite from "./TintedSprite"
-import type { Player } from "@/views/player"
-import { usePlayer } from "@/hooks/usePlayer"
+import { usePlayer } from "../hooks/usePlayer"
 import { useEffect, useState, useRef } from "react"
 import { ArrowLeft } from "lucide-react"
 import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
-import useRoom from "@/hooks/useRoom"
+import useRoom from "../hooks/useRoom"
 
-export function getNextAvailableQuartersSlot(player: Player) {
+export function getNextAvailableQuartersSlot(player) {
     let slot = 1
     let room = 1
 
-    player.astronauts.sort((a: any, b: any) => {
+    player.astronauts.sort((a, b) => {
         if (a.occupiedRoom != b.occupiedRoom) {
             return a.occupiedRoom - b.occupiedRoom
         }
@@ -42,11 +40,11 @@ export function getNextAvailableQuartersSlot(player: Player) {
     }
 }
 
-export default function AstronautQuarters({ className }: { className?: string }) {
+export default function AstronautQuarters({ className }) {
     const [player, setPlayer] = usePlayer();
     const [room, countInRoom, setRoom] = useRoom();
 
-    const handleArrowClicked = (isRightArrow: boolean) => {
+    const handleArrowClicked = (isRightArrow) => {
         if (isRightArrow) {
             setRoom(prev => prev + 1)
         } else {
@@ -95,7 +93,7 @@ export default function AstronautQuarters({ className }: { className?: string })
                     </motion.div>
 
                     <div className="relative w-full">
-                        <TiledSprite className="w-full mb-2 h-8 bg-blue-dark image-pixelated" tileUrl="/sprites/floortile.png" />
+                        <TiledSprite className="w-full mb-2 h-8 bg-blue-dark image-pixelated" tileUrl="/sprites/floorTile.png" />
                         <div className="absolute top-4 left-0 w-full px-4 flex justify-between">
                             <button
                                 onClick={() => handleArrowClicked(false)}

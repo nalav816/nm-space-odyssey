@@ -15,6 +15,10 @@ button:hover {
   font-weight: 400;
   font-style: normal;
 }
+
+body {
+  font-family: "Jaro";
+}
    
 @theme {
   --color-background: var(--background);

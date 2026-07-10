@@ -1,5 +1,3 @@
-"use client"
-
 import { useRef, useEffect } from "react"
 
 export default function TintedSprite({
@@ -11,17 +9,8 @@ export default function TintedSprite({
     onMouseEnter,
     onMouseLeave,
     onClick
-}: {
-    spriteUrl: string,
-    tintIntensity?: number,
-    className?: string,
-    scale?: number,
-    style?: React.CSSProperties
-    onMouseEnter?: () => void,
-    onMouseLeave?: () => void,
-    onClick?: () => void
 }) {
-    const canvasRef = useRef<HTMLCanvasElement>(null)
+    const canvasRef = useRef(null)
 
     useEffect(() => {
         const canvas = canvasRef.current

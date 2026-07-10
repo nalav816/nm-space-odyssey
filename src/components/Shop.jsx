@@ -1,13 +1,10 @@
-'use client'
 import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
 import { useState } from "react"
-import type { Player } from "@/views/player"
-import type { Shop, ShopItem } from "@/views/shop"
-import { usePlayer } from "@/hooks/usePlayer"
-import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
+import { usePlayer } from "../hooks/usePlayer"
+//import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 
-const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
+const CategoryButton = ({ category, setCategory, active = true }) => {
     return (
         <button onClick={setCategory} className={`relative rounded w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
@@ -18,9 +15,7 @@ const CategoryButton = ({ category, setCategory, active = true }: { category: Ca
     )
 }
 
-type Category = keyof Shop;
-
-const JobIndicator = ({ shopItem }: { shopItem: ShopItem }) => {
+const JobIndicator = ({ shopItem }) => {
     return (
         <div className="absolute right-0 top-0">
             <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darker/70" />
@@ -38,12 +33,6 @@ const ShopItem = ({
     setPlayer,
     shopItem,
     disabled = shopItem.isLocked || player.netWorth < shopItem.price || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
-}: {
-    player: Player,
-    setPlayer: React.Dispatch<React.SetStateAction<Player>>,
-    shopItem: ShopItem,
-    disabled?: boolean,
-    locked?: boolean
 }) => {
 
     const onClick = async () => {
@@ -70,40 +59,6 @@ const ShopItem = ({
                     occupiedRoom: room
                 }]
             }))
-
-            try {
-                const res = await fetch("/api/astronauts", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        username: player.username,
-                        name: shopItem.name,
-                        room: room,
-                        slot: slot
-                    })
-                })
-
-                if (!res.ok) throw new Error("Purchase Failed")
-
-                const data = await res.json();
-                const newAstronaut = data.newAstronaut;
-
-                setPlayer((prev) => ({
-                    ...prev,
-                    astronauts: prev.astronauts.map((a) => {
-                        if (a.id == placeholderId) {
-                            return { ...a, id: newAstronaut.id }
-                        } else {
-                            return a
-                        }
-                    })
-                }))
-            } catch {
-                setPlayer((prev) => ({
-                    ...prev,
-                    netWorth: prev.netWorth + shopItem.price,
-                    astronauts: prev.astronauts.filter((a) => a.id != placeholderId)
-                }))
-            }
         }
     }
 
@@ -155,9 +110,9 @@ const ShopItem = ({
     )
 }
 
-export default function Shop({ className }: { className?: string }) {
+export default function Shop({ className }) {
     const [player, setPlayer] = usePlayer();
-    const [category, setCategory] = useState<Category>("Astronauts")
+    const [category, setCategory] = useState("Astronauts")
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="relative p-4 flex gap-2">
