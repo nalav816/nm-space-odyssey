@@ -2,7 +2,7 @@ import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
 import { useState } from "react"
 import { usePlayer } from "../hooks/usePlayer"
-//import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
+import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 
 const CategoryButton = ({ category, setCategory, active = true }) => {
     return (
@@ -69,7 +69,7 @@ const ShopItem = ({
                 "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
-            <div className="z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative">
+            <div className="z-30 h-16 w-16 bg-blue-dark  relative">
                 <div className="z-10 texture geometric-texture opacity-10" />
                 {shopItem.isLocked ?
                     (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)

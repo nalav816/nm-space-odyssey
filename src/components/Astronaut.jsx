@@ -1,10 +1,11 @@
 import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
+import { usePlayer } from "../hooks/usePlayer"
 import GameObjectMenu from "./GameObjectMenu"
 
 const IdleProductionHandler = ({ astronautData, setPlayer }) => {
-    const dollarGenerationInterval = useRef<NodeJS.Timeout | null>(null)
+    const dollarGenerationInterval = useRef(null)
     const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
 
     const handleParticleDeletion = (particleId) => {
@@ -122,13 +123,13 @@ const DragIndicator = ({ dragType }) => {
 export function Astronaut({ astronautData }) {
     const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
-    const [tintAnim, setTintAnim] = useState<number>(0)
-    const [isMouseOver, setIsMouseOver] = useState<boolean>(false)
-    const [isSelected, setIsSelected] = useState<boolean>(false)
-    const [isBeingDragged, setIsBeingDragged] = useState<boolean>(false)
-    const [dragType, setDragType] = useState<DragType>(DragType.ActionDrag)
+    const [tintAnim, setTintAnim] = useState(0)
+    const [isMouseOver, setIsMouseOver] = useState(false)
+    const [isSelected, setIsSelected] = useState(false)
+    const [isBeingDragged, setIsBeingDragged] = useState(false)
+    const [dragType, setDragType] = useState(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
-    const dragTimer = useRef<NodeJS.Timeout | null>(null)
+    const dragTimer = useRef(null)
 
     const onMouseEnter = () => {
         setIsMouseOver(true)
@@ -139,6 +140,7 @@ export function Astronaut({ astronautData }) {
     }
 
     const onClick = () => {
+        console.log("toggled")
         setIsSelected((prev) => !prev)
     }
 
@@ -155,26 +157,6 @@ export function Astronaut({ astronautData }) {
                 netWorth: prev.netWorth + astronautData.price
             }
         }))
-
-        try {
-            const res = await fetch("/api/astronauts", {
-                method: "DELETE",
-                body: JSON.stringify({
-                    username: player.username,
-                    id: astronautData.id,
-                })
-            })
-
-            if (!res.ok) throw new Error("Astronaut could not be sold.")
-        } catch {
-            setPlayer((prev) => ({
-                ...prev,
-                ...{
-                    astronauts: [...prev.astronauts, astronautData],
-                    netWorth: prev.netWorth - astronautData.price
-                }
-            }))
-        }
     }
 
     useEffect(() => {
@@ -200,14 +182,14 @@ export function Astronaut({ astronautData }) {
 
     useEffect(() => {
         const onClickAnywhere = (event) => {
-            if (isSelected) {
+            if (isSelected && !isMouseOver) {
                 setIsSelected(false)
             }
         }
 
         document.addEventListener("click", onClickAnywhere)
         return () => document.removeEventListener("click", onClickAnywhere)
-    }, [isSelected])
+    }, [isSelected, isMouseOver])
 
     useEffect(() => {
         const onKeyPressed = (e) => {
@@ -254,6 +236,7 @@ export function Astronaut({ astronautData }) {
         return () => document.removeEventListener("mousemove", onMouseMove)
     }, [])
 
+    
     return (
         <div className="flex flex-col items-center gap-8 relative">
             <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}

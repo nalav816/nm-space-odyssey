@@ -4,7 +4,7 @@ import SectionCard from "./SectionCard"
 
 const ResearchIcon = () => {
     return (
-        <div className=" border border-dashed border-blue-dark relative h-10 w-10 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center rounded bg-linear-to-b from-blue to-blue-dark shadow-md">
+        <div className="soft-box-shadow relative z-20 h-10 w-10 flex transform transition duration-200 ease-in-out hover:cursor-pointer hover:to-blue items-center justify-center bg-linear-to-b from-blue to-blue-dark">
             <div className="w-full h-full texture geometric-texture opacity-10"/>
             <img className="h-4 w-4 image-pixelated" src="/sprites/placeholder.png"/>
         </div>
@@ -16,10 +16,10 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }) => {
     const items = new Array(itemCount).fill(0);
 
     return (
-        <div className={`border-2 border-dashed border-blue-dark relative rounded z-30 card-radial-gradient w-full min-h-0 min-w-0 flex flex-col ${className}`}>
-            <div className ="texture opacity-5"/>
-            <div className="relative z-10 w-full px-4 py-2"> {name + " "} <span className="text-blue text-xs">  ({itemCount + (maxItemCount > 0 ? "/" + maxItemCount : "")}) </span> </div>
-            <div className="relative z-10 mx-4 flex flex-1 overflow-auto min-h-0 gap-2 flex-wrap mb-2 scrollbar-custom ">
+        <div className={`relative bg-linear-to-b from-blue-light to-blue box-shadow rounded w-full min-h-0 min-w-0 flex flex-col ${className}`}>
+      
+            <div className="relative z-20 w-full px-4 py-2"> {name + " "} <span className="text-blue-lightest text-xs">  ({itemCount + (maxItemCount > 0 ? "/" + maxItemCount : "")}) </span> </div>
+            <div className="relative z-20 mx-4 flex flex-1 overflow-auto min-h-0 gap-2 flex-wrap mb-2 scrollbar-custom ">
                 {items.map((_, i) => (
                     <ResearchIcon key={i}/>
                 ))}
@@ -49,7 +49,7 @@ export default function Science({ className }) {
                     </div>
                 )}
 
-                <div className="h-full w-full flex flex-col p-2 gap-2">
+                <div className="relative h-full w-full flex flex-col p-4 gap-4">
                     <ResearchSection className="basis-1/3 border-b border-blue-dark" name="Current Research" maxItemCount={7}/>
                     <ResearchSection className="basis-2/3 border-b border-blue-dark" name="Available Research" />
                 </div>

@@ -8,8 +8,8 @@ if (started) {
 }
 
 const createWindow = () => {
-  Menu.setApplicationMenu(null);rs
-  
+  Menu.setApplicationMenu(null);
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,

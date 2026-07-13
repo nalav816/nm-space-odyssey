@@ -64,7 +64,7 @@ const RocketPlatform = ({ rocketSprite }) => {
 export default function Launchpad({ className }) {
     return (
         <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
-            <div className="border-2 border-blue-dark border-dashed relative z-20 rounded m-2 flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">
+            <div className="relative z-20 rounded-b flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">
                 <div className="texture opacity-5"/>
                 <TopBar isLaunchpad={true} />
                 <div className="flex-1 min-h-0 w-full flex flex-col items-center">

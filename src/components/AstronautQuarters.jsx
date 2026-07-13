@@ -54,7 +54,7 @@ export default function AstronautQuarters({ className }) {
 
     return (
         <SectionCard iconUrl={"/sprites/astronautQuartersIcon.png"} className={"flex flex-col " + className} sectionName="Astronaut's Quarters">
-            <div className="m-2 border-2 border-dashed border-blue-dark rounded relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
+            <div className="rounded-b relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
                 <div className="z-20 texture opacity-5" />
                 <TopBar
                     items={countInRoom}

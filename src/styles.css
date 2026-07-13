@@ -75,6 +75,10 @@ body {
     box-shadow: 0 4px 10px var(--color-blue-darkest);
   }
 
+  .soft-box-shadow {
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--color-blue-darkest) 40%, transparent);
+  }
+
   .hover-shadow:hover {
     box-shadow: 0 4px 10px var(--color-blue-darkest);
   }
