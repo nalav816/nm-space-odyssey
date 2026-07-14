@@ -1,4 +1,5 @@
 import { usePlayer } from "../hooks/usePlayer";
+import { Astronaut, isScientist } from "../services/astronautService";
 import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
 
@@ -11,7 +12,7 @@ const ResearchIcon = () => {
     );
 }
 
-const ResearchSection = ({ name, className, maxItemCount=-1 }) => {
+const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, className?: string, maxItemCount?: number}) => {
     const itemCount = 4
     const items = new Array(itemCount).fill(0);
 
@@ -29,9 +30,9 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }) => {
     )
 }
 
-export default function Science({ className }) {
+export default function Science({ className } : {  className?: string }) {
     const [player, _] = usePlayer();
-    const available = player.astronauts.some((a) => a.isScientist);
+    const available = player.astronauts.some((a:Astronaut) => isScientist(a));
 
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">

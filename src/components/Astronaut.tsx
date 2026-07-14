@@ -4,12 +4,15 @@ import { useState, useEffect, useRef } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import GameObjectMenu from "./GameObjectMenu"
 import { savePlayerData } from "../services/playerService"
+import { Player } from "../services/playerService"
+import { Astronaut as AstronautType } from "../services/astronautService"
+import { getPrice, getDollarsPerSecond, getModel, isScientist, isPilot, isEngineer } from "../services/astronautService"
 
-const IdleProductionHandler = ({ astronautData, setPlayer }) => {
-    const dollarGenerationInterval = useRef(null)
+const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
+    const dollarGenerationInterval = useRef<null | NodeJS.Timeout>(null)
     const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
 
-    const handleParticleDeletion = (particleId) => {
+    const handleParticleDeletion = (particleId: number) => {
         setMoneyEarnedParticles(prev => (
             prev.filter(v => v.id != particleId)
         ))
@@ -19,13 +22,13 @@ const IdleProductionHandler = ({ astronautData, setPlayer }) => {
         const handlePayout = () => {
             setPlayer(prev => ({
                 ...prev,
-                netWorth: prev.netWorth + astronautData.dollarsPerSecond
+                netWorth: prev.netWorth + getDollarsPerSecond(astronaut)
             }))
             setMoneyEarnedParticles(prev => [
                 ...prev,
                 {
                     id: crypto.randomUUID(),
-                    val: astronautData.dollarsPerSecond,
+                    val: getDollarsPerSecond(astronaut),
                     x: -10 + Math.random() * 20,
                     y: -140 + Math.random() * -20
                 }
@@ -38,11 +41,11 @@ const IdleProductionHandler = ({ astronautData, setPlayer }) => {
             dollarGenerationInterval.current = setInterval(() => {
                 handlePayout()
             }, 1000)
-        }, (Date.now() - new Date(astronautData.lastCurrencyUpdate).getTime()) % 1000)
+        })
 
         return () => {
             clearTimeout(initialTimeout)
-            if (astronautData.isScientist && dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
+            if (isScientist(astronaut) && dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
         }
     }, [])
 
@@ -109,7 +112,9 @@ const DragType = {
     HoldDrag: "HoldDrag"
 }
 
-const DragIndicator = ({ dragType }) => {
+type DragType = typeof DragType[keyof typeof DragType]
+
+const DragIndicator = ({ dragType } : {dragType:DragType}) => {
     return (
         <div className="absolute top-full left-0 w-full pt-2 flex justify-center">
             <div className="relative shrink-0 text-xs text-center z-20">
@@ -121,7 +126,7 @@ const DragIndicator = ({ dragType }) => {
     )
 }
 
-export function Astronaut({ astronautData }) {
+export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
     const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
     const [tintAnim, setTintAnim] = useState(0)
@@ -130,7 +135,7 @@ export function Astronaut({ astronautData }) {
     const [isBeingDragged, setIsBeingDragged] = useState(false)
     const [dragType, setDragType] = useState(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
-    const dragTimer = useRef(null)
+    const dragTimer = useRef<null | NodeJS.Timeout>(null)
 
     const onMouseEnter = () => {
         setIsMouseOver(true)
@@ -154,8 +159,8 @@ export function Astronaut({ astronautData }) {
         const newPlayer = {
             ...player,
             ...{
-                astronauts: player.astronauts.filter((a) => a.id != astronautData.id),
-                netWorth: player.netWorth + astronautData.price
+                astronauts: player.astronauts.filter((a: AstronautType) => a.id != astronaut.id),
+                netWorth: player.netWorth + getPrice(astronaut)
             }
         }
         savePlayerData(newPlayer)
@@ -163,7 +168,7 @@ export function Astronaut({ astronautData }) {
     }
 
     useEffect(() => {
-        let frame;
+        let frame: number;
 
         const animate = () => {
             setTintAnim((prev) => {
@@ -184,7 +189,7 @@ export function Astronaut({ astronautData }) {
     }, [isMouseOver, isSelected])
 
     useEffect(() => {
-        const onClickAnywhere = (event) => {
+        const onClickAnywhere = (event: any) => {
             if (isSelected && !isMouseOver) {
                 setIsSelected(false)
             }
@@ -195,7 +200,7 @@ export function Astronaut({ astronautData }) {
     }, [isSelected, isMouseOver])
 
     useEffect(() => {
-        const onKeyPressed = (e) => {
+        const onKeyPressed = (e: any) => {
             if (e.key.toLowerCase() == DRAG_CANCEL_KEYBIND.toLowerCase() && isBeingDragged && dragType == DragType.ActionDrag) {
                 setIsBeingDragged(false)
             }
@@ -231,7 +236,7 @@ export function Astronaut({ astronautData }) {
     }, [isBeingDragged, isMouseOver])
 
     useEffect(() => {
-        const onMouseMove = (e) => {
+        const onMouseMove = (e: any) => {
             setMouse({ x: e.clientX, y: e.clientY })
         }
 
@@ -251,18 +256,18 @@ export function Astronaut({ astronautData }) {
 
                 <TintedSprite
                     className="image-pixelated cursor-grabbing"
-                    spriteUrl={astronautData.modelUrl}
+                    spriteUrl={getModel(astronaut)}
                     tintIntensity={0}
                 />
 
                 <DragIndicator dragType={dragType} />
             </div>
 
-            {astronautData.isScientist && !isBeingDragged && <IdleProductionHandler astronautData={astronautData} setPlayer={setPlayer} />}
+            {isScientist(astronaut) && !isBeingDragged && <IdleProductionHandler astronaut={astronaut} setPlayer={setPlayer} />}
 
             <TintedSprite
                 className={`relative z-10 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
-                spriteUrl={astronautData.modelUrl}
+                spriteUrl={getModel(astronaut)}
                 tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
@@ -270,7 +275,7 @@ export function Astronaut({ astronautData }) {
             />
 
             {isSelected &&
-                <GameObjectMenu isXOffsetRight={astronautData.occupiedSlot == player.roomSpaceCap} onActionClick={onActionClick} onSellClick={onSellClick} />
+                <GameObjectMenu isXOffsetRight={astronaut.occupiedSlot == player.roomSpaceCap} onActionClick={onActionClick} onSellClick={onSellClick} />
             }
         </div>
 

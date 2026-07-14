@@ -9,8 +9,17 @@ export default function TintedSprite({
     onMouseEnter,
     onMouseLeave,
     onClick
+}: {
+    spriteUrl: string,
+    tintIntensity?: number,
+    className?: string,
+    scale?: number,
+    style?: React.CSSProperties
+    onMouseEnter?: () => void,
+    onMouseLeave?: () => void,
+    onClick?: () => void
 }) {
-    const canvasRef = useRef(null)
+    const canvasRef = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
         const canvas = canvasRef.current

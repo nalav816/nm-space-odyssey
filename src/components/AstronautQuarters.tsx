@@ -1,7 +1,9 @@
 import SectionCard from "./SectionCard"
 import TiledSprite from "./TiledSprite"
 import TopBar from "./TopBar"
-import { Astronaut } from "./Astronaut"
+import Astronaut from "./Astronaut"
+import type { Astronaut as AstronautType } from "../services/astronautService"
+import type { Player } from "../services/playerService"
 import TintedSprite from "./TintedSprite"
 import { usePlayer } from "../hooks/usePlayer"
 import { useEffect, useState, useRef } from "react"
@@ -10,11 +12,11 @@ import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
 import useRoom from "../hooks/useRoom"
 
-export function getNextAvailableQuartersSlot(player) {
+export function getNextAvailableQuartersSlot(player: Player) {
     let slot = 1
     let room = 1
 
-    player.astronauts.sort((a, b) => {
+    player.astronauts.sort((a: Astronaut, b: Astronaut) => {
         if (a.occupiedRoom != b.occupiedRoom) {
             return a.occupiedRoom - b.occupiedRoom
         }
@@ -40,15 +42,15 @@ export function getNextAvailableQuartersSlot(player) {
     }
 }
 
-export default function AstronautQuarters({ className }) {
+export default function AstronautQuarters({ className } : { className: string}) {
     const [player, setPlayer] = usePlayer();
     const [room, countInRoom, setRoom] = useRoom();
 
-    const handleArrowClicked = (isRightArrow) => {
+    const handleArrowClicked = (isRightArrow: boolean) => {
         if (isRightArrow) {
-            setRoom(prev => prev + 1)
+            setRoom((prev: number) => prev + 1)
         } else {
-            setRoom(prev => prev - 1)
+            setRoom((prev: number) => prev - 1)
         }
     }
 
@@ -77,11 +79,12 @@ export default function AstronautQuarters({ className }) {
                         {new Array(player.astronautRoomCount).fill(0).map((_, i) => (
                             <div key={i} className="flex min-w-full">
                                 {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
-                                    const astronaut = player.astronauts.find(a => a.occupiedRoom == i + 1 && a.occupiedSlot == j + 1)
+                                    const astronaut = player.astronauts.find((a : AstronautType) => a.occupiedRoom == i + 1 && a.occupiedSlot == j + 1)
+                                    console.log(astronaut)
                                     return (
                                         <div key={j} className={`relative basis-1/5 h-full min-w-0 flex items-end justify-center`}>
                                             {astronaut ? (
-                                                <Astronaut astronautData={astronaut} />
+                                                <Astronaut astronaut={astronaut} />
                                             ) : (
                                                 <TintedSprite tintIntensity={1} spriteUrl="/sprites/scrub.png" className="relative z-10 text-blue-darker image-pixelated" />
                                             )}

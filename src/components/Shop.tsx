@@ -2,10 +2,14 @@ import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
 import { useState } from "react"
 import { usePlayer } from "../hooks/usePlayer"
-import { savePlayerData } from "../services/playerService"
+import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
+import { Shop as ShopType, ShopItem as ShopItemType } from "../services/shopService"
 
-const CategoryButton = ({ category, setCategory, active = true }) => {
+
+type Category = keyof ShopType;
+
+const CategoryButton = ({ category, setCategory, active = true } : { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
         <button onClick={setCategory} className={`relative rounded w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
@@ -16,7 +20,7 @@ const CategoryButton = ({ category, setCategory, active = true }) => {
     )
 }
 
-const JobIndicator = ({ shopItem }) => {
+const JobIndicator = ({ shopItem } : { shopItem: ShopItemType }) => {
     return (
         <div className="absolute right-0 top-0">
             <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darker/70" />
@@ -34,39 +38,35 @@ const ShopItem = ({
     setPlayer,
     shopItem,
     disabled = shopItem.isLocked || player.netWorth < shopItem.price || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
+} : {
+    player: Player,
+    setPlayer: React.Dispatch<React.SetStateAction<Player>>,
+    shopItem: ShopItemType,
+    disabled?: boolean
 }) => {
 
     const onClick = async () => {
         const {room, slot} = getNextAvailableQuartersSlot(player);
 
         if (shopItem.price <= player.netWorth) {
-            const placeholderId = `placeholder-${crypto.randomUUID()}`
-            const newPlayer = {
+            const id = crypto.randomUUID()
+            const newPlayer : Player = {
                 ...player,
                 netWorth: player.netWorth - shopItem.price,
                 astronauts: [...player.astronauts,
                 {
-                    id: placeholderId,
-                    price: shopItem.price,
-                    modelUrl: shopItem.modelUrl,
-                    isEngineer: shopItem.isEngineer || false,
-                    isScientist: shopItem.isScientist || false,
-                    isPilot: shopItem.isPilot || false,
+                    id: id,
+                    name: shopItem.name,
                     lastCurrencyUpdate: new Date(Date.now()).toISOString(),
-                    isGeneratingDollars: shopItem.isScientist || false,
-                    dollarsPerSecond: shopItem.dollarsPerSecond || 0,
+                    isGeneratingDollars: shopItem.isScientist,
+                    dollarsPerSecond: shopItem.dollarsPerSecond,
                     occupiedSlot: slot,
                     occupiedRoom: room
                 }],
             }
 
-            setPlayer(newPlayer)
-
-            try {
-                await window.data.savePlayerData(newPlayer)
-            } catch (e) {
-                throw e
-            }
+            savePlayerData(newPlayer)
+            setPlayer(newPlayer) 
         }
     }
 
@@ -118,7 +118,7 @@ const ShopItem = ({
     )
 }
 
-export default function Shop({ className }) {
+export default function Shop({ className } : {className:string}) {
     const [player, setPlayer] = usePlayer();
     const [category, setCategory] = useState("astronauts")
 
@@ -130,7 +130,7 @@ export default function Shop({ className }) {
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
-                {player.shop[category].map((shopItem, i) => (
+                {player.shop[category].map((shopItem:ShopItemType, i:number) => (
                     <ShopItem player={player} setPlayer={setPlayer} key={i} shopItem={shopItem} />
                 ))}
             </div>

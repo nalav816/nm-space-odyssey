@@ -1,6 +1,6 @@
 import ColoredSprite  from "./ColoredSprite";
 
-export default function TiledSprite({className, tileUrl, tileHeight=32, tileWidth=32}) {
+export default function TiledSprite({className, tileUrl, tileHeight=32, tileWidth=32} : {className?:string, tileUrl:string, tileHeight?:number, tileWidth?:number}) {
     return (
         <ColoredSprite className={className} spriteUrl={tileUrl}
             style = {

@@ -1,6 +1,8 @@
 
 
-export default function GameObjectMenu({ isRocketObject = false, isXOffsetRight = false, onActionClick, onSellClick }) {
+export default function GameObjectMenu({ isRocketObject = false, isXOffsetRight = false, onActionClick, onSellClick } :
+     { isRocketObject?: boolean, isXOffsetRight?: boolean, onActionClick?: () => void, onSellClick?: () => void }
+) {
     const sellButtonName = isRocketObject ? "Deconstruct" : "Fire"
     const actionButtonName = isRocketObject ? "idk yet" : "Assign Ship"
 

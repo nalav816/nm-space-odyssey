@@ -1,4 +1,4 @@
-export default function ColoredSprite({ spriteUrl, className, style }) {
+export default function ColoredSprite({ spriteUrl, className, style }: { spriteUrl: string, className?: string, style?: React.CSSProperties }) {
     return (
         <div className={`${className}`} style={
             {

@@ -1,0 +1,24 @@
+{
+    "Scrub": {
+        "rating": 1,
+        "price": 100,
+        "modelUrl": "/sprites/scrub.png",
+        "shopIconUrl": "/sprites/scrubIcon.png",
+        "isEngineer": true,
+        "isPilot": true,
+        "isScientist": true,
+        "isHiddenOnLock": false,
+        "dollarsPerSecond": 1
+    },
+    "Ace": {
+        "rating": 3,
+        "price": 1000,
+        "modelUrl": "/sprites/ace.png",
+        "shopIconUrl": "/sprites/aceIcon.png",
+        "isEngineer": false,
+        "isPilot": true,
+        "isScientist": false,
+        "isHiddenOnLock": true,
+        "dollarsPerSecond": 0
+    }
+}
