@@ -3,6 +3,7 @@ import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import GameObjectMenu from "./GameObjectMenu"
+import { savePlayerData } from "../services/playerService"
 
 const IdleProductionHandler = ({ astronautData, setPlayer }) => {
     const dollarGenerationInterval = useRef(null)
@@ -150,13 +151,15 @@ export function Astronaut({ astronautData }) {
     }
 
     const onSellClick = async () => {
-        setPlayer((prev) => ({
-            ...prev,
+        const newPlayer = {
+            ...player,
             ...{
-                astronauts: prev.astronauts.filter((a) => a.id != astronautData.id),
-                netWorth: prev.netWorth + astronautData.price
+                astronauts: player.astronauts.filter((a) => a.id != astronautData.id),
+                netWorth: player.netWorth + astronautData.price
             }
-        }))
+        }
+        savePlayerData(newPlayer)
+        setPlayer(newPlayer)
     }
 
     useEffect(() => {

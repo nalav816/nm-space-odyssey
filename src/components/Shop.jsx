@@ -2,6 +2,7 @@ import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
 import { useState } from "react"
 import { usePlayer } from "../hooks/usePlayer"
+import { savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 
 const CategoryButton = ({ category, setCategory, active = true }) => {
@@ -40,11 +41,10 @@ const ShopItem = ({
 
         if (shopItem.price <= player.netWorth) {
             const placeholderId = `placeholder-${crypto.randomUUID()}`
-
-            setPlayer((prev) => ({
-                ...prev,
-                netWorth: prev.netWorth - shopItem.price,
-                astronauts: [...prev.astronauts,
+            const newPlayer = {
+                ...player,
+                netWorth: player.netWorth - shopItem.price,
+                astronauts: [...player.astronauts,
                 {
                     id: placeholderId,
                     price: shopItem.price,
@@ -57,8 +57,16 @@ const ShopItem = ({
                     dollarsPerSecond: shopItem.dollarsPerSecond || 0,
                     occupiedSlot: slot,
                     occupiedRoom: room
-                }]
-            }))
+                }],
+            }
+
+            setPlayer(newPlayer)
+
+            try {
+                await window.data.savePlayerData(newPlayer)
+            } catch (e) {
+                throw e
+            }
         }
     }
 
@@ -112,12 +120,13 @@ const ShopItem = ({
 
 export default function Shop({ className }) {
     const [player, setPlayer] = usePlayer();
-    const [category, setCategory] = useState("Astronauts")
+    const [category, setCategory] = useState("astronauts")
+
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="relative p-4 flex gap-2">
-                <CategoryButton setCategory={() => setCategory("Astronauts")} category={"Astronauts"} active={category == "Astronauts"} />
-                <CategoryButton setCategory={() => setCategory("Rockets")} category={"Rockets"} active={category == "Rockets"} />
+                <CategoryButton setCategory={() => setCategory("astronauts")} category={"astronauts"} active={category == "astronauts"} />
+                <CategoryButton setCategory={() => setCategory("rockets")} category={"rockets"} active={category == "rockets"} />
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">

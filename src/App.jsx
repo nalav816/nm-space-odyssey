@@ -1,44 +1,31 @@
 import Game from "./components/Game"
+import { loadPlayerData } from "./services/playerService";
+import { useState, useEffect, createContext } from "react"
+
+export const PlayerContext = createContext()
 
 export default function App() {
-  const player = {
-    username: 'nadden',
-    netWorth: 300,
-    astronauts: [],
-    astronautRoomCount: 2,
-    roomSpaceCap: 5,
-    rocketPlotCount: 1,
-    plotSpaceCap: 1,
-    shop: {
-      "Astronauts": [
-      {
-        name: "Scrub",
-        rating: 1,
-        price: 100,
-        iconUrl: "/sprites/scrubIcon.png",
-        modelUrl: "/sprites/scrub.png",
-        isLocked: false,
-        isEngineer: true,
-        isScientist: true,
-        isPilot: true,
-        dollarsPerSecond: 1
-      },
-      {
-        name: "Ace",
-        rating: 3,
-        price: 1000,
-        iconUrl: "/sprites/aceIcon.png",
-        modelUrl: "/sprites/ace.png",
-        isLocked: false,
-        isEngineer: false,
-        isScientist: false,
-        isPilot: true,
-        dollarsPerSecond: 0
-      },
-    ],
-      "Rockets": []
-    }
-  }
+  const [player, setPlayer] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  return <Game playerData={player} />
+  useEffect(() => {
+    async function loadPlayer() {
+      try {
+        const data = await loadPlayerData();
+        setPlayer(data)
+        setIsLoading(false)
+      } catch {
+
+      }
+    }
+
+    loadPlayer()
+  }, [])
+
+  return player ? (
+    <PlayerContext value={[player, setPlayer]}>
+      <Game player={player} setPlayer={setPlayer} />
+    </PlayerContext>
+    
+  ) : <div />
 }

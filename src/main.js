@@ -1,6 +1,7 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
+import "./ipc/dataHandler.ts";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
