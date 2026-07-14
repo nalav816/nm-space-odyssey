@@ -5,7 +5,7 @@ import ColoredSprite from "./ColoredSprite"
 import { useState, useEffect } from "react"
 
 const RocketPlatform = ({ rocketSprite }) => {
-    const [rocketSize, setRocketSize] = useState({ width: 1, height: 1 });
+    const [rocketSize, setRocketSize] = useState({ width: 10, height: 10 });
     //we can use number here cause tiles are square
     const [platformTileSize, setPlatformTileSize] = useState(1)
 
@@ -25,30 +25,28 @@ const RocketPlatform = ({ rocketSprite }) => {
 
     return (
         <div className="flex flex-col items-end relative">
-            {new Array(minYTileToFill).fill(0).map((_, i) => (
+            {new Array(7).fill(0).map((_, i) => (
                 i % 3 == 0 && i != 0 ? (
                     <div className="flex" key={i}>
-                        {new Array(minXTileToFill / 2 - 1).fill(0).map((_, i) => (
-                            <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformBridgeTile.png" key={i}/>
-                        ))}
-                        <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformBridgeRightTile.png" />
-                        <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformVertTile.png" />
+                       
+                        <ColoredSprite className="h-8 w-8 bg-blue image-pixelated" spriteUrl="/sprites/platformBridgeRightTile.png" />
+                        <ColoredSprite className="h-8 w-8 bg-blue image-pixelated" spriteUrl="/sprites/platformVertTile.png" />
                     </div>
                 ) : (
-                    <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformVertTile.png" key={i} />
+                    <ColoredSprite className="h-8 w-8 bg-blue image-pixelated" spriteUrl="/sprites/platformVertTile.png" key={i} />
                 )
             ))}
 
-            <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformBottomVertTile.png" />
+            <ColoredSprite className="h-8 w-8 bg-blue image-pixelated" spriteUrl="/sprites/platformBottomVertTile.png" />
 
             <div className="flex">
-                <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformLeftTile.png" />
+                <ColoredSprite className="h-8 w-8 bg-blue image-pixelated" spriteUrl="/sprites/platformLeftTile.png" />
                 {new Array(minXTileToFill - 1).fill(0).map((_, i) =>
                 (
-                    <ColoredSprite className="h-8 w-8 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformTile.png" key={i} />
+                    <ColoredSprite className="h-8 w-8 bg-blue image-pixelated" spriteUrl="/sprites/platformTile.png" key={i} />
                 )
                 )}
-                <ColoredSprite className="h-8 w-16 bg-blue-dark image-pixelated" spriteUrl="/sprites/platformRightTile.png" />
+                <ColoredSprite className="h-8 w-16 bg-blue image-pixelated" spriteUrl="/sprites/platformRightTile.png" />
             </div>
 
             <img className={`absolute bottom-8 right-1/2 translate-x-1/2 image-pixelated`} src={rocketSprite} style={
