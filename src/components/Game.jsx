@@ -9,9 +9,9 @@ import { usePlayer } from "../hooks/usePlayer";
 export default function Game() {
     const [player, _] = usePlayer()
     return (
-        <div className="relative bg-radial-gradient w-screen h-screen flex flex-col items-center text-white font-jaro">
+        <div className="relative bg-radial-gradient w-screen h-screen min-h-180 min-w-6xl flex flex-col items-center text-white font-jaro">
 
-            <img className="h-screen opacity-10 w-screen object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
+            <img className="h-screen opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
             <div className="flex justify-center bg-blue-darker relative border-b-2 border-blue-dark border-dashed w-full h-6 z-30">
                 <div className=" texture opacity-5" />
                 <div className=" absolute top-0 right-0 pr-2 text-blue text-xs">
@@ -27,7 +27,7 @@ export default function Game() {
             </div>
 
      
-                <div className="px-16 py-6 flex gap-8 h-full min-h-0 w-screen max-w-7xl relative z-20">
+                <div className="px-32 py-6 flex gap-8 h-full w-full max-w-7xl relative z-20">
                     <div className=" basis-1/3 min-w-0 flex flex-col">
                         <div className="flex flex-col gap-2 pb-24">
                             <div className="text-5xl title-glow">
