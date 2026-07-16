@@ -12,7 +12,7 @@ export default function Game() {
         <div className="relative bg-radial-gradient w-screen h-screen min-h-180 min-w-6xl flex flex-col items-center text-white font-jaro">
 
             <img className="h-screen opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
-            <div className="flex justify-center bg-blue-darker relative border-b-2 border-blue-dark border-dashed w-full h-6 z-30">
+            <div className="flex justify-center bg-blue-darker relative border-b-2 border-blue-dark border-dashed w-full min-h-6 z-30">
                 <div className=" texture opacity-5" />
                 <div className=" absolute top-0 right-0 pr-2 text-blue text-xs">
                     Developed by Nadden Auguste-Laventure
