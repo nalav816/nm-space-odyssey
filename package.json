@@ -1,35 +1,47 @@
 {
   "name": "nm-space-odyssey",
-  "version": "0.1.0",
+  "productName": "nm-space-odyssey",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": ".vite/build/main.js",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Nadden",
+    "email": "nalaventure123@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.2",
+    "@electron-forge/maker-deb": "^7.11.2",
+    "@electron-forge/maker-rpm": "^7.11.2",
+    "@electron-forge/maker-squirrel": "^7.11.2",
+    "@electron-forge/maker-zip": "^7.11.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.2",
+    "@electron-forge/plugin-fuses": "^7.11.2",
+    "@electron-forge/plugin-vite": "^7.11.2",
+    "@electron/fuses": "^1.8.0",
+    "@types/electron-squirrel-startup": "^1.0.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "electron": "43.1.0",
+    "vite": "^5.4.21"
   },
   "dependencies": {
-    "@pixi/react": "^8.0.5",
-    "@prisma/adapter-pg": "^7.2.0",
-    "@prisma/client": "^7.2.0",
-    "@types/pg": "^8.16.0",
-    "dotenv": "^17.4.2",
-    "lucide-react": "^1.23.0",
+    "@tailwindcss/vite": "^4.3.2",
+    "@vitejs/plugin-react": "^4.7.0",
+    "electron-squirrel-startup": "^1.0.1",
+    "lucide-react": "^1.24.0",
     "motion": "^12.42.2",
-    "next": "^16.1.0",
-    "pg": "^8.16.3",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.0.5",
-    "prisma": "^7.2.0",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.2"
   }
 }
