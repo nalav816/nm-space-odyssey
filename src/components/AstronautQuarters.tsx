@@ -80,7 +80,6 @@ export default function AstronautQuarters({ className } : { className: string}) 
                             <div key={i} className="flex min-w-full">
                                 {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
                                     const astronaut = player.astronauts.find((a : AstronautType) => a.occupiedRoom == i + 1 && a.occupiedSlot == j + 1)
-                                    console.log(astronaut)
                                     return (
                                         <div key={j} className={`relative basis-1/5 h-full min-w-0 flex items-end justify-center`}>
                                             {astronaut ? (

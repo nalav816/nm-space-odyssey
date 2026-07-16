@@ -32,7 +32,7 @@ const ResearchSection = ({ name, className, maxItemCount=-1 }: { name: string, c
 
 export default function Science({ className } : {  className?: string }) {
     const [player, _] = usePlayer();
-    const available = player.astronauts.some((a:Astronaut) => isScientist(a));
+    const available = player!.astronauts.some((a:Astronaut) => isScientist(a));
 
     return (
         <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
@@ -51,8 +51,8 @@ export default function Science({ className } : {  className?: string }) {
                 )}
 
                 <div className="relative h-full w-full flex flex-col p-4 gap-4">
-                    <ResearchSection className="basis-1/3 border-b border-blue-dark" name="Current Research" maxItemCount={7}/>
-                    <ResearchSection className="basis-2/3 border-b border-blue-dark" name="Available Research" />
+                    <ResearchSection className="basis-1/3 [@media(max-height:840px)]:basis-1/2 border-b border-blue-dark" name="Current Research" maxItemCount={7}/>
+                    <ResearchSection className="basis-2/3 [@media(max-height:840px)]:basis-1/2 border-b border-blue-dark" name="Available Research" />
                 </div>
             </div>
         </SectionCard>

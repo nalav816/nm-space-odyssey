@@ -1,7 +1,12 @@
+import { ipcMain } from 'electron';
+import { loadPlayerData, savePlayerData } from './ipc/dataHandler';
 import { app, BrowserWindow, Menu } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
-import "./ipc/dataHandler.ts";
+import "./ipc/dataHandler.js";
+
+declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string | undefined;
+declare const MAIN_WINDOW_VITE_NAME: string;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -13,12 +18,13 @@ const createWindow = () => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+  let isClosing = false;
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -29,7 +35,25 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-};
+
+  //Window events
+  mainWindow.on('close', (e) => {
+    if (!isClosing) {
+      e.preventDefault()
+      mainWindow!.webContents.send("onAppClose")
+    }
+  })
+
+  //IPC events
+  ipcMain.handle('savePlayerData', async (_, data, closeWindow) => {
+    await savePlayerData(data)
+    if (closeWindow) {
+      isClosing = true;
+      mainWindow.close();
+    }
+  })
+  ipcMain.handle('loadPlayerData', async () => loadPlayerData())
+};  
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

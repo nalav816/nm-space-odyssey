@@ -6,9 +6,6 @@ import AstronautQuarters from "./AstronautQuarters";
 import { useState, createContext, Dispatch, SetStateAction } from "react";
 import { usePlayer } from "../hooks/usePlayer";
 
-
-export const PlayerContext = createContext(null)
-
 export default function Game() {
     const [player, _] = usePlayer()
     return (
@@ -32,7 +29,7 @@ export default function Game() {
      
                 <div className="px-16 py-6 flex gap-8 h-full min-h-0 w-screen max-w-7xl relative z-20">
                     <div className=" basis-1/3 min-w-0 flex flex-col">
-                        <div className="flex flex-col gap-4 pb-24">
+                        <div className="flex flex-col gap-2 pb-24">
                             <div className="text-5xl title-glow">
                                 <span className="text-2xl text-blue-light"> n&m </span>
                                 Space <br /> <span className="text-blue-lightest"> Odyssey </span> </div>

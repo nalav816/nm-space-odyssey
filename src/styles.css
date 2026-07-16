@@ -9,6 +9,10 @@ button:hover {
   cursor: pointer;
 }
 
+button:focus {
+  outline: none;
+}
+
 @font-face {
   font-family: "Jaro";
   src: url("/fonts/jaro.ttf") format("truetype");

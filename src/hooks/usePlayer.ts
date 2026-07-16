@@ -1,4 +1,4 @@
-import { PlayerContext } from "../App";
+import { PlayerContext } from "../context/PlayerProvider";
 import { useContext } from "react";
 
 export function usePlayer() {

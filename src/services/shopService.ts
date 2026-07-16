@@ -1,6 +1,6 @@
 import { Player } from "./playerService";
 
-export type ShopItem = {
+export interface ShopItem  {
     name: string;
     rating: number;
     price: number
@@ -13,7 +13,7 @@ export type ShopItem = {
     isPilot: boolean;
 }
 
-export type Shop = {
+export interface Shop {
     astronauts: ShopItem[];
     rockets: ShopItem[];
 }
