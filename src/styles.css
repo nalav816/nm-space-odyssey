@@ -23,7 +23,7 @@ button:focus {
 body {
   font-family: "Jaro";
 }
-   
+
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -52,10 +52,17 @@ body {
     from {
       transform: translateY(30px);
       opacity: 0
-    } to {
+    }
+
+    to {
       transform: translateY(0);
       opacity: 1
     }
+  }
+
+  .titlebar {
+    -webkit-app-region: drag;
+    user-select: none;
   }
 
   .bg-radial-gradient {
@@ -65,7 +72,7 @@ body {
   .card-radial-gradient {
     background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darker));
   }
- 
+
 
   .image-glow-green {
     filter: drop-shadow(0 0 10px var(--color-green));
@@ -74,7 +81,7 @@ body {
   .image-glow-yellow {
     filter: drop-shadow(0 0 10px var(--color-yellow));
   }
-  
+
   .box-shadow {
     box-shadow: 0 4px 10px var(--color-blue-darkest);
   }
@@ -86,7 +93,7 @@ body {
   .hover-shadow:hover {
     box-shadow: 0 4px 10px var(--color-blue-darkest);
   }
- 
+
   .texture {
     position: absolute;
     top: 0px;
@@ -97,7 +104,7 @@ body {
     background-size: cover;
     pointer-events: none;
 
-  }   
+  }
 
 
   .geometric-texture {
@@ -136,23 +143,20 @@ body {
   .text-shadow {
     text-shadow: 0px 1px 2px var(--color-blue-darkest);
   }
-  
+
   .scrollbar-custom::-webkit-scrollbar {
     width: 4px;
   }
 
   .scrollbar-custom::-webkit-scrollbar-track {
-    background: transparent; 
+    background: transparent;
   }
 
   .scrollbar-custom::-webkit-scrollbar-thumb {
-    background: var(--color-white); 
+    background: var(--color-white);
   }
 
   .animate-floatIn {
     animation: floatIn ease-out .2s forwards;
   }
 }
-
-
-
