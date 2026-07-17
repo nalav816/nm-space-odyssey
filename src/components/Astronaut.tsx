@@ -6,7 +6,7 @@ import GameObjectMenu from "./GameObjectMenu"
 import { savePlayerData } from "../services/playerService"
 import { Player } from "../services/playerService"
 import { Astronaut as AstronautType } from "../services/astronautService"
-import { getPrice, getDollarsPerSecond, getModel, isScientist, isPilot, isEngineer } from "../services/astronautService"
+import { getPrice, getDollarsPerSecond, getModel, isScientist } from "../services/astronautService"
 import { GameContext } from "../context/GameProvider"
 
 const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
@@ -22,11 +22,7 @@ const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautTy
     }
 
     useEffect(() => {
-        const handlePayout = () => {
-            setPlayer(prev => ({
-                ...prev,
-                netWorth: prev.netWorth + getDollarsPerSecond(astronaut)
-            }))
+        const handlePayoutEffect = () => {
             setMoneyEarnedParticles(prev => [
                 ...prev,
                 {
@@ -41,10 +37,10 @@ const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautTy
 
         setOnGameTick(prev => ([
             ...prev,
-            handlePayout
+            handlePayoutEffect
         ]))
 
-        return () => setOnGameTick(prev => prev.filter(callback => callback !== handlePayout))
+        return () => setOnGameTick(prev => prev.filter(callback => callback !== handlePayoutEffect))
     }, [])
 
     return (

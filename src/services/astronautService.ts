@@ -72,6 +72,7 @@ export function getIdleIncomes(player: Player, astronaut?: Astronaut) {
 
     for (const a of player.astronauts) {
         if (!astronaut || astronaut.id == a.id){
+            console.log(a.lastCurrencyUpdate)
             const secondsElapsed = Math.round((now - a.lastCurrencyUpdate) / 1000);
             const earnedIncome = secondsElapsed * getDollarsPerSecond(a)
             totalEarnedIncome += earnedIncome;
