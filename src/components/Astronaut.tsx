@@ -1,16 +1,19 @@
 import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useContext } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import GameObjectMenu from "./GameObjectMenu"
 import { savePlayerData } from "../services/playerService"
 import { Player } from "../services/playerService"
 import { Astronaut as AstronautType } from "../services/astronautService"
 import { getPrice, getDollarsPerSecond, getModel, isScientist, isPilot, isEngineer } from "../services/astronautService"
+import { GameContext } from "../context/GameProvider"
 
 const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
-    const dollarGenerationInterval = useRef<null | NodeJS.Timeout>(null)
     const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
+    const [setOnGameTick, _] = useContext(GameContext)!
+    const floatDelay = useRef(Math.random() * 1)
+    const floatDuration = useRef(Math.random() * 1 + 2)
 
     const handleParticleDeletion = (particleId: number) => {
         setMoneyEarnedParticles(prev => (
@@ -30,31 +33,26 @@ const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautTy
                     id: crypto.randomUUID(),
                     val: getDollarsPerSecond(astronaut),
                     x: -10 + Math.random() * 20,
-                    y: -140 + Math.random() * -20
+                    y: -140 + Math.random() * -20,
+                    duration: Math.random() * .5 + 3,
                 }
             ])
         }
 
-        const initialTimeout = setTimeout(() => {
-            handlePayout()
+        setOnGameTick(prev => ([
+            ...prev,
+            handlePayout
+        ]))
 
-            dollarGenerationInterval.current = setInterval(() => {
-                handlePayout()
-            }, 1000)
-        })
-
-        return () => {
-            clearTimeout(initialTimeout)
-            if (isScientist(astronaut) && dollarGenerationInterval.current) clearInterval(dollarGenerationInterval.current)
-        }
+        return () => setOnGameTick(prev => prev.filter(callback => callback !== handlePayout))
     }, [])
 
     return (
         <motion.div className="absolute -top-16 w-24 flex justify-center"
             animate={{ y: [0, -6, 0] }}
             transition={{
-                duration: Math.random() * 1 + 2,
-                delay: Math.random() * 1,
+                duration: floatDuration.current,
+                delay: floatDelay.current,
                 repeat: Infinity,
                 ease: "easeInOut",
             }}
@@ -85,7 +83,7 @@ const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautTy
                         scale: 0
                     }}
                     transition={{
-                        duration: 3,
+                        duration: p.duration,
                         ease: "easeOut"
                     }}
                     onAnimationComplete={() => handleParticleDeletion(p.id)}
@@ -155,15 +153,15 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
     }
 
     const onSellClick = async () => {
-        const newPlayer = {
-            ...player,
+        const newPlayer : Player = {
+            ...player!,
             ...{
-                astronauts: player.astronauts.filter((a: AstronautType) => a.id != astronaut.id),
-                netWorth: player.netWorth + getPrice(astronaut)
+                astronauts: player!.astronauts.filter((a: AstronautType) => a.id != astronaut.id),
+                netWorth: player!.netWorth + getPrice(astronaut)
             }
         }
         savePlayerData(newPlayer)
-        setPlayer(newPlayer)
+        setPlayer!(newPlayer)
     }
 
     useEffect(() => {

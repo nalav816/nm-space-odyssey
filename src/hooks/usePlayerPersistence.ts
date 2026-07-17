@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Player } from "../services/playerService";
 import { loadPlayerData } from "../services/playerService";
 
-export function usePlayerPersistence(player:Player | null,  setPlayer: React.Dispatch<React.SetStateAction<Player | null>>) {
+export function usePlayerPersistence(player:Player | null,  setPlayer: React.Dispatch<React.SetStateAction<Player>>) {
     //initial load
     useEffect(() => {
         async function loadPlayer() {
