@@ -3,6 +3,7 @@ import Leaderboard from "./Leaderboard";
 import Science from "./Science";
 import Launchpad from "./Launchpad";
 import AstronautQuarters from "./AstronautQuarters";
+import TitleBar from "./TitleBar"
 import { useState, createContext, Dispatch, SetStateAction } from "react";
 import { usePlayer } from "../hooks/usePlayer";
 
@@ -10,22 +11,8 @@ export default function Game() {
     const [player, _] = usePlayer()
     return (
         <div className="relative bg-radial-gradient w-screen h-screen min-h-180 min-w-6xl flex flex-col items-center text-white font-jaro">
-
             <img className="h-screen opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
-            <div className="flex justify-center bg-blue-darker relative border-b-2 border-blue-dark border-dashed w-full min-h-6 z-30">
-                <div className=" texture opacity-5" />
-                <div className=" absolute top-0 right-0 pr-2 text-blue text-xs">
-                    Developed by Nadden Auguste-Laventure
-                </div>
-                <div className="flex w-full items-center max-w-7xl px-12 gap-4 text-sm">
-                   
-
-
-
-                </div>
-
-            </div>
-
+            <TitleBar/>
      
                 <div className="px-32 py-6 flex gap-8 h-full w-full max-w-7xl relative z-20">
                     <div className=" basis-1/3 min-w-0 flex flex-col">
