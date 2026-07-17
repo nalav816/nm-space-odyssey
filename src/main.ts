@@ -18,12 +18,12 @@ const createWindow = () => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1600,
+    width: 1200,
     height: 900,
     titleBarStyle: "hidden",
     titleBarOverlay: {
     color: "#00000000",
-    symbolColor: "#ffffff",
+    symbolColor: "#57768A",
     height: 20,
   },
     webPreferences: {
