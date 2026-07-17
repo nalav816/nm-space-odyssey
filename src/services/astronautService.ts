@@ -1,5 +1,4 @@
 import astronautData from "../data/astronauts.json"
-import { usePlayer } from "../hooks/usePlayer"
 import { Player } from "./playerService"
 
 export type AstronautName = keyof typeof astronautData

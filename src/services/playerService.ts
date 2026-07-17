@@ -23,12 +23,17 @@ export async function savePlayerData(player: Player) {
 export async function loadPlayerData() {
   try {
     let player = await window.data.loadPlayerData()
-    const idlyGeneratedIncome = getIdleIncomes(player)
-    player = updateCurencyTimestamps(player)
-    player.netWorth = player.netWorth + idlyGeneratedIncome
-
-    return player
+    return tick(player)
   } catch (e) {
     throw e
   }
+}
+
+//Function that handles idle income that should run every game tick
+export function tick(player: Player) {
+  const idlyGeneratedIncome = getIdleIncomes(player)
+  player = updateCurencyTimestamps(player)
+  player.netWorth = player.netWorth + idlyGeneratedIncome
+
+  return player
 }
