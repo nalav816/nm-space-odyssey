@@ -73,7 +73,7 @@ export default function Launchpad({ className }) {
                         </div>
                     </div>
 
-                    <TiledSprite tileUrl={"/sprites/grassTile.png"} className="bg-blue-dark w-full h-8 image-pixelated"></TiledSprite>
+                    <TiledSprite tileUrl={"/sprites/grassTile.png"} color="blue-dark" className="w-full! image-pixelated mb-2"></TiledSprite>
                 </div>
 
             </div>

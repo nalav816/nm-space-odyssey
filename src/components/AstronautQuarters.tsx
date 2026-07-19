@@ -85,7 +85,7 @@ export default function AstronautQuarters({ className } : { className: string}) 
                                             {astronaut ? (
                                                 <Astronaut astronaut={astronaut} />
                                             ) : (
-                                                <TintedSprite tintIntensity={1} spriteUrl="/sprites/scrub.png" className="relative z-10 text-blue-darker image-pixelated" />
+                                                <TintedSprite tintIntensity={1} spriteUrl="/sprites/scrub.png" tintColor="blue-darker" className="relative z-10" />
                                             )}
                                         </div>
                                     )
@@ -95,7 +95,7 @@ export default function AstronautQuarters({ className } : { className: string}) 
                     </motion.div>
 
                     <div className="relative w-full">
-                        <TiledSprite className="w-full mb-2 h-8 bg-blue-dark image-pixelated" tileUrl="/sprites/floorTile.png" />
+                        <TiledSprite className="w-full! mb-2 bg-blue-dark image-pixelated" color="blue-dark" tileUrl="/sprites/floorTile.png" />
                         <div className="absolute top-4 left-0 w-full px-4 flex justify-between">
                             <button
                                 onClick={() => handleArrowClicked(false)}

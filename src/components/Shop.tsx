@@ -88,7 +88,7 @@ const ShopItem = ({
             </div>
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className={`relative z-20 text-2xl leading-none ${disabled ? "" : "text-shadow"}`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
+                <div className={`relative z-20 text-2xl leading-none`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(shopItem.rating)
                         .fill(0)

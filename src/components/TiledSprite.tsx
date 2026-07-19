@@ -1,8 +1,8 @@
 import ColoredSprite  from "./ColoredSprite";
 
-export default function TiledSprite({className, tileUrl, tileHeight=32, tileWidth=32} : {className?:string, tileUrl:string, tileHeight?:number, tileWidth?:number}) {
+export default function TiledSprite({className, tileUrl, color, tileHeight=32, tileWidth=32} : {className?:string, tileUrl:string, color?: string, tileHeight?:number, tileWidth?:number}) {
     return (
-        <ColoredSprite className={className} spriteUrl={tileUrl}
+        <ColoredSprite className={className} spriteUrl={tileUrl} color = {color}
             style = {
                 {
                     WebkitMaskRepeat: "repeat",
