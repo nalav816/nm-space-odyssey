@@ -53,7 +53,7 @@ const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautTy
                 ease: "easeInOut",
             }}
         >
-            <TintedSprite scale={2} className="image-glow-yellow relative z-20 image-pixelated" spriteUrl="/sprites/dollarSign.png" />
+            <TintedSprite className="image-glow-yellow relative z-20" spriteUrl="/sprites/dollarSign.png" />
             <motion.img
                 animate={{ rotate: 360 }}
                 transition={{
@@ -123,7 +123,6 @@ const DragIndicator = ({ dragType } : {dragType:DragType}) => {
 export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
     const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
-    const [tintAnim, setTintAnim] = useState(0)
     const [isMouseOver, setIsMouseOver] = useState(false)
     const [isSelected, setIsSelected] = useState(false)
     const [isBeingDragged, setIsBeingDragged] = useState(false)
@@ -159,27 +158,6 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
         savePlayerData(newPlayer)
         setPlayer!(newPlayer)
     }
-
-    useEffect(() => {
-        let frame: number;
-
-        const animate = () => {
-            setTintAnim((prev) => {
-                const goal = isMouseOver && !isSelected ? 1 : 0
-                const delta = .006
-                if (prev + delta <= goal) {
-                    return prev + delta
-                } else {
-                    return isSelected ? .5 : 0
-                }
-            })
-
-            frame = requestAnimationFrame(animate)
-        }
-
-        animate()
-        return () => cancelAnimationFrame(frame)
-    }, [isMouseOver, isSelected])
 
     useEffect(() => {
         const onClickAnywhere = (event: any) => {
@@ -261,7 +239,16 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
             <TintedSprite
                 className={`relative z-10 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
                 spriteUrl={getModel(astronaut)}
-                tintIntensity={tintAnim <= .5 ? tintAnim * MAX_TINT_INTENSITY * 2 : MAX_TINT_INTENSITY - ((tintAnim - .5) * 2) * MAX_TINT_INTENSITY}
+                tintColor = "white"
+                tintIntensity={isSelected ? MAX_TINT_INTENSITY : 0}
+                tintAnimate = {isMouseOver && !isSelected ? {
+                    opacity: ["0%", (MAX_TINT_INTENSITY* 100) + "%", "0%"]
+                } : {}}
+                tintTransition={isMouseOver && !isSelected ? {
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "linear",
+                } : {}}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
