@@ -19,9 +19,14 @@ const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1200,
-    height: 800,
-    frame: false,
-    useContentSize: true,
+    height: 900,
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
+      color: "#00000000",
+      symbolColor: "#57768A",
+      height: 20,
+    },
+    trafficLightPosition: {x: 12, y: 6},
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
