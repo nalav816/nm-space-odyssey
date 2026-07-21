@@ -26,7 +26,7 @@ export default function Launchpad({ className }) {
                         <div className="h-full flex min-h-0 flex-col-reverse overflow-auto w-full scrollbar-custom ">
                             <div className="flex justify-between items-end">
                                 <ColoredSprite spriteUrl="/sprites/controlTower.png"/>
-                                <TintedSprite tintIntensity={0} spriteUrl="/sprites/gasStation.png"/>
+                                <ColoredSprite spriteUrl="/sprites/gasStation.png"/>
                                 <RocketPlatform rocketSprite="/sprites/bigRed.png" />
                             </div>
                             

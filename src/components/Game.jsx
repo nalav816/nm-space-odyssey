@@ -10,13 +10,12 @@ import { usePlayer } from "../hooks/usePlayer";
 export default function Game() {
     const [player, _] = usePlayer()
     return (
-        <div className="select-none relative bg-radial-gradient w-full h-screen min-h-180 min-w-6xl flex flex-col items-center text-white font-jaro">
-          
+        <div className="select-none relative bg-radial-gradient w-full h-screen min-h-180 min-w-7xl flex flex-col items-center text-white font-jaro">
             <img className="h-full opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
             <TitleBar/>
      
                 <div className="px-32 py-6 flex flex-1 min-h-0 w-full gap-8 max-w-7xl relative z-20">
-                    <div className=" basis-1/3 min-w-0 flex flex-col">
+                    <div className="w-80 min-w-0 flex flex-col">
                         <div className="flex flex-col gap-2 pb-24">
                             <div className="text-5xl title-glow">
                                 <span className="text-2xl text-blue-light"> n&m </span>
@@ -34,12 +33,12 @@ export default function Game() {
                         <Launchpad className="grow relative w-full min-h-0" />
                     </div>
 
-                    <div className="relative z-20 h-full basis-1/3 min-w-0 flex flex-col gap-8">
+                    <div className="relative z-20 h-full w-80 min-w-0 flex flex-col gap-8">
                         <Shop className="basis-1/2 w-full min-h-0" />
                         <AstronautQuarters className="relative z-20 basis-1/2 w-full min-h-0" />
                     </div>
 
-                    <div className="relative z-10 h-full basis-1/3 min-w-0 flex flex-col gap-8">
+                    <div className="relative z-10 h-full w-80 min-w-0 flex flex-col gap-8">
                         <Science className="basis-1/2 w-full min-h-0" />
                         <Leaderboard className="basis-1/2 w-full min-h-0" />
                     </div>
