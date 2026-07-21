@@ -65,8 +65,8 @@ const ShopItem = ({
                 }],
             }
 
-            savePlayerData(newPlayer)
             setPlayer(newPlayer) 
+            savePlayerData(newPlayer)
         }
     }
 
@@ -107,7 +107,8 @@ const ShopItem = ({
                         .fill(0)
                         .map((_, index) => (
                             <ColoredSprite key={index}
-                                className="h-4 w-4 bg-blue-darker image-pixelated"
+                                color="blue-dark"
+                                className="h-4 w-4 image-pixelated"
                                 spriteUrl="/sprites/star.png"
                             />
                         ))}

@@ -10,7 +10,8 @@ import { usePlayer } from "../hooks/usePlayer";
 export default function Game() {
     const [player, _] = usePlayer()
     return (
-        <div className="relative bg-radial-gradient w-full h-screen min-h-180 min-w-6xl flex flex-col items-center text-white font-jaro">
+        <div className="select-none relative bg-radial-gradient w-full h-screen min-h-180 min-w-6xl flex flex-col items-center text-white font-jaro">
+          
             <img className="h-full opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
             <TitleBar/>
      
