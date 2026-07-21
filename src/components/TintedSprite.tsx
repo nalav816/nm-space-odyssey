@@ -1,6 +1,7 @@
-import { useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import ColoredSprite from "./ColoredSprite"
 import type { HTMLMotionProps } from "motion/react"
+import useSpriteSize from "../hooks/useSpriteSize"
 
 export default function TintedSprite({
     spriteUrl,
@@ -24,18 +25,7 @@ export default function TintedSprite({
     onMouseLeave?: () => void,
     onClick?: () => void
 }) {
-    const width = useRef(1)
-    const height = useRef(1)
-
-    useEffect(() => {
-        const img = new Image()
-        img.src = spriteUrl
-        img.onload = () => {
-            width.current = img.width * 2
-            height.current = img.height * 2
-        }
-
-    }, [])
+    const [width, height] = useSpriteSize(spriteUrl)
 
     return (
         <div
@@ -55,7 +45,7 @@ export default function TintedSprite({
                 onClick={onClick}
                 className="image-pixelated"
                 src={spriteUrl} alt={"sprite"}
-                style={{ width: width.current, height: height.current }}
+                style={{ width: width, height: height }}
                 draggable={false}
             />
         </div>)

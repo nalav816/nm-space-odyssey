@@ -11,6 +11,7 @@ import { ArrowLeft } from "lucide-react"
 import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
 import useRoom from "../hooks/useRoom"
+import ColoredSprite from "./ColoredSprite"
 
 export function getNextAvailableQuartersSlot(player: Player) {
     let slot = 1
@@ -85,7 +86,7 @@ export default function AstronautQuarters({ className } : { className: string}) 
                                             {astronaut ? (
                                                 <Astronaut astronaut={astronaut} />
                                             ) : (
-                                                <TintedSprite tintIntensity={1} spriteUrl="/sprites/scrub.png" tintColor="blue-darker" className="relative z-10" />
+                                                <ColoredSprite spriteUrl="/sprites/scrub.png" color="blue-darker" className="relative z-10" />
                                             )}
                                         </div>
                                     )

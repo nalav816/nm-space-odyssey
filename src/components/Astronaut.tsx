@@ -8,8 +8,9 @@ import { Player } from "../services/playerService"
 import { Astronaut as AstronautType } from "../services/astronautService"
 import { getPrice, getDollarsPerSecond, getModel, isScientist } from "../services/astronautService"
 import { GameContext } from "../context/GameProvider"
+import { createPortal } from "react-dom"
 
-const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>>}) => {
+const IdleProductionHandler = ({ astronaut, setPlayer }: { astronaut: AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
     const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
     const [setOnGameTick, _] = useContext(GameContext)!
     const floatDelay = useRef(Math.random() * 1)
@@ -53,8 +54,9 @@ const IdleProductionHandler = ({ astronaut, setPlayer } : {astronaut:AstronautTy
                 ease: "easeInOut",
             }}
         >
-            <TintedSprite className="image-glow-yellow relative z-20" spriteUrl="/sprites/dollarSign.png" />
+            <TintedSprite tintIntensity={0} className="image-glow-yellow relative z-20" spriteUrl="/sprites/dollarSign.png" />
             <motion.img
+                draggable={false}
                 animate={{ rotate: 360 }}
                 transition={{
                     duration: 11,
@@ -108,10 +110,10 @@ const DragType = {
 
 type DragType = typeof DragType[keyof typeof DragType]
 
-const DragIndicator = ({ dragType } : {dragType:DragType}) => {
+const DragIndicator = ({ dragType }: { dragType: DragType }) => {
     return (
-        <div className="absolute top-full left-0 w-full pt-2 flex justify-center">
-            <div className="relative shrink-0 text-xs text-center z-20">
+        <div className="absolute top-full left-0 max-w-full pt-2 flex justify-center">
+            <div className="relative shrink-0 text-xs text-white text-center z-20">
                 {dragType == DragType.ActionDrag ? (<div> Press The <span className="text-blue-light"> {DRAG_CANCEL_KEYBIND} <br /> Key </span>  To Cancel </div>) :
                     (<div> Release Hold <br /> To Cancel </div>)}
                 <div className="absolute bg-blue-light/30 blur-lg h-full w-full top-0 z-10" />
@@ -120,7 +122,7 @@ const DragIndicator = ({ dragType } : {dragType:DragType}) => {
     )
 }
 
-export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
+export default function Astronaut({ astronaut }: { astronaut: AstronautType }) {
     const [player, setPlayer] = usePlayer();
     const MAX_TINT_INTENSITY = .2
     const [isMouseOver, setIsMouseOver] = useState(false)
@@ -129,6 +131,7 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
     const [dragType, setDragType] = useState(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const dragTimer = useRef<null | NodeJS.Timeout>(null)
+    const selectionTimer = useRef<null | NodeJS.Timeout>(null)
 
     const onMouseEnter = () => {
         setIsMouseOver(true)
@@ -139,7 +142,13 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
     }
 
     const onClick = () => {
-        setIsSelected((prev) => !prev)
+        if (!selectionTimer.current) {
+            setIsSelected((prev) => !prev)
+            selectionTimer.current = setTimeout(() => {
+                selectionTimer.current = null
+            }, 50)
+        }
+
     }
 
     const onActionClick = () => {
@@ -148,15 +157,15 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
     }
 
     const onSellClick = async () => {
-        const newPlayer : Player = {
+        const newPlayer: Player = {
             ...player!,
             ...{
                 astronauts: player!.astronauts.filter((a: AstronautType) => a.id != astronaut.id),
                 netWorth: player!.netWorth + getPrice(astronaut)
             }
         }
-        savePlayerData(newPlayer)
         setPlayer!(newPlayer)
+        savePlayerData(newPlayer)
     }
 
     useEffect(() => {
@@ -215,10 +224,10 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
         return () => document.removeEventListener("mousemove", onMouseMove)
     }, [])
 
-    
+
     return (
         <div className="flex flex-col items-center gap-8 relative">
-            <div className={`z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
+            {createPortal(<div className={`min-w-0 z-50 fixed ${isBeingDragged ? "" : "hidden pointer-events-none"}`}
                 style={{
                     top: `${mouse.y - 30}px`,
                     left: `${mouse.x - 10}px`
@@ -232,17 +241,17 @@ export default function Astronaut({ astronaut } : {astronaut:AstronautType}) {
                 />
 
                 <DragIndicator dragType={dragType} />
-            </div>
+            </div>, document.body)}
 
             {isScientist(astronaut) && !isBeingDragged && <IdleProductionHandler astronaut={astronaut} setPlayer={setPlayer} />}
 
             <TintedSprite
-                className={`relative z-10 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
+                className={`relative z-30 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
                 spriteUrl={getModel(astronaut)}
-                tintColor = "white"
+                tintColor="white"
                 tintIntensity={isSelected ? MAX_TINT_INTENSITY : 0}
-                tintAnimate = {isMouseOver && !isSelected ? {
-                    opacity: ["0%", (MAX_TINT_INTENSITY* 100) + "%", "0%"]
+                tintAnimate={isMouseOver && !isSelected ? {
+                    opacity: ["0%", (MAX_TINT_INTENSITY * 100) + "%", "0%"]
                 } : {}}
                 tintTransition={isMouseOver && !isSelected ? {
                     duration: 1.5,

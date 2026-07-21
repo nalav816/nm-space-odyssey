@@ -1,26 +1,16 @@
-import { useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "motion/react"
 import type { HTMLMotionProps } from "motion/react"
+import useSpriteSize from "../hooks/useSpriteSize"
 
 export default function ColoredSprite(
-    { spriteUrl, className, style, color="blue", animate, transition }: 
-{ spriteUrl: string, className?: string, style?: React.CSSProperties, color?: string, animate?:HTMLMotionProps<"div">["animate"], transition?:HTMLMotionProps<"div">["transition"]}
+    { spriteUrl, className, style, color = "blue", animate, transition }:
+        { spriteUrl: string, className?: string, style?: React.CSSProperties, color?: string, animate?: HTMLMotionProps<"div">["animate"], transition?: HTMLMotionProps<"div">["transition"] }
 ) {
-    const width = useRef(1)
-    const height = useRef(1)
-
-    useEffect(() => {
-        const img = new Image()
-        img.src = spriteUrl
-        img.onload = () => {
-            width.current = img.width * 2
-            height.current = img.height *2 
-        }
-
-    }, [])
+    const [width, height] = useSpriteSize(spriteUrl)
 
     return (
-        <motion.div animate={animate} transition={transition} className={`${className}`} style={
+        <motion.div animate={animate} transition={transition} className={`image-pixelated ${className}`} style={
             {
                 ...{
                     maskImage: `url(${spriteUrl})`,
@@ -29,8 +19,8 @@ export default function ColoredSprite(
                     WebkitMaskImage: `url(${spriteUrl})`,
                     WebkitMaskRepeat: 'no-repeat',
                     WebkitMaskSize: "contain",
-                    width: width.current,
-                    height: height.current,
+                    width: width,
+                    height: height,
                     backgroundColor: "var(--color-" + color + ")"
                 }, ...style
             }
