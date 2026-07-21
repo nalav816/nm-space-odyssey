@@ -15,7 +15,7 @@ const CategoryButton = ({ category, setCategory, active = true } : { category: C
             text-sm transform transition duration-100 ease-in-out 
             ${active ? "bg-blue-light box-shadow" : "bg-blue-dark hover-shadow hover:cursor-pointer hover:bg-blue-light transition duration-300"}
             `}>
-            <div className="relative z-40"> {category}  </div>
+            <div className="relative z-40"> {category[0].toUpperCase() + category.slice(1)}  </div>
         </button>
     )
 }
@@ -107,7 +107,7 @@ const ShopItem = ({
                         .fill(0)
                         .map((_, index) => (
                             <ColoredSprite key={index}
-                                color="blue-dark"
+                                color="blue-darker"
                                 className="h-4 w-4 image-pixelated"
                                 spriteUrl="/sprites/star.png"
                             />
@@ -127,7 +127,7 @@ export default function Shop({ className } : {className:string}) {
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="relative p-4 flex gap-2">
                 <CategoryButton setCategory={() => setCategory("astronauts")} category={"astronauts"} active={category == "astronauts"} />
-                <CategoryButton setCategory={() => setCategory("rockets")} category={"rockets"} active={category == "rockets"} />
+                <CategoryButton setCategory={() => setCategory("rocketry")} category={"rocketry"} active={category == "rockets"} />
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">

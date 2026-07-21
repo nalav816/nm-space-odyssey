@@ -16,5 +16,6 @@ export default function useSpriteSize(spriteUrl:string) {
 
     }, [])
 
+    
     return [width, height]
 }

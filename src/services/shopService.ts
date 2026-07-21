@@ -15,7 +15,7 @@ export interface ShopItem  {
 
 export interface Shop {
     astronauts: ShopItem[];
-    rockets: ShopItem[];
+    rocketry: ShopItem[];
 }
 
 function sortShopItems(a: ShopItem, b: ShopItem) {

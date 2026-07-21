@@ -27,9 +27,11 @@ export default function TintedSprite({
 }) {
     const [width, height] = useSpriteSize(spriteUrl)
 
+    if(spriteUrl === "/sprites/makeshiftNosecone.png") console.log(width, height)
+
     return (
         <div
-            className= {`relative ${className}`}
+            className= {`${className}`}
         >
             <ColoredSprite
                 spriteUrl={spriteUrl}
