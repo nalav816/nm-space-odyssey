@@ -1,16 +1,35 @@
 import TintedSprite from "./TintedSprite"
+import { RocketComponent as RocketComponentType, getModel } from "../services/rocketService"
+import { useState } from "react"
 
-export default function Rocket({}) {
+const RocketComponent = ({ component }: { component: RocketComponentType }) => {
+    return (
+        <TintedSprite tintIntensity={0} spriteUrl={getModel(component)} />
+    )
+}
+
+export default function Rocket({ }) {
+    const [components, setComponents] = useState<RocketComponentType[]>([
+        {
+            name: "Makeshift Engine",
+        },
+        {
+            name: "Cardboard Fuel Tank"
+        }
+    ])
 
     return (
         <div className="flex flex-col-reverse absolute bottom-8 left-8">
-            <TintedSprite tintIntensity={0} spriteUrl="/sprites/makeshiftEngine.png"/> 
-            <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png"/> 
-            <TintedSprite tintIntensity={0} spriteUrl="/sprites/cardboardFuelTank.png"/> 
-            <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png"/> 
-            <TintedSprite tintIntensity={0} spriteUrl="/sprites/trashCommandModule.png"/> 
-            <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png"/> 
-            <TintedSprite  tintIntensity={0} spriteUrl="/sprites/nosecone.png"/> 
+            {components.map((c, i) => {
+                return (
+                    <div key={i} className="flex flex-col">
+                        {i < components.length - 1 && (
+                            <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png"/>
+                        )}
+                        <RocketComponent component={c} />
+                    </div>      
+                )
+            })}
         </div>
     )
 }

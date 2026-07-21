@@ -3,6 +3,7 @@
         "username": "nadden",
         "netWorth": 300,
         "astronauts": [],
+        "rockets": [],
         "astronautRoomCount": 2,
         "roomSpaceCap": 5,
         "rocketPlotCount": 1,

@@ -40,7 +40,7 @@ const ShopItem = ({
     disabled = shopItem.isLocked || player.netWorth < shopItem.price || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
 } : {
     player: Player,
-    setPlayer: React.Dispatch<React.SetStateAction<Player | null>>,
+    setPlayer: React.Dispatch<React.SetStateAction<Player>>,
     shopItem: ShopItemType,
     disabled?: boolean
 }) => {
@@ -127,12 +127,12 @@ export default function Shop({ className } : {className:string}) {
         <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="relative p-4 flex gap-2">
                 <CategoryButton setCategory={() => setCategory("astronauts")} category={"astronauts"} active={category == "astronauts"} />
-                <CategoryButton setCategory={() => setCategory("rocketry")} category={"rocketry"} active={category == "rockets"} />
+                <CategoryButton setCategory={() => setCategory("rocketry")} category={"rocketry"} active={category == "rocketry"} />
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {player!.shop[category].map((shopItem:ShopItemType, i:number) => (
-                    <ShopItem player={player!} setPlayer={setPlayer!} key={i} shopItem={shopItem} />
+                    <ShopItem player={player!} setPlayer={setPlayer} key={i} shopItem={shopItem} />
                 ))}
             </div>
         </SectionCard>

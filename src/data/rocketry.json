@@ -1,0 +1,23 @@
+{
+    "Makeshift Engine": {
+        "modelUrl": "/sprites/makeshiftEngine.png",
+        "shopIconUrl": "/sprites/placeholder.png",
+        "isEngine": true,
+        "isFuelTank": false,
+        "isCommandModule": false
+    },
+    "Cardboard Fuel Tank": {
+        "modelUrl": "/sprites/cardboardFuelTank.png",
+        "shopIconUrl": "/sprites/placeholder.png",
+        "isEngine": false,
+        "isFuelTank": true,
+        "isCommandModule": false
+    },
+    "Trash Command Module": {
+        "modelUrl": "/sprites/trashCommandModule.png",
+        "shopIconUrl": "/sprites/placeholder.png",
+        "isEngine": false,
+        "isFuelTank": false,
+        "isCommandModule": true
+    }
+}
