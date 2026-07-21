@@ -1,11 +1,11 @@
 import { Player } from "./playerService";
+import { AstronautName } from "./astronautService";
+import { RocketComponentName } from "./rocketService";
 
 export interface ShopItem  {
-    name: string;
+    name: AstronautName | RocketComponentName;
     rating: number;
     price: number
-    iconUrl: string;
-    modelUrl: string;
     isLocked: boolean;
     dollarsPerSecond: number;
     isEngineer: boolean;

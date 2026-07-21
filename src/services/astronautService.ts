@@ -16,8 +16,8 @@ export function getModel(astronaut: Astronaut): string {
     return astronautData[astronaut.name].modelUrl
 }
 
-export function getShopIcon(astronaut: Astronaut): string {
-    return astronautData[astronaut.name].shopIconUrl
+export function getShopIcon(astronautName: AstronautName): string {
+    return astronautData[astronautName].shopIconUrl
 }
 
 export function getRating(astronaut: Astronaut): number {

@@ -1,6 +1,6 @@
 import rocketData from "../data/rocketry.json"
 
-export type Component = keyof typeof rocketData
+export type RocketComponentName = keyof typeof rocketData
 
 export interface Rocket {
     id: string
@@ -10,11 +10,15 @@ export interface Rocket {
 }
 
 export interface RocketComponent {
-    name: Component
+    name: RocketComponentName
 
 
 }
 
 export function getModel (component:RocketComponent) {
     return rocketData[component.name].modelUrl
+}
+
+export function getShopIcon (componentName: RocketComponentName){
+    return rocketData[componentName].shopIconUrl
 }

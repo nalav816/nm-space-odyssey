@@ -34,7 +34,12 @@
                     "dollarsPerSecond": 0
                 }
             ],
-            "rocketry": []
+            "rocketry": [
+                {
+                    
+                }
+
+            ]
         }
     }
 }

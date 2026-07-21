@@ -5,7 +5,7 @@ import { usePlayer } from "../hooks/usePlayer"
 import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType, ShopItem as ShopItemType } from "../services/shopService"
-
+import { AstronautName, getShopIcon } from "../services/astronautService"
 
 type Category = keyof ShopType;
 
@@ -80,9 +80,9 @@ const ShopItem = ({
             <div className="z-30 h-16 w-16 bg-blue-dark  relative">
                 <div className="z-10 texture geometric-texture opacity-10" />
                 {shopItem.isLocked ?
-                    (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={shopItem.iconUrl} />)
+                    (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={getShopIcon(shopItem.name as AstronautName)} />)
                     :
-                    (<img className="z-20 relative h-16 w-16 image-pixelated" src={shopItem.iconUrl} />)
+                    (<img className="z-20 relative h-16 w-16 image-pixelated" src={getShopIcon(shopItem.name as AstronautName)} />)
                 }
                 <JobIndicator shopItem={shopItem} />
             </div>
