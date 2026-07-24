@@ -103,7 +103,7 @@ const ShopItem = ({
 
             <div className="px-3 py-0.5 flex flex-col">
                 <div className={`relative z-20 text-xl leading-none`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
-                <div className="flex pt-0.5 gap-1">
+                <div className="flex gap-1">
                     {Array(shopItem.rating)
                         .fill(0)
                         .map((_, index) => (
@@ -127,7 +127,7 @@ const ShopItem = ({
                             />
                         ))}
                 </div>
-                <div className={`relative z-20 py-1 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green-light text-glow-green"}`}> ${shopItem.price} </div>
+                <div className={`relative z-20 mt-auto pb-1.5 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green-light text-glow-green"}`}> ${shopItem.price} </div>
             </div>
         </div>
     )
