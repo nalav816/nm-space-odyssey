@@ -5,11 +5,17 @@ import { usePlayer } from "../hooks/usePlayer"
 import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType, ShopItem as ShopItemType } from "../services/shopService"
-import { AstronautName, getShopIcon } from "../services/astronautService"
+import { AstronautName, getShopIcon as getAstronautShopIcon} from "../services/astronautService"
+import { getShopIcon as getRocketComponentShopIcon, RocketComponentName } from "../services/rocketService"
 
 type Category = keyof ShopType;
 
-const CategoryButton = ({ category, setCategory, active = true } : { category: Category, setCategory: () => void, active?: boolean }) => {
+//helper function which easily tells us if shop item is astronaut or rocket component
+function isAstronaut (shopItem: ShopItemType){
+    return shopItem.isEngineer || shopItem.isScientist || shopItem.isPilot
+}
+
+const CategoryButton = ({ category, setCategory, active = true }: { category: Category, setCategory: () => void, active?: boolean }) => {
     return (
         <button onClick={setCategory} className={`relative rounded w-32 h-6 text-white
             text-sm transform transition duration-100 ease-in-out 
@@ -20,7 +26,7 @@ const CategoryButton = ({ category, setCategory, active = true } : { category: C
     )
 }
 
-const JobIndicator = ({ shopItem } : { shopItem: ShopItemType }) => {
+const JobIndicator = ({ shopItem }: { shopItem: ShopItemType }) => {
     return (
         <div className="absolute right-0 top-0">
             <div className="absolute rounded-lg w-full h-full z-20 blur-sm bg-blue-darker/70" />
@@ -28,6 +34,7 @@ const JobIndicator = ({ shopItem } : { shopItem: ShopItemType }) => {
                 {shopItem.isPilot && (<img className="w-4 h-4 image-pixelated" src="/sprites/pilotIcon.png" />)}
                 {shopItem.isScientist && (<img className="w-4 h-4 image-pixelated" src="/sprites/scientistIcon.png" />)}
                 {shopItem.isEngineer && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineerIcon.png" />)}
+                {shopItem.isEngine && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineIcon.png" />)}
             </div>
         </div>
     )
@@ -38,7 +45,7 @@ const ShopItem = ({
     setPlayer,
     shopItem,
     disabled = shopItem.isLocked || player.netWorth < shopItem.price || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
-} : {
+}: {
     player: Player,
     setPlayer: React.Dispatch<React.SetStateAction<Player>>,
     shopItem: ShopItemType,
@@ -46,29 +53,36 @@ const ShopItem = ({
 }) => {
 
     const onClick = async () => {
-        const {room, slot} = getNextAvailableQuartersSlot(player);
+        if (shopItem.isEngineer || shopItem.isPilot || shopItem.isScientist) {
+            const { room, slot } = getNextAvailableQuartersSlot(player);
 
-        if (shopItem.price <= player.netWorth) {
-            const id = crypto.randomUUID()
-            const newPlayer : Player = {
-                ...player,
-                netWorth: player.netWorth - shopItem.price,
-                astronauts: [...player.astronauts,
-                {
-                    id: id,
-                    name: shopItem.name,
-                    lastCurrencyUpdate: Date.now(),
-                    isGeneratingDollars: shopItem.isScientist,
-                    dollarsPerSecond: shopItem.dollarsPerSecond,
-                    occupiedSlot: slot,
-                    occupiedRoom: room
-                }],
+            if (shopItem.price <= player.netWorth) {
+                const id = crypto.randomUUID()
+                const newPlayer: Player = {
+                    ...player,
+                    netWorth: player.netWorth - shopItem.price,
+                    astronauts: [...player.astronauts,
+                    {
+                        id: id,
+                        name: shopItem.name,
+                        lastCurrencyUpdate: Date.now(),
+                        isGeneratingDollars: shopItem.isScientist,
+                        dollarsPerSecond: shopItem.dollarsPerSecond,
+                        occupiedSlot: slot,
+                        occupiedRoom: room
+                    }],
+                }
+
+                setPlayer(newPlayer)
+                savePlayerData(newPlayer)
             }
+        } else {
 
-            setPlayer(newPlayer) 
-            savePlayerData(newPlayer)
+
         }
     }
+
+    const iconUrl = isAstronaut(shopItem) ? getAstronautShopIcon(shopItem.name as AstronautName) : getRocketComponentShopIcon(shopItem.name as RocketComponentName)
 
     return (
         <div onClick={onClick} className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
@@ -80,16 +94,16 @@ const ShopItem = ({
             <div className="z-30 h-16 w-16 bg-blue-dark  relative">
                 <div className="z-10 texture geometric-texture opacity-10" />
                 {shopItem.isLocked ?
-                    (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={getShopIcon(shopItem.name as AstronautName)} />)
+                    (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={iconUrl} />)
                     :
-                    (<img className="z-20 relative h-16 w-16 image-pixelated" src={getShopIcon(shopItem.name as AstronautName)} />)
+                    (<img className="z-20 relative h-16 w-16 image-pixelated" src={iconUrl} />)
                 }
                 <JobIndicator shopItem={shopItem} />
             </div>
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className={`relative z-20 text-2xl leading-none`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
-                <div className="flex gap-1">
+                <div className={`relative z-20 text-xl leading-none`}> {shopItem.isLocked ? "???" : shopItem.name} </div>
+                <div className="flex pt-0.5 gap-1">
                     {Array(shopItem.rating)
                         .fill(0)
                         .map((_, index) => (
@@ -113,13 +127,13 @@ const ShopItem = ({
                             />
                         ))}
                 </div>
-                <div className={`relative z-20 py-0.5 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green-light text-glow-green"}`}> ${shopItem.price} </div>
+                <div className={`relative z-20 py-1 text-sm leading-none ${disabled ? "text-red-light text-glow-red" : "text-green-light text-glow-green"}`}> ${shopItem.price} </div>
             </div>
         </div>
     )
 }
 
-export default function Shop({ className } : {className:string}) {
+export default function Shop({ className }: { className: string }) {
     const [player, setPlayer] = usePlayer();
     const [category, setCategory] = useState<Category>("astronauts")
 
@@ -131,7 +145,7 @@ export default function Shop({ className } : {className:string}) {
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
-                {player!.shop[category].map((shopItem:ShopItemType, i:number) => (
+                {player!.shop[category].map((shopItem: ShopItemType, i: number) => (
                     <ShopItem player={player!} setPlayer={setPlayer} key={i} shopItem={shopItem} />
                 ))}
             </div>

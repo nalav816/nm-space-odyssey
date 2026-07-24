@@ -1,7 +1,7 @@
 {
     "Makeshift Engine": {
         "modelUrl": "/sprites/makeshiftEngine.png",
-        "shopIconUrl": "/sprites/placeholder.png",
+        "shopIconUrl": "/sprites/placeholderShopIcon.png",
         "isEngine": true,
         "isFuelTank": false,
         "isCommandModule": false
@@ -15,6 +15,13 @@
     },
     "Trash Command Module": {
         "modelUrl": "/sprites/trashCommandModule.png",
+        "shopIconUrl": "/sprites/placeholder.png",
+        "isEngine": false,
+        "isFuelTank": false,
+        "isCommandModule": true
+    },
+    "Makeshift Nosecone": {
+        "modelUrl": "/sprites/nosecone.png",
         "shopIconUrl": "/sprites/placeholder.png",
         "isEngine": false,
         "isFuelTank": false,

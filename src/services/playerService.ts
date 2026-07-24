@@ -1,11 +1,13 @@
 
 import type { Shop } from "./shopService"
 import { getIdleIncomes, updateCurencyTimestamps } from "../services/astronautService";
+import { Rocket } from "./rocketService";
 
 export interface Player {
   username: string,
   netWorth: number,
   astronauts: any[],
+  rockets: Rocket[],
   astronautRoomCount: number,
   roomSpaceCap: number,
   rocketPlotCount: number,

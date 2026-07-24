@@ -7,10 +7,11 @@ export interface ShopItem  {
     rating: number;
     price: number
     isLocked: boolean;
-    dollarsPerSecond: number;
-    isEngineer: boolean;
-    isScientist: boolean;
-    isPilot: boolean;
+    dollarsPerSecond?: number;
+    isEngineer?: boolean;
+    isScientist?: boolean;
+    isPilot?: boolean;
+    isEngine?: boolean;
 }
 
 export interface Shop {

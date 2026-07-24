@@ -4,18 +4,21 @@ import TintedSprite from "./TintedSprite"
 import TopBar from "./TopBar"
 import ColoredSprite from "./ColoredSprite"
 import { useState, useEffect } from "react"
+import { usePlayer } from "../hooks/usePlayer"
 import Rocket from "./Rocket"
 
-const RocketPlatform = ({ rocketSprite }) => {
+const RocketPlatform = ({ rocket }) => {
     return (
         <div className="relative flex flex-col items-end">
-           <Rocket />
+           {rocket && (<Rocket roocket={rocket}/>)}
            <ColoredSprite spriteUrl="/sprites/launchpad.png"/>
         </div>
     )
 }
 
 export default function Launchpad({ className }) {
+    const [player, setPlayer] = usePlayer()
+
     return (
         <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
             <div className="relative z-20 rounded-b flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">
@@ -27,7 +30,7 @@ export default function Launchpad({ className }) {
                             <div className="flex justify-between items-end">
                                 <ColoredSprite spriteUrl="/sprites/controlTower.png"/>
                                 <ColoredSprite spriteUrl="/sprites/gasStation.png"/>
-                                <RocketPlatform rocketSprite="/sprites/bigRed.png" />
+                                <RocketPlatform rocket={player.rockets.length > 0 ? player.rockets[0] : null} />
                             </div>
                             
 

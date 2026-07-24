@@ -36,7 +36,12 @@
             ],
             "rocketry": [
                 {
-                    
+                    "name": "Makeshift Engine",
+                    "rating": 1,
+                    "price": 1,
+                    "iconUrl": "/sprites/placeholder.png",
+                    "modelUrl": "/sprites/ace.png",
+                    "isEngine": true
                 }
 
             ]
