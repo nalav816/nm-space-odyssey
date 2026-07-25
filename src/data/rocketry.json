@@ -1,5 +1,8 @@
 {
     "Makeshift Engine": {
+        "rating": 1,
+        "isHiddenOnLock": false,
+        "price": 1,
         "modelUrl": "/sprites/makeshiftEngine.png",
         "shopIconUrl": "/sprites/placeholderShopIcon.png",
         "isEngine": true,
@@ -7,6 +10,9 @@
         "isCommandModule": false
     },
     "Cardboard Fuel Tank": {
+        "rating": 1,
+        "isHiddenOnLock": false,
+        "price": 1,
         "modelUrl": "/sprites/cardboardFuelTank.png",
         "shopIconUrl": "/sprites/placeholder.png",
         "isEngine": false,
@@ -14,6 +20,9 @@
         "isCommandModule": false
     },
     "Trash Command Module": {
+        "rating": 1,
+        "isHiddenOnLock": false,
+        "price": 1,
         "modelUrl": "/sprites/trashCommandModule.png",
         "shopIconUrl": "/sprites/placeholder.png",
         "isEngine": false,
@@ -21,6 +30,9 @@
         "isCommandModule": true
     },
     "Makeshift Nosecone": {
+        "rating": 1,
+        "isHiddenOnLock": false,
+        "price": 1,
         "modelUrl": "/sprites/nosecone.png",
         "shopIconUrl": "/sprites/placeholder.png",
         "isEngine": false,

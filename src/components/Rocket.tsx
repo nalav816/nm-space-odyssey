@@ -1,5 +1,6 @@
 import TintedSprite from "./TintedSprite"
-import { Rocket as RocketType, RocketComponent as RocketComponentType, getModel } from "../services/rocketService"
+import { Rocket as RocketType, RocketComponent as RocketComponentType } from "../services/rocketService"
+import { getModel } from "../services/entityService"
 import { useState } from "react"
 
 const RocketComponent = ({ component }: { component: RocketComponentType }) => {

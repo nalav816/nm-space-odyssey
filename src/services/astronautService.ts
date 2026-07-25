@@ -1,51 +1,35 @@
 import astronautData from "../data/astronauts.json"
+import { Entity, EntityName } from "./entityService"
 import { Player } from "./playerService"
 
 export type AstronautName = keyof typeof astronautData
 
-export type Astronaut = {
-    id: string,
-    name: AstronautName,
+export interface Astronaut extends Entity{
+    name: AstronautName
     isGeneratingDollars: boolean,
     lastCurrencyUpdate: number,
     occupiedSlot: number,
     occupiedRoom: number,
 }
 
-export function getModel(astronaut: Astronaut): string {
-    return astronautData[astronaut.name].modelUrl
+export function isAstronaut(e: Entity) {
+    return e.name in astronautData
 }
 
-export function getShopIcon(astronautName: AstronautName): string {
-    return astronautData[astronautName].shopIconUrl
+export function getDollarsPerSecond(a: Astronaut): number {
+    return astronautData[a.name].dollarsPerSecond
 }
 
-export function getRating(astronaut: Astronaut): number {
-    return astronautData[astronaut.name].rating
+export function isScientist(a: Astronaut): boolean {
+    return astronautData[a.name].isScientist
 }
 
-export function getPrice(astronaut: Astronaut): number {
-    return astronautData[astronaut.name].price
+export function isEngineer(a: Astronaut): boolean {
+    return astronautData[a.name].isEngineer
 }
 
-export function getDollarsPerSecond(astronaut: Astronaut): number {
-    return astronautData[astronaut.name].dollarsPerSecond
-}
-
-export function isHiddenOnLock(astronaut: Astronaut): boolean {
-    return astronautData[astronaut.name].isHiddenOnLock
-}
-
-export function isScientist(astronaut: Astronaut): boolean {
-    return astronautData[astronaut.name].isScientist
-}
-
-export function isEngineer(astronaut: Astronaut): boolean {
-    return astronautData[astronaut.name].isEngineer
-}
-
-export function isPilot(astronaut: Astronaut): boolean {
-    return astronautData[astronaut.name].isPilot
+export function isPilot(a: Astronaut): boolean {
+    return astronautData[a.name].isPilot
 }
 
 //If an optional astronaut is not provided, the following functions run for every astronaut
