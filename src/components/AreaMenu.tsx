@@ -1,7 +1,8 @@
 import ColoredSprite from "./ColoredSprite";
 import { useEffect, useRef } from "react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 
-const AreaButton = ({ number, setArea, isActive } : {number: number, setArea: React.Dispatch<React.SetStateAction<number>>, isActive:boolean}) => {
+const AreaButton = ({ number, setArea, isActive }: { number: number, setArea: React.Dispatch<React.SetStateAction<number>>, isActive: boolean }) => {
     const button = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
@@ -36,29 +37,48 @@ export default function AreaMenu(
         areaCount = 0,
         isLaunchpad = false,
         setArea
-    } :
+    }:
 
-    {
-        items: number,
-        itemCapacity: number,
-        currArea: number,
-        areaCount: number,
-        isLaunchpad: boolean,
-        setArea: React.Dispatch<React.SetStateAction<number>>
-    }
+        {
+            items: number,
+            itemCapacity: number,
+            currArea: number,
+            areaCount: number,
+            isLaunchpad: boolean,
+            setArea: React.Dispatch<React.SetStateAction<number>>
+        }
 ) {
     const areaName = isLaunchpad ? "Plot" : "Room"
     const itemIconUrl = isLaunchpad ? "/sprites/stackIcon.png" : "/sprites/astronautIcon.png";
 
     return (
         <div className="relative z-40 px-4 py-2 w-full flex flex-col">
-            <div className="gap-4 flex items-center">
-                <div className="text-md"> {areaName + " " + currArea}  </div>
-                <div className="flex gap-1">
-                    <ColoredSprite className="bg-blue-lightest h-4 w-4 image-pixelated" spriteUrl={itemIconUrl} />
-                    <div className="text-sm"> {items} / {itemCapacity} </div>
+            <div className="flex justify-between">
+                <div className="gap-4 flex items-center">
+                    <div className="text-md"> {areaName + " " + currArea}  </div>
+                    <div className="flex gap-1">
+                        <ColoredSprite className="bg-blue-lightest h-4 w-4 image-pixelated" spriteUrl={itemIconUrl} />
+                        <div className="text-sm"> {items} / {itemCapacity} </div>
+                    </div>
+                </div>
+                <div className="flex gap-2">
+                <button
+                    onClick={() => currArea > 1 && setArea(prev => prev - 1)}
+                    disabled={currArea <= 1}
+                    className="disabled:opacity-30 disabled:pointer-events-none"
+                >
+                    <ArrowLeft className="transition-transform duration-200 hover:-translate-y-0.5 hover:text-blue-lightest text-blue-light h-4 w-4" />
+                </button>
+                <button
+                    onClick={() => currArea < areaCount && setArea(prev => prev + 1)}
+                    disabled={currArea >= areaCount}
+                    className="disabled:opacity-30 disabled:pointer-events-none"
+                >
+                    <ArrowRight className="transition-transform duration-200 hover:-translate-y-0.5 hover:text-blue-lightest text-blue-light h-4 w-4" />
+                </button>
                 </div>
             </div>
+
 
             <div className="border-b-2 border-blue-dark">
                 <div className="flex flex-wrap mt-2 pb-2 gap-2 min-h-0 max-h-10 overflow-y-scroll scrollbar-custom ">

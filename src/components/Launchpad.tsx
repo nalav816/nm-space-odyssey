@@ -7,45 +7,62 @@ import { usePlayer } from "../hooks/usePlayer"
 import Rocket from "./Rocket"
 import AreaMenu from "./AreaMenu"
 import { Rocket as RocketType } from "../services/rocketService"
+import { motion } from "motion/react"
 
-const RocketPlatform = ({ rocket } : {rocket:RocketType | null}) => {
+const RocketPlatform = ({ rocket }: { rocket: RocketType | null }) => {
     return (
         <div className="relative flex flex-col items-end">
-           {rocket && (<Rocket rocket={rocket}/>)}
-           <ColoredSprite spriteUrl="/sprites/launchpad.png"/>
+            {rocket && (<Rocket rocket={rocket} />)}
+            <ColoredSprite spriteUrl="/sprites/launchpad.png" />
         </div>
     )
 }
 
-export default function Launchpad({ className, plot, setPlot } : { className: string, plot: number, setPlot: React.Dispatch<React.SetStateAction<number>>}) {
+export default function Launchpad({ className, plot, setPlot }: { className: string, plot: number, setPlot: React.Dispatch<React.SetStateAction<number>> }) {
     const [player, setPlayer] = usePlayer()
 
     return (
         <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
             <div className="relative z-20 rounded-b flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">
-                <div className="texture opacity-5"/>
+                <div className="texture opacity-5" />
                 <AreaMenu
                     areaCount={player.rocketPlotCount}
                     itemCapacity={player.plotHeightCap}
                     items={player.rockets.filter((r, _) => r.occupiedArea == plot).length}
                     setArea={setPlot}
                     currArea={plot}
-                    isLaunchpad={true} 
+                    isLaunchpad={true}
                 />
-                <div className="flex-1 min-h-0 w-full flex flex-col items-center">
-                    <div className="flex-1 w-full min-h-0 px-4">
-                        <div className="h-full flex min-h-0 flex-col-reverse overflow-auto w-full scrollbar-custom ">
-                            <div className="flex justify-between items-end">
-                                <ColoredSprite spriteUrl="/sprites/controlTower.png"/>
-                                <ColoredSprite spriteUrl="/sprites/gasStation.png"/>
-                                <RocketPlatform rocket={player.rockets.length > 0 ? player.rockets[0] : null} />
+                <div className="flex-1 min-h-0 w-full flex flex-col items-center justify-end overflow-hidden">
+                    <motion.div 
+                        className="w-full flex "
+                        animate={{
+                            x: (-100 * (plot - 1)) + "%"
+                        }}
+                        transition={{
+                            duration: .3,
+                            ease: "easeInOut"
+                        }}
+                    >
+                        {new Array(player.rocketPlotCount).fill(0).map((_, i) => (
+                            <div className="min-w-full" key={i}>
+                                <div className="flex-1 w-full min-h-0 px-4">
+                                    <div className="h-full flex min-h-0 flex-col-reverse overflow-auto w-full scrollbar-custom ">
+                                        <div className="flex justify-between items-end">
+                                            <ColoredSprite spriteUrl="/sprites/controlTower.png" />
+                                            <ColoredSprite spriteUrl="/sprites/gasStation.png" />
+                                            <RocketPlatform rocket={player.rockets.length > 0 ? player.rockets[0] : null} />
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <TiledSprite tileUrl={"/sprites/grassTile.png"} color="blue-dark" className="w-full! image-pixelated"></TiledSprite>
                             </div>
-                            
+                        ))}
 
-                        </div>
-                    </div>
 
-                    <TiledSprite tileUrl={"/sprites/grassTile.png"} color="blue-dark" className="w-full! image-pixelated mb-2"></TiledSprite>
+                    </motion.div>
                 </div>
 
             </div>

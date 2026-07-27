@@ -43,7 +43,7 @@ export function getNextAvailableQuartersSlot(player: Player) {
     }
 }
 
-export default function AstronautQuarters({ className, room, setRoom } : { className: string, room: number, setRoom: React.Dispatch<React.SetStateAction<number>>}) {
+export default function AstronautQuarters({ className, room, setRoom }: { className: string, room: number, setRoom: React.Dispatch<React.SetStateAction<number>> }) {
     const [player, setPlayer] = usePlayer();
 
     const handleArrowClicked = (isRightArrow: boolean) => {
@@ -78,44 +78,28 @@ export default function AstronautQuarters({ className, room, setRoom } : { class
                         }}
                     >
                         {new Array(player.astronautRoomCount).fill(0).map((_, i) => (
-                            <div key={i} className="flex min-w-full">
-                                {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
-                                    const astronaut = player.astronauts.find((a : AstronautType) => a.occupiedArea == i + 1 && a.occupiedSlot == j + 1)
-                                    return (
-                                        <div key={j} className={`relative basis-1/5 h-full min-w-0 flex items-end justify-center`}>
-                                            {astronaut ? (
-                                                <Astronaut astronaut={astronaut} />
-                                            ) : (
-                                                <ColoredSprite spriteUrl="/sprites/scrub.png" color="blue-darker" className="relative z-10" />
-                                            )}
-                                        </div>
-                                    )
-                                })}
+                            <div key={i} className="min-w-full flex-col">
+                                <div className="flex min-w-full">
+                                    {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
+                                        const astronaut = player.astronauts.find((a: AstronautType) => a.occupiedArea == i + 1 && a.occupiedSlot == j + 1)
+                                        return (
+                                            <div key={j} className={`relative basis-1/5 h-full min-w-0 flex items-end justify-center`}>
+                                                {astronaut ? (
+                                                    <Astronaut astronaut={astronaut} />
+                                                ) : (
+                                                    <ColoredSprite spriteUrl="/sprites/scrub.png" color="blue-darker" className="relative z-10" />
+                                                )}
+
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <TiledSprite className="w-full! bg-blue-dark image-pixelated" color="blue-dark" tileUrl="/sprites/floorTile.png" />
                             </div>
+
                         ))}
                     </motion.div>
-
-                    <div className="relative w-full">
-                        <TiledSprite className="w-full! mb-2 bg-blue-dark image-pixelated" color="blue-dark" tileUrl="/sprites/floorTile.png" />
-                        <div className="absolute top-4 left-0 w-full px-4 flex justify-between">
-                            <button
-                                onClick={() => handleArrowClicked(false)}
-                                disabled={room <= 1}
-                                className="disabled:opacity-0 disabled:pointer-events-none"
-                            >
-                                <ArrowLeft className="transition-transform duration-200 hover:-translate-y-1 hover:text-blue-lightest text-blue-light h-5 w-5" />
-                            </button>
-                            <button
-                                onClick={() => handleArrowClicked(true)}
-                                disabled={room >= player.astronautRoomCount}
-                                className="disabled:opacity-0 disabled:pointer-events-none"
-                            >
-                                <ArrowRight className="transition-transform duration-200 hover:-translate-y-1 hover:text-blue-lightest text-blue-light h-5 w-5" />
-                            </button>
-                        </div>
-                    </div>
                 </div>
-
             </div>
 
         </SectionCard>
