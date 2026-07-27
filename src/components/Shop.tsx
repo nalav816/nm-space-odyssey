@@ -40,41 +40,45 @@ const ShopItem = ({
     player,
     setPlayer,
     shopItem,
-    disabled = player.netWorth < getPrice(shopItem) || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
+    unknown = false,
+    disabled = unknown || player.netWorth < getPrice(shopItem) || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
 }: {
     player: Player,
     setPlayer: React.Dispatch<React.SetStateAction<Player>>,
     shopItem: Entity,
-    disabled?: boolean
+    disabled?: boolean,
+    unknown?: boolean
 }) => {
 
     const onClick = async () => {
-        if (isAstronaut(shopItem)) {
-            const { room, slot } = getNextAvailableQuartersSlot(player);
+        if (!disabled) {
+            if (isAstronaut(shopItem)) {
+                const { room, slot } = getNextAvailableQuartersSlot(player);
 
-            if (getPrice(shopItem) <= player.netWorth) {
-                const id = crypto.randomUUID()
-                const newPlayer: Player = {
-                    ...player,
-                    netWorth: player.netWorth - getPrice(shopItem),
-                    astronauts: [...player.astronauts,
-                    {
-                        id: id,
-                        name: shopItem.name,
-                        lastCurrencyUpdate: Date.now(),
-                        isGeneratingDollars: isScientist(shopItem as Astronaut),
-                        dollarsPerSecond: getDollarsPerSecond(shopItem as Astronaut),
-                        occupiedSlot: slot,
-                        occupiedArea: room
-                    }],
+                if (getPrice(shopItem) <= player.netWorth) {
+                    const id = crypto.randomUUID()
+                    const newPlayer: Player = {
+                        ...player,
+                        netWorth: player.netWorth - getPrice(shopItem),
+                        astronauts: [...player.astronauts,
+                        {
+                            id: id,
+                            name: shopItem.name,
+                            lastCurrencyUpdate: Date.now(),
+                            isGeneratingDollars: isScientist(shopItem as Astronaut),
+                            dollarsPerSecond: getDollarsPerSecond(shopItem as Astronaut),
+                            occupiedSlot: slot,
+                            occupiedArea: room
+                        }],
+                    }
+
+                    setPlayer(newPlayer)
+                    savePlayerData(newPlayer)
                 }
+            } else {
 
-                setPlayer(newPlayer)
-                savePlayerData(newPlayer)
+
             }
-        } else {
-
-
         }
     }
 
@@ -85,10 +89,10 @@ const ShopItem = ({
                 "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
-            <div className="z-30 h-16 w-16 bg-blue-dark  relative">
+            <div className="z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative">
                 <div className="z-10 texture geometric-texture opacity-10" />
-                {disabled ?
-                    (<ColoredSprite className="z-20 relative h-16 w-16 image-pixelated bg-blue-darkest" spriteUrl={getShopIcon(shopItem)} />)
+                {unknown ?
+                    (<ColoredSprite color="blue-darker" className="z-20 relative h-16 w-16 image-pixelated" spriteUrl={getShopIcon(shopItem)} />)
                     :
                     (<img className="z-20 relative h-16 w-16 image-pixelated" src={getShopIcon(shopItem)} />)
                 }
@@ -96,7 +100,7 @@ const ShopItem = ({
             </div>
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className={`relative z-20 text-xl leading-none`}> {false ? "???" : shopItem.name} </div>
+                <div className={`relative z-20 text-xl leading-none`}> {unknown ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(getRating(shopItem))
                         .fill(0)
