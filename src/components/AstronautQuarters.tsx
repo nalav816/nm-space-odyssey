@@ -1,6 +1,6 @@
 import SectionCard from "./SectionCard"
 import TiledSprite from "./TiledSprite"
-import TopBar from "./TopBar"
+import TopBar from "./AreaMenu"
 import Astronaut from "./Astronaut"
 import type { Astronaut as AstronautType } from "../services/astronautService"
 import type { Player } from "../services/playerService"
@@ -11,6 +11,7 @@ import { ArrowLeft } from "lucide-react"
 import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
 import ColoredSprite from "./ColoredSprite"
+import AreaMenu from "./AreaMenu"
 
 export function getNextAvailableQuartersSlot(player: Player) {
     let slot = 1
@@ -57,12 +58,13 @@ export default function AstronautQuarters({ className, room, setRoom } : { class
         <SectionCard iconUrl={"/sprites/astronautQuartersIcon.png"} className={"flex flex-col " + className} sectionName="Astronaut's Quarters">
             <div className="rounded-b relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
                 <div className="z-20 texture opacity-5" />
-                <TopBar
+                <AreaMenu
                     items={player.astronauts.filter((a, _) => a.occupiedArea == room).length}
                     itemCapacity={player.roomSpaceCap}
-                    currRoom={room}
-                    roomCount={player.astronautRoomCount}
-                    setRoom={setRoom}
+                    currArea={room}
+                    areaCount={player.astronautRoomCount}
+                    setArea={setRoom}
+                    isLaunchpad={false}
                 />
                 <div className="flex flex-col flex-1 justify-end w-full overflow-hidden ">
                     <motion.div

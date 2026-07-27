@@ -11,6 +11,7 @@ export interface Player {
   astronautRoomCount: number,
   roomSpaceCap: number,
   rocketPlotCount: number,
+  plotHeightCap: number,
   shop: Shop
 }
 

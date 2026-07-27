@@ -11,6 +11,7 @@ import { useArea } from "../hooks/useArea"
 export default function Game() {
     const [player, _] = usePlayer()
     const [room, setRoom] = useArea('room')
+    const [plot, setPlot] = useArea('plot')
 
     return (
         <div className="select-none relative bg-radial-gradient w-full h-screen min-h-180 min-w-7xl flex flex-col items-center text-white font-jaro">
@@ -33,7 +34,7 @@ export default function Game() {
                             
 
                         </div>
-                        <Launchpad className="grow relative w-full min-h-0" />
+                        <Launchpad plot={plot} setPlot={setPlot} className="grow relative w-full min-h-0" />
                     </div>
 
                     <div className="relative z-20 h-full w-80 min-w-0 flex flex-col gap-8">

@@ -89,7 +89,7 @@ const ShopItem = ({
                 "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
-            <div className="z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative">
+            <div className={`z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative`}>
                 <div className="z-10 texture geometric-texture opacity-10" />
                 {unknown ?
                     (<ColoredSprite color="blue-darker" className="z-20 relative h-16 w-16 image-pixelated" spriteUrl={getShopIcon(shopItem)} />)
