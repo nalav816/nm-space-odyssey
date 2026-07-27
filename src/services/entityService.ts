@@ -7,8 +7,12 @@ export type EntityType = "astronaut" | "rocketComponent"
 export type EntityName = AstronautName | RocketComponentName
 
 export interface Entity {
-    id: string,
     name: EntityName,
+}
+
+export interface OwnedEntity extends Entity {
+    id: string,
+    occupiedArea: number
 }
 
 export function getModel(e: Entity): string {

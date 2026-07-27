@@ -1,15 +1,14 @@
 import astronautData from "../data/astronauts.json"
-import { Entity, EntityName } from "./entityService"
+import { Entity, OwnedEntity } from "./entityService"
 import { Player } from "./playerService"
 
 export type AstronautName = keyof typeof astronautData
 
-export interface Astronaut extends Entity{
+export interface Astronaut extends OwnedEntity{
     name: AstronautName
     isGeneratingDollars: boolean,
     lastCurrencyUpdate: number,
     occupiedSlot: number,
-    occupiedRoom: number,
 }
 
 export function isAstronaut(e: Entity) {

@@ -10,38 +10,15 @@
         "shop": {
             "astronauts": [
                 {
-                    "name": "Scrub",
-                    "rating": 1,
-                    "price": 100,
-                    "iconUrl": "/sprites/scrubIcon.png",
-                    "modelUrl": "/sprites/scrub.png",
-                    "isLocked": false,
-                    "isEngineer": true,
-                    "isScientist": true,
-                    "isPilot": true,
-                    "dollarsPerSecond": 1
+                    "name": "Scrub"
                 },
                 {
-                    "name": "Ace",
-                    "rating": 3,
-                    "price": 1000,
-                    "iconUrl": "/sprites/aceIcon.png",
-                    "modelUrl": "/sprites/ace.png",
-                    "isLocked": false,
-                    "isEngineer": false,
-                    "isScientist": false,
-                    "isPilot": true,
-                    "dollarsPerSecond": 0
+                    "name": "Ace"
                 }
             ],
             "rocketry": [
                 {
-                    "name": "Makeshift Engine",
-                    "rating": 1,
-                    "price": 1,
-                    "iconUrl": "/sprites/placeholder.png",
-                    "modelUrl": "/sprites/ace.png",
-                    "isEngine": true
+                    "name": "Makeshift Engine"
                 }
 
             ]

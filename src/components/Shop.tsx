@@ -65,7 +65,7 @@ const ShopItem = ({
                         isGeneratingDollars: isScientist(shopItem as Astronaut),
                         dollarsPerSecond: getDollarsPerSecond(shopItem as Astronaut),
                         occupiedSlot: slot,
-                        occupiedRoom: room
+                        occupiedArea: room
                     }],
                 }
 

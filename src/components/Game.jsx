@@ -6,9 +6,12 @@ import AstronautQuarters from "./AstronautQuarters";
 import TitleBar from "./TitleBar"
 import { useState, createContext, Dispatch, SetStateAction } from "react";
 import { usePlayer } from "../hooks/usePlayer";
+import { useArea } from "../hooks/useArea"
 
 export default function Game() {
     const [player, _] = usePlayer()
+    const [room, setRoom] = useArea('room')
+
     return (
         <div className="select-none relative bg-radial-gradient w-full h-screen min-h-180 min-w-7xl flex flex-col items-center text-white font-jaro">
             <img className="h-full opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
@@ -35,7 +38,7 @@ export default function Game() {
 
                     <div className="relative z-20 h-full w-80 min-w-0 flex flex-col gap-8">
                         <Shop className="basis-1/2 w-full min-h-0" />
-                        <AstronautQuarters className="relative z-20 basis-1/2 w-full min-h-0" />
+                        <AstronautQuarters room={room} setRoom={setRoom} className="relative z-20 basis-1/2 w-full min-h-0" />
                     </div>
 
                     <div className="relative z-10 h-full w-80 min-w-0 flex flex-col gap-8">

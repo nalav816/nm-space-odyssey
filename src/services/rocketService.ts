@@ -1,17 +1,15 @@
 import rocketData from "../data/rocketry.json"
-import { Entity } from "./entityService"
+import { Entity, OwnedEntity } from "./entityService"
 
 export type RocketComponentName = keyof typeof rocketData
 
-export interface Rocket {
-    id: string
-    occupiedPlot: number
+export interface Rocket extends OwnedEntity {
     components: RocketComponent[]
 
 }
 
-export interface RocketComponent extends Entity {
-   name: RocketComponentName
+export interface RocketComponent extends OwnedEntity {
+    name: RocketComponentName
 }
 
 export function isEngine(r: RocketComponent) {

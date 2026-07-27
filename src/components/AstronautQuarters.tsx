@@ -10,23 +10,22 @@ import { useEffect, useState, useRef } from "react"
 import { ArrowLeft } from "lucide-react"
 import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
-import useRoom from "../hooks/useRoom"
 import ColoredSprite from "./ColoredSprite"
 
 export function getNextAvailableQuartersSlot(player: Player) {
     let slot = 1
     let room = 1
 
-    player.astronauts.sort((a: Astronaut, b: Astronaut) => {
-        if (a.occupiedRoom != b.occupiedRoom) {
-            return a.occupiedRoom - b.occupiedRoom
+    player.astronauts.sort((a: AstronautType, b: AstronautType) => {
+        if (a.occupiedArea != b.occupiedArea) {
+            return a.occupiedArea - b.occupiedArea
         }
 
         return a.occupiedSlot - b.occupiedSlot
     })
 
     for (const a of player.astronauts) {
-        if (a.occupiedSlot == slot && a.occupiedRoom == room) {
+        if (a.occupiedSlot == slot && a.occupiedArea == room) {
             slot += 1
             if (slot > player.roomSpaceCap) {
                 slot = 1
@@ -43,9 +42,8 @@ export function getNextAvailableQuartersSlot(player: Player) {
     }
 }
 
-export default function AstronautQuarters({ className } : { className: string}) {
+export default function AstronautQuarters({ className, room, setRoom } : { className: string, room: number, setRoom: React.Dispatch<React.SetStateAction<number>>}) {
     const [player, setPlayer] = usePlayer();
-    const [room, countInRoom, setRoom] = useRoom();
 
     const handleArrowClicked = (isRightArrow: boolean) => {
         if (isRightArrow) {
@@ -60,7 +58,7 @@ export default function AstronautQuarters({ className } : { className: string}) 
             <div className="rounded-b relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
                 <div className="z-20 texture opacity-5" />
                 <TopBar
-                    items={countInRoom}
+                    items={player.astronauts.filter((a, _) => a.occupiedArea == room).length}
                     itemCapacity={player.roomSpaceCap}
                     currRoom={room}
                     roomCount={player.astronautRoomCount}
@@ -80,7 +78,7 @@ export default function AstronautQuarters({ className } : { className: string}) 
                         {new Array(player.astronautRoomCount).fill(0).map((_, i) => (
                             <div key={i} className="flex min-w-full">
                                 {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
-                                    const astronaut = player.astronauts.find((a : AstronautType) => a.occupiedRoom == i + 1 && a.occupiedSlot == j + 1)
+                                    const astronaut = player.astronauts.find((a : AstronautType) => a.occupiedArea == i + 1 && a.occupiedSlot == j + 1)
                                     return (
                                         <div key={j} className={`relative basis-1/5 h-full min-w-0 flex items-end justify-center`}>
                                             {astronaut ? (
