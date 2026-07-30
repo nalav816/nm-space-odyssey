@@ -4,7 +4,7 @@ import { AstronautName } from "./astronautService"
 import { RocketComponentName } from "./rocketService"
 
 export type EntityType = "astronaut" | "rocketComponent"
-export type EntityName = AstronautName | RocketComponentName
+export type EntityName = string
 
 export interface Entity {
     name: EntityName,
@@ -53,5 +53,9 @@ export function isHiddenOnLock(e: Entity): boolean {
     } else {
         return rocketData[e.name as RocketComponentName].isHiddenOnLock
     }
+}
+
+export function isPlaceholder(e: OwnedEntity): boolean {
+    return e.id.includes("placeholder")
 }
 

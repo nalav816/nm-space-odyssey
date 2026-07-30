@@ -1,10 +1,13 @@
 import TintedSprite from "./TintedSprite"
+import PlaceholderSprite from "./PlaceholderSprite"
 import { Rocket as RocketType, RocketComponent as RocketComponentType } from "../services/rocketService"
-import { getModel } from "../services/entityService"
+import { getModel , isPlaceholder} from "../services/entityService"
 import { useState } from "react"
 
 const RocketComponent = ({ component }: { component: RocketComponentType }) => {
-    return (
+    return isPlaceholder(component) ? (
+        <PlaceholderSprite spriteUrl={getModel(component)} />
+    ) : (
         <TintedSprite tintIntensity={0} spriteUrl={getModel(component)} />
     )
 }

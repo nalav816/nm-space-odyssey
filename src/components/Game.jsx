@@ -38,7 +38,11 @@ export default function Game() {
                     </div>
 
                     <div className="relative z-20 h-full w-80 min-w-0 flex flex-col gap-8">
-                        <Shop className="basis-1/2 w-full min-h-0" />
+                        <Shop 
+                            className="basis-1/2 w-full min-h-0" 
+                            plot = {plot}
+                            setPlot = {setPlot}
+                        />
                         <AstronautQuarters room={room} setRoom={setRoom} className="relative z-20 basis-1/2 w-full min-h-0" />
                     </div>
 

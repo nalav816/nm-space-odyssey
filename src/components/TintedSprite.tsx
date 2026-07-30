@@ -2,11 +2,14 @@ import { useState, useEffect } from "react"
 import ColoredSprite from "./ColoredSprite"
 import type { HTMLMotionProps } from "motion/react"
 import useSpriteSize from "../hooks/useSpriteSize"
+import { motion } from "motion/react"
 
 export default function TintedSprite({
     spriteUrl,
     tintIntensity = .3,
     tintColor = "blue",
+    animate,
+    transition,
     tintAnimate,
     tintTransition,
     className,
@@ -17,8 +20,10 @@ export default function TintedSprite({
     spriteUrl: string,
     tintIntensity?: number,
     tintColor?: string,
-    tintAnimate?: HTMLMotionProps<"div">["animate"]
-    tintTransition?: HTMLMotionProps<"div">["transition"]
+    animate?: HTMLMotionProps<"div">["animate"],
+    transition?: HTMLMotionProps<"div">["transition"],
+    tintAnimate?: HTMLMotionProps<"div">["animate"],
+    tintTransition?: HTMLMotionProps<"div">["transition"],
     className?: string,
     scale?: number,
     onMouseEnter?: () => void,
@@ -30,8 +35,10 @@ export default function TintedSprite({
     if(spriteUrl === "/sprites/makeshiftNosecone.png") console.log(width, height)
 
     return (
-        <div
+        <motion.div
             className= {`${className}`}
+            animate={animate}
+            transition={transition}
         >
             <ColoredSprite
                 spriteUrl={spriteUrl}
@@ -50,5 +57,5 @@ export default function TintedSprite({
                 style={{ width: width, height: height }}
                 draggable={false}
             />
-        </div>)
+        </motion.div>)
 }

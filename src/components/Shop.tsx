@@ -6,8 +6,8 @@ import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType } from "../services/shopService"
 import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, isPilot } from "../services/astronautService"
-import { RocketComponent, isEngine } from "../services/rocketService"
-import { Entity, getShopIcon, getPrice, getRating } from "../services/entityService"
+import { Rocket, RocketComponent, RocketComponentName, createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, isEngine } from "../services/rocketService"
+import { Entity, getShopIcon, getPrice, getRating, isPlaceholder} from "../services/entityService"
 
 type Category = keyof ShopType;
 
@@ -40,15 +40,76 @@ const ShopItem = ({
     player,
     setPlayer,
     shopItem,
+    plot,
+    setPlot,
     unknown = false,
     disabled = unknown || player.netWorth < getPrice(shopItem) || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
 }: {
     player: Player,
     setPlayer: React.Dispatch<React.SetStateAction<Player>>,
     shopItem: Entity,
+    plot: number,
+    setPlot: React.Dispatch<React.SetStateAction<number>>,
     disabled?: boolean,
     unknown?: boolean
 }) => {
+
+    function createRocketComponentPlaceholder() {
+        const id = `placeholder-${crypto.randomUUID()}`
+        const targetRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
+        const newComponent: RocketComponent = {
+            name: shopItem.name as RocketComponentName,
+            id: id,
+            occupiedArea: plot
+        }
+        const newRocket: Rocket =
+        {
+            id: id,
+            name: "Scrub",
+            components: [newComponent],
+            occupiedArea: plot
+        }
+
+        setPlayer(prev => (
+            {
+                ...prev,
+                rockets: targetRocket ?
+                    prev.rockets.map((r, _) => (
+                        r.id == targetRocket.id ?
+                            {
+                                ...r,
+                                components: [
+                                    ...r.components,
+                                    newComponent
+                                ]
+                            } : r
+                    )) : [
+                        ...prev.rockets,
+                        newRocket
+                    ]
+            }
+        ))
+
+    }
+
+    function removeRocketComponentPlaceholder() {
+        const targetRocket = player.rockets.find((r, _) => r.id.includes("placeholder"))
+        if (targetRocket) {
+            setPlayer(prev => ({
+                ...prev,
+                rockets: prev.rockets.filter((r, _) => r.id != targetRocket.id)
+            }))
+            return
+        }
+
+        setPlayer(prev => ({
+            ...prev,
+            rockets: prev.rockets.map((r, _) => ({
+                ...r,
+                components: r.components.filter((c, _) => c.id.includes("placeholder"))
+            }))
+        }))
+    }
 
     const onClick = async () => {
         if (!disabled) {
@@ -82,8 +143,35 @@ const ShopItem = ({
         }
     }
 
+    const onMouseEnter = () => {
+        if (!isAstronaut(shopItem)) {
+            ///Creates a placeholder
+            const existingRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
+            const {player: newPlayer, rocket} = existingRocket ? {player: player, rocket: existingRocket} : createRocket(player, plot, true)
+            const {player: newestPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, rocket, true)
+            setPlayer(newestPlayer)
+        }
+    }
+
+    const onMouseLeave = () => {
+        if (!isAstronaut(shopItem)) {
+            const placeholderRocket = player.rockets.find((r, _) => isPlaceholder(r))
+            if (placeholderRocket) {
+                setPlayer(deleteRocket(player, placeholderRocket.id).player)
+                return
+            }
+            let placeholderComponent;
+            player.rockets.forEach((r, _) => {
+                r.components.forEach((c, _) => {
+                    if (isPlaceholder(c)) placeholderComponent = c
+                })
+            })
+            setPlayer(deleteRocketComponent(player, placeholderComponent!.id).player)
+        }
+    }
+
     return (
-        <div onClick={onClick} className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
+        <div onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter} onClick={onClick} className={`relative mr-2 shrink-0 bg-linear-to-b rounded overflow-hidden 
             h-16 flex transition duration-200 ease-in-out
             ${disabled ? "z-0 from-blue-dark to-blue-dark" :
                 "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
@@ -131,7 +219,10 @@ const ShopItem = ({
     )
 }
 
-export default function Shop({ className }: { className: string }) {
+export default function Shop(
+    { className, plot, setPlot }:
+        { className: string, plot: number, setPlot: React.Dispatch<React.SetStateAction<number>> }
+) {
     const [player, setPlayer] = usePlayer();
     const [category, setCategory] = useState<Category>("astronauts")
 
@@ -144,7 +235,14 @@ export default function Shop({ className }: { className: string }) {
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {player!.shop[category].map((shopItem: Entity, i: number) => (
-                    <ShopItem player={player!} setPlayer={setPlayer} key={i} shopItem={shopItem} />
+                    <ShopItem
+                        player={player!}
+                        setPlayer={setPlayer}
+                        key={i}
+                        shopItem={shopItem}
+                        plot={plot}
+                        setPlot={setPlot}
+                    />
                 ))}
             </div>
         </SectionCard>

@@ -2,6 +2,7 @@
 import type { Shop } from "./shopService"
 import { getIdleIncomes, updateCurencyTimestamps } from "../services/astronautService";
 import { Rocket } from "./rocketService";
+import { isPlaceholder } from "./entityService";
 
 export interface Player {
   username: string,
@@ -17,7 +18,19 @@ export interface Player {
 
 export async function savePlayerData(player: Player) {
   try {
-    await window.data.savePlayerData(player)
+    //Dont save any placeholder data
+    const playerToSave = {
+      ...player,
+      astronauts: player.astronauts.filter((a, _) => !isPlaceholder(a)),
+      rockets: player.rockets.filter((r, _) => !isPlaceholder(r)).map((r, _) => (
+        {
+          ...r,
+          components: r.components.filter((c, _) => !isPlaceholder(c))
+        }
+      ))
+    }
+
+    await window.data.savePlayerData(playerToSave)
   } catch (e) {
     throw e
   }
