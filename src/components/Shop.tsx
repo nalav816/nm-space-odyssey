@@ -7,7 +7,7 @@ import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType } from "../services/shopService"
 import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, isPilot } from "../services/astronautService"
 import { Rocket, RocketComponent, RocketComponentName, createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, isEngine } from "../services/rocketService"
-import { Entity, getShopIcon, getPrice, getRating, isPlaceholder} from "../services/entityService"
+import { Entity, getShopIcon, getPrice, getRating, isPlaceholder } from "../services/entityService"
 
 type Category = keyof ShopType;
 
@@ -54,61 +54,14 @@ const ShopItem = ({
     unknown?: boolean
 }) => {
 
-    function createRocketComponentPlaceholder() {
-        const id = `placeholder-${crypto.randomUUID()}`
-        const targetRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
-        const newComponent: RocketComponent = {
-            name: shopItem.name as RocketComponentName,
-            id: id,
-            occupiedArea: plot
-        }
-        const newRocket: Rocket =
-        {
-            id: id,
-            name: "Scrub",
-            components: [newComponent],
-            occupiedArea: plot
-        }
-
-        setPlayer(prev => (
-            {
-                ...prev,
-                rockets: targetRocket ?
-                    prev.rockets.map((r, _) => (
-                        r.id == targetRocket.id ?
-                            {
-                                ...r,
-                                components: [
-                                    ...r.components,
-                                    newComponent
-                                ]
-                            } : r
-                    )) : [
-                        ...prev.rockets,
-                        newRocket
-                    ]
-            }
-        ))
-
-    }
-
-    function removeRocketComponentPlaceholder() {
-        const targetRocket = player.rockets.find((r, _) => r.id.includes("placeholder"))
-        if (targetRocket) {
-            setPlayer(prev => ({
-                ...prev,
-                rockets: prev.rockets.filter((r, _) => r.id != targetRocket.id)
-            }))
-            return
-        }
-
-        setPlayer(prev => ({
-            ...prev,
-            rockets: prev.rockets.map((r, _) => ({
-                ...r,
-                components: r.components.filter((c, _) => c.id.includes("placeholder"))
-            }))
-        }))
+    const removePlaceholderComponent = (player: Player) => {
+        let placeholderComponent: RocketComponent | undefined;
+        player.rockets.forEach((r, _) => {
+            r.components.forEach((c, _) => {
+                if (isPlaceholder(c)) placeholderComponent = c
+            })
+        })
+        return placeholderComponent ? deleteRocketComponent(player, placeholderComponent.id).player : player
     }
 
     const onClick = async () => {
@@ -137,36 +90,25 @@ const ShopItem = ({
                     savePlayerData(newPlayer)
                 }
             } else {
-
-
+                const newPlayer = removePlaceholderComponent(player)
+                const { player: newestPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot)
+             
+                
+                setPlayer(newestPlayer)
             }
         }
     }
 
     const onMouseEnter = () => {
         if (!isAstronaut(shopItem)) {
-            ///Creates a placeholder
-            const existingRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
-            const {player: newPlayer, rocket} = existingRocket ? {player: player, rocket: existingRocket} : createRocket(player, plot, true)
-            const {player: newestPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, rocket, true)
-            setPlayer(newestPlayer)
+            const { player: newPlayer } = createRocketComponent(player, shopItem.name as RocketComponentName, plot, true)
+            setPlayer(newPlayer)
         }
     }
 
     const onMouseLeave = () => {
         if (!isAstronaut(shopItem)) {
-            const placeholderRocket = player.rockets.find((r, _) => isPlaceholder(r))
-            if (placeholderRocket) {
-                setPlayer(deleteRocket(player, placeholderRocket.id).player)
-                return
-            }
-            let placeholderComponent;
-            player.rockets.forEach((r, _) => {
-                r.components.forEach((c, _) => {
-                    if (isPlaceholder(c)) placeholderComponent = c
-                })
-            })
-            setPlayer(deleteRocketComponent(player, placeholderComponent!.id).player)
+            setPlayer(removePlaceholderComponent(player))
         }
     }
 

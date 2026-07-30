@@ -24,11 +24,11 @@ export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) 
             })
 
             controls.start({
-                opacity: [.5, .8, .5],
+                opacity: [.5, .7, .5],
                 transition: {
                     duration: 1.5,
                     repeat: Infinity,
-                    ease: "linear",
+                    ease: "easeInOut",
                 }
             })
         }
@@ -37,9 +37,9 @@ export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) 
     }, [controls])
 
     return (
-        <TintedSprite className={"opacity-50"}
+        <TintedSprite className="opacity-80"
             tintColor="white"
-            tintIntensity={.1}
+            tintIntensity={.3}
             spriteUrl={spriteUrl}
             animate={controls}
         />

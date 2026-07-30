@@ -1,5 +1,5 @@
 import rocketData from "../data/rocketry.json"
-import {  EntityName, OwnedEntity } from "./entityService"
+import {  EntityName, OwnedEntity, getPrice, isPlaceholder} from "./entityService"
 import { Player } from "./playerService"
 
 export type RocketComponentName = keyof typeof rocketData
@@ -47,17 +47,21 @@ export function deleteRocket(player: Player, id: string): {player: Player, rocke
     }
 }
 
-export function createRocketComponent(player: Player, name: RocketComponentName, rocket: Rocket, isPlaceholder: boolean = false): {player: Player, rocketComponent: RocketComponent} {
+export function createRocketComponent(player: Player, name: RocketComponentName, plot: number, isPlaceholder: boolean = false): {player: Player, rocketComponent: RocketComponent} {
     const id = isPlaceholder ? `placeholder-${crypto.randomUUID()}` : crypto.randomUUID()
     const newComponent = {
         name: name,
         id: id,
-        occupiedArea: rocket.occupiedArea
+        occupiedArea: plot
     }
+    const existingRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
+    const {player:newPlayer, rocket} = existingRocket ? {player: player, rocket:existingRocket} : createRocket(player, plot, isPlaceholder)
+
     return {
         player: {
-            ...player,
-            rockets: player.rockets.map((r, _) => {
+            ...newPlayer,
+            netWorth: isPlaceholder ? player.netWorth : player.netWorth - getPrice(newComponent),
+            rockets: newPlayer.rockets.map((r, _) => {
                 if (r.id == rocket.id) {
                     return {
                         ...r,
@@ -92,7 +96,8 @@ export function deleteRocketComponent(player: Player, id: string) {
                     })
                     
                 }
-            ))
+            )).filter((r, _) => !isPlaceholder(r)),
+            netWorth: isPlaceholder(component!) ? player.netWorth : player.netWorth + getPrice(component!),
         },
         rocketComponent: component
     }
