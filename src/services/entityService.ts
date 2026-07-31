@@ -4,10 +4,9 @@ import { AstronautName } from "./astronautService"
 import { RocketComponentName } from "./rocketService"
 
 export type EntityType = "astronaut" | "rocketComponent"
-export type EntityName = string
 
 export interface Entity {
-    name: EntityName,
+    name: string,
 }
 
 export interface OwnedEntity extends Entity {

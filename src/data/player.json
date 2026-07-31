@@ -20,8 +20,16 @@
             "rocketry": [
                 {
                     "name": "Makeshift Engine"
+                },
+                {
+                    "name": "Cardboard Fuel Tank"
+                },
+                {
+                    "name": "Trash Command Module"
+                },
+                {
+                    "name": "Makeshift Nosecone"
                 }
-
             ]
         }
     }

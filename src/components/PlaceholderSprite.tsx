@@ -2,7 +2,7 @@ import TintedSprite from "./TintedSprite";
 import { useEffect } from "react";
 import { useAnimationControls } from "motion/react";
 
-export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) {
+export default function PlaceholderSprite({ spriteUrl, isPlaceable = true}: { spriteUrl: string, isPlaceable?: boolean}) {
     const controls = useAnimationControls();
 
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) 
 
     return (
         <TintedSprite className="opacity-80"
-            tintColor="green-light"
+            tintColor={isPlaceable ? "green-light" : "red-light"}
             tintIntensity={.3}
             spriteUrl={spriteUrl}
             animate={controls}

@@ -33,6 +33,7 @@ export default function TintedSprite({
     onClick?: () => void
 }) {
     const [width, height] = useSpriteSize(spriteUrl)
+    
 
     if(spriteUrl === "/sprites/makeshiftNosecone.png") console.log(width, height)
 

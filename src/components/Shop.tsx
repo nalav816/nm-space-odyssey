@@ -6,7 +6,7 @@ import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType } from "../services/shopService"
 import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, isPilot } from "../services/astronautService"
-import { Rocket, RocketComponent, RocketComponentName, createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, isEngine } from "../services/rocketService"
+import { Rocket, RocketComponent, RocketComponentName, createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, isEngine, isPlaceable } from "../services/rocketService"
 import { Entity, getShopIcon, getPrice, getRating, isPlaceholder } from "../services/entityService"
 
 type Category = keyof ShopType;
@@ -91,12 +91,14 @@ const ShopItem = ({
                     savePlayerData(newPlayer)
                 }
             } else {
-                const newPlayer = removePlaceholderComponent(player)
-                const { player: newerPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot)
-                const { player: newestPlayer } = createRocketComponent(newerPlayer, shopItem.name as RocketComponentName, plot, true)
-             
-                
-                setPlayer(newestPlayer)
+                const placeholder = player.rockets[plot - 1].components.find((c, _) => isPlaceholder(c))!
+                if (isPlaceable(placeholder, player.rockets[plot - 1])) {
+                    const { player: newPlayer } = createRocketComponent(player, shopItem.name as RocketComponentName, plot)
+                    const { player: newerPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot, true)
+
+                    setPlayer(newerPlayer)
+                    savePlayerData(newerPlayer)
+                }
             }
             debounce.current = setTimeout(() => {
                 debounce.current = null
@@ -124,7 +126,7 @@ const ShopItem = ({
                 "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
-            <div className={`z-30 h-16 w-16 bg-blue-dark border-r-2 border-blue relative`}>
+            <div className={`z-30 h-16 min-w-16 bg-blue-dark border-r-2 border-blue relative`}>
                 <div className="z-10 texture geometric-texture opacity-10" />
                 {unknown ?
                     (<ColoredSprite color="blue-darker" className="z-20 relative h-16 w-16 image-pixelated" spriteUrl={getShopIcon(shopItem)} />)
@@ -135,7 +137,7 @@ const ShopItem = ({
             </div>
 
             <div className="px-3 py-0.5 flex flex-col">
-                <div className={`relative z-20 text-xl leading-none`}> {unknown ? "???" : shopItem.name} </div>
+                <div className={`relative z-20 text-xl leading-none truncate w-48`}> {unknown ? "???" : shopItem.name} </div>
                 <div className="flex gap-1">
                     {Array(getRating(shopItem))
                         .fill(0)

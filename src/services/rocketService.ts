@@ -1,5 +1,5 @@
 import rocketData from "../data/rocketry.json"
-import {  EntityName, OwnedEntity, getPrice, isPlaceholder} from "./entityService"
+import {  OwnedEntity, getPrice, isPlaceholder as getIsPlaceholder} from "./entityService"
 import { Player } from "./playerService"
 
 export type RocketComponentName = keyof typeof rocketData
@@ -13,10 +13,24 @@ export interface RocketComponent extends OwnedEntity {
     name: RocketComponentName
 }
 
+//GETTERS
 export function isEngine(r: RocketComponent) {
     return rocketData[r.name].isEngine
 }
 
+export function isCommandModule(r: RocketComponent) {
+    return rocketData[r.name].isCommandModule
+}
+
+export function isNosecone(r: RocketComponent) {
+    return rocketData[r.name].isNosecone
+}
+
+export function isFuelTank(r: RocketComponent) {
+    return rocketData[r.name].isFuelTank
+}
+
+//CRUD
 export function createRocket(player: Player, plot: number, isPlaceholder: boolean = false): {player: Player, rocket: Rocket} {
     const id = isPlaceholder ? `placeholder-${crypto.randomUUID()}` : crypto.randomUUID()
     const newRocket = {
@@ -29,7 +43,7 @@ export function createRocket(player: Player, plot: number, isPlaceholder: boolea
         player: {
             ...player,
             rockets: [
-                ...player.rockets,
+                ...player.rockets.filter((r, _) => !getIsPlaceholder(r)),
                 newRocket
             ]
         },
@@ -54,7 +68,7 @@ export function createRocketComponent(player: Player, name: RocketComponentName,
         id: id,
         occupiedArea: plot
     }
-    const existingRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
+    const existingRocket = player.rockets.find((r, _) => r.occupiedArea == plot && !getIsPlaceholder(r))
     const {player:newPlayer, rocket} = existingRocket ? {player: player, rocket:existingRocket} : createRocket(player, plot, isPlaceholder)
 
     return {
@@ -66,7 +80,7 @@ export function createRocketComponent(player: Player, name: RocketComponentName,
                     return {
                         ...r,
                         components: [
-                            ...r.components,
+                            ...r.components.filter((r, _) => !getIsPlaceholder(r)),
                             newComponent
                         ]
                     }
@@ -96,9 +110,56 @@ export function deleteRocketComponent(player: Player, id: string) {
                     })
                     
                 }
-            )).filter((r, _) => !isPlaceholder(r) && r.components.length != 0),
-            netWorth: isPlaceholder(component!) ? player.netWorth : player.netWorth + getPrice(component!),
+            )).filter((r, _) => !getIsPlaceholder(r) && r.components.length != 0),
+            netWorth: getIsPlaceholder(component!) ? player.netWorth : player.netWorth + getPrice(component!),
         },
         rocketComponent: component
     }
+}
+
+//Component constraints
+export function isPlaceable(c:RocketComponent, r: Rocket) {
+    /*
+    GENERAL CONSTRAINTS
+    * nothing can be built if there is no engine (aside from an engine)
+    * nothing can be placed ontop of a nosecone
+    * nothing can go ontop of a command module but nosecone
+
+    */
+    const componentsWithoutPlaceholders = r.components.filter((c, _) => !getIsPlaceholder(c))
+    const componentCount = componentsWithoutPlaceholders.length
+    const topComponent = componentCount > 0 ? componentsWithoutPlaceholders[componentCount - 1] : null
+
+    if (!topComponent) {
+        if (!isEngine(c)) {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    //top component must now exist at this point
+    if (isNosecone(topComponent)) return false
+    if (isCommandModule(topComponent) && !isNosecone(c)) return false
+
+    //Specific constraints
+    //Engines cannot be placed ontop of things
+    if (isEngine(c)) return false
+    if (isFuelTank(c) && !isFuelTankPlaceable(topComponent)) return false
+ 
+    return true
+}
+
+export function isSellable(c: RocketComponent, r: Rocket) {
+
+}
+
+
+/*
+FUEL TANK RULES
+* Must be built ontop of another fuel tank or engine
+*/
+function isFuelTankPlaceable(topComponent: RocketComponent) :  boolean {
+    if (!isEngine(topComponent) && !isFuelTank(topComponent)) return false
+    return true
 }

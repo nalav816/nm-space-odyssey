@@ -1,7 +1,7 @@
 import TintedSprite from "./TintedSprite"
 import PlaceholderSprite from "./PlaceholderSprite"
 import SelectableSprite from "./SelectableSprite"
-import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent } from "../services/rocketService"
+import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, isPlaceable } from "../services/rocketService"
 import { getModel, isPlaceholder } from "../services/entityService"
 import { useState } from "react"
 import GameObjectMenu from "./GameObjectMenu"
@@ -9,7 +9,7 @@ import useSelect from "../hooks/useSelect"
 import { Player } from "../services/playerService"
 import { usePlayer } from "../hooks/usePlayer"
 
-const RocketComponent = ({ component, player, setPlayer }: { component: RocketComponentType, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
+const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket:RocketType, component: RocketComponentType, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
     const [isMouseOver, setIsMouseOver] = useState(false)
     const [isSelected, setIsSelected] = useSelect(isMouseOver)
 
@@ -18,7 +18,7 @@ const RocketComponent = ({ component, player, setPlayer }: { component: RocketCo
     }
     
     return isPlaceholder(component) ? (
-        <PlaceholderSprite spriteUrl={getModel(component)} />
+        <PlaceholderSprite isPlaceable={isPlaceable(component, rocket)} spriteUrl={getModel(component)} />
     ) : (
         <div className="relative">
             <SelectableSprite
@@ -46,7 +46,7 @@ export default function Rocket({ rocket }: { rocket: RocketType }) {
                         {i < rocket.components.length - 1 && (
                             <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png" />
                         )}
-                        <RocketComponent player={player} setPlayer={setPlayer} component={c} />
+                        <RocketComponent rocket={rocket}player={player} setPlayer={setPlayer} component={c} />
                     </div>
                 )
             })}
