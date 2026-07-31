@@ -265,7 +265,7 @@ export default function Astronaut({ astronaut }: { astronaut: AstronautType }) {
             />
 
             {isSelected &&
-                <GameObjectMenu isXOffsetRight={astronaut.occupiedSlot == player.roomSpaceCap || astronaut.occupiedSlot == player.roomSpaceCap - 1} onActionClick={onActionClick} onSellClick={onSellClick} />
+                <GameObjectMenu isActionButton={true} isXOffsetRight={astronaut.occupiedSlot == player.roomSpaceCap || astronaut.occupiedSlot == player.roomSpaceCap - 1} onActionClick={onActionClick} onSellClick={onSellClick} />
             }
         </div>
 

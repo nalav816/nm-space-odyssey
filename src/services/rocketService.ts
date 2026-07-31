@@ -96,7 +96,7 @@ export function deleteRocketComponent(player: Player, id: string) {
                     })
                     
                 }
-            )).filter((r, _) => !isPlaceholder(r)),
+            )).filter((r, _) => !isPlaceholder(r) && r.components.length != 0),
             netWorth: isPlaceholder(component!) ? player.netWorth : player.netWorth + getPrice(component!),
         },
         rocketComponent: component

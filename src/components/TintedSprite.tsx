@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import ColoredSprite from "./ColoredSprite"
 import type { HTMLMotionProps } from "motion/react"
 import useSpriteSize from "../hooks/useSpriteSize"
-import { motion } from "motion/react"
+import { motion, MotionStyle } from "motion/react"
 
 export default function TintedSprite({
     spriteUrl,
@@ -13,6 +13,7 @@ export default function TintedSprite({
     tintAnimate,
     tintTransition,
     className,
+    style,
     onMouseEnter,
     onMouseLeave,
     onClick
@@ -25,6 +26,7 @@ export default function TintedSprite({
     tintAnimate?: HTMLMotionProps<"div">["animate"],
     tintTransition?: HTMLMotionProps<"div">["transition"],
     className?: string,
+    style?: MotionStyle,
     scale?: number,
     onMouseEnter?: () => void,
     onMouseLeave?: () => void,
@@ -39,6 +41,7 @@ export default function TintedSprite({
             className= {`${className}`}
             animate={animate}
             transition={transition}
+            style={style}
         >
             <ColoredSprite
                 spriteUrl={spriteUrl}

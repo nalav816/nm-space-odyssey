@@ -33,9 +33,9 @@ export default function Launchpad({ className, plot, setPlot }: { className: str
                     currArea={plot}
                     isLaunchpad={true}
                 />
-                <div className="flex-1 min-h-0 w-full flex flex-col items-center justify-end overflow-hidden">
+                <div className="flex-1 min-h-0 h-full w-full flex flex-col items-center justify-end overflow-hidden">
                     <motion.div 
-                        className="w-full flex "
+                        className="w-full flex h-full"
                         animate={{
                             x: (-100 * (plot - 1)) + "%"
                         }}
@@ -45,13 +45,13 @@ export default function Launchpad({ className, plot, setPlot }: { className: str
                         }}
                     >
                         {new Array(player.rocketPlotCount).fill(0).map((_, i) => (
-                            <div className="min-w-full" key={i}>
+                            <div className="min-w-full h-full flex flex-col justify-end" key={i}>
                                 <div className="flex-1 w-full min-h-0 px-4">
                                     <div className="h-full flex min-h-0 flex-col-reverse overflow-auto w-full scrollbar-custom ">
                                         <div className="flex justify-between items-end">
                                             <ColoredSprite spriteUrl="/sprites/controlTower.png" />
                                             <ColoredSprite spriteUrl="/sprites/gasStation.png" />
-                                            <RocketPlatform rocket={player.rockets.length > 0 ? player.rockets[0] : null} />
+                                            <RocketPlatform rocket={player.rockets[i]} />
                                         </div>
 
 

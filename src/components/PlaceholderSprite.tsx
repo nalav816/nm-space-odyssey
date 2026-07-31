@@ -9,13 +9,13 @@ export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) 
         async function animate() {
             controls.set({
                 opacity: 0,
-                scale: 0,
+                y: -30,
                 filter: "blur(10px)"
             })
 
             await controls.start({
                 opacity: .5,
-                scale: 1,
+                y: 0,
                 filter: "blur(0px",
                 transition: {
                     duration: .15,
@@ -24,7 +24,7 @@ export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) 
             })
 
             controls.start({
-                opacity: [.5, .7, .5],
+                opacity: [.5, .9, .5],
                 transition: {
                     duration: 1.5,
                     repeat: Infinity,
@@ -38,10 +38,11 @@ export default function PlaceholderSprite({ spriteUrl }: { spriteUrl: string }) 
 
     return (
         <TintedSprite className="opacity-80"
-            tintColor="white"
+            tintColor="green-light"
             tintIntensity={.3}
             spriteUrl={spriteUrl}
             animate={controls}
+            style={{originY: 1}}
         />
     )
 }

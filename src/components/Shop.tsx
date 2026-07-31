@@ -1,6 +1,6 @@
 import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
@@ -53,6 +53,7 @@ const ShopItem = ({
     disabled?: boolean,
     unknown?: boolean
 }) => {
+    const debounce = useRef<null | NodeJS.Timeout>(null)
 
     const removePlaceholderComponent = (player: Player) => {
         let placeholderComponent: RocketComponent | undefined;
@@ -65,7 +66,7 @@ const ShopItem = ({
     }
 
     const onClick = async () => {
-        if (!disabled) {
+        if (!disabled && !debounce.current) {
             if (isAstronaut(shopItem)) {
                 const { room, slot } = getNextAvailableQuartersSlot(player);
 
@@ -91,11 +92,15 @@ const ShopItem = ({
                 }
             } else {
                 const newPlayer = removePlaceholderComponent(player)
-                const { player: newestPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot)
+                const { player: newerPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot)
+                const { player: newestPlayer } = createRocketComponent(newerPlayer, shopItem.name as RocketComponentName, plot, true)
              
                 
                 setPlayer(newestPlayer)
             }
+            debounce.current = setTimeout(() => {
+                debounce.current = null
+            }, 250)
         }
     }
 
