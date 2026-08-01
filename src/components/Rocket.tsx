@@ -1,35 +1,61 @@
 import TintedSprite from "./TintedSprite"
 import PlaceholderSprite from "./PlaceholderSprite"
 import SelectableSprite from "./SelectableSprite"
-import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, isPlaceable } from "../services/rocketService"
+import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, isPlaceable, isEngine, deleteRocket } from "../services/rocketService"
 import { getModel, isPlaceholder } from "../services/entityService"
 import { useState } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 import useSelect from "../hooks/useSelect"
-import { Player } from "../services/playerService"
+import { Player, savePlayerData} from "../services/playerService"
 import { usePlayer } from "../hooks/usePlayer"
 
-const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket:RocketType, component: RocketComponentType, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
+const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: RocketType, component: RocketComponentType, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
     const [isMouseOver, setIsMouseOver] = useState(false)
     const [isSelected, setIsSelected] = useSelect(isMouseOver)
+    const componentIndex = rocket.components.findIndex((c, _) => c.id == component.id)
+    const isLast = componentIndex == rocket.components.length - 1
+    const isPlaceholderAbove = isLast ? false : isPlaceholder(rocket.components[componentIndex + 1])
 
     const onSellClick = () => {
-        setPlayer(deleteRocketComponent(player, component.id).player)
+        const newPlayer = deleteRocketComponent(player, component.id).player
+        setPlayer(newPlayer)
+        savePlayerData(newPlayer)
     }
-    
-    return isPlaceholder(component) ? (
-        <PlaceholderSprite isPlaceable={isPlaceable(component, rocket)} spriteUrl={getModel(component)} />
-    ) : (
-        <div className="relative">
-            <SelectableSprite
-                isSelected={isSelected}
-                isMouseOver= {isMouseOver}
-                setIsMouseOver= {setIsMouseOver}
-                setIsSelected={setIsSelected}
-                spriteUrl={getModel(component)}
-            />
-            {isSelected && <GameObjectMenu onSellClick={onSellClick} isRocketObject={true} isXOffsetRight={true} /> }
 
+    const onSellAllClick = () => {
+        const newPlayer = deleteRocket(player, rocket.id).player
+        setPlayer(newPlayer)
+        savePlayerData(newPlayer)
+    }
+
+    return isPlaceholder(component) ? (
+        <PlaceholderSprite isPlaceable={isPlaceable(component, rocket, player.plotHeightCap)} spriteUrl={getModel(component)} />
+    ) : (
+        <div>
+            {!isLast &&
+                (isPlaceholderAbove ?
+                    <PlaceholderSprite isPlaceable={isPlaceable(rocket.components[componentIndex + 1], rocket, player.plotHeightCap)} spriteUrl="/sprites/coupler.png" /> :
+                    <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png" />)
+            }
+            <div className="relative">
+                <SelectableSprite
+                    isSelected={isSelected}
+                    isMouseOver={isMouseOver}
+                    setIsMouseOver={setIsMouseOver}
+                    setIsSelected={setIsSelected}
+                    spriteUrl={getModel(component)}
+                />
+                {isSelected &&
+                    <GameObjectMenu
+                        isSellButton={!isEngine(component)}
+                        onSellClick={onSellClick}
+                        isSellAllButton={isEngine(component)}
+                        onSellAllClick={onSellAllClick}
+                        isRocketObject={true}
+                        isXOffsetRight={true}
+                    />}
+
+            </div>
         </div>
 
     )
@@ -43,10 +69,7 @@ export default function Rocket({ rocket }: { rocket: RocketType }) {
             {rocket.components.map((c, i) => {
                 return (
                     <div key={i} className="flex flex-col">
-                        {i < rocket.components.length - 1 && (
-                            <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png" />
-                        )}
-                        <RocketComponent rocket={rocket}player={player} setPlayer={setPlayer} component={c} />
+                        <RocketComponent rocket={rocket} player={player} setPlayer={setPlayer} component={c} />
                     </div>
                 )
             })}

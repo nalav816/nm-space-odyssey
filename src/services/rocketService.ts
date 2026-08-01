@@ -14,20 +14,34 @@ export interface RocketComponent extends OwnedEntity {
 }
 
 //GETTERS
-export function isEngine(r: RocketComponent) {
-    return rocketData[r.name].isEngine
+export function getComponentHeight(c: RocketComponent) : number {
+    return rocketData[c.name].height
 }
 
-export function isCommandModule(r: RocketComponent) {
-    return rocketData[r.name].isCommandModule
+export function getRocketHeight(r: Rocket) {
+    let height = 0;
+    r.components.forEach((c, _) => {
+        if (!getIsPlaceholder(c)) {
+            height += getComponentHeight(c)
+        }
+    })
+    return height
 }
 
-export function isNosecone(r: RocketComponent) {
-    return rocketData[r.name].isNosecone
+export function isEngine(c: RocketComponent) {
+    return rocketData[c.name].isEngine
 }
 
-export function isFuelTank(r: RocketComponent) {
-    return rocketData[r.name].isFuelTank
+export function isCommandModule(c: RocketComponent) {
+    return rocketData[c.name].isCommandModule
+}
+
+export function isNosecone(c: RocketComponent) {
+    return rocketData[c.name].isNosecone
+}
+
+export function isFuelTank(c: RocketComponent) {
+    return rocketData[c.name].isFuelTank
 }
 
 //CRUD
@@ -118,7 +132,12 @@ export function deleteRocketComponent(player: Player, id: string) {
 }
 
 //Component constraints
-export function isPlaceable(c:RocketComponent, r: Rocket) {
+export function isPlaceable(c:RocketComponent, r: Rocket, heightCap: number) {
+    //Height Constraint
+    let height = getComponentHeight(c)
+    let currentHeight = getRocketHeight(r)
+    if (currentHeight + height > heightCap) return false
+
     /*
     GENERAL CONSTRAINTS
     * nothing can be built if there is no engine (aside from an engine)

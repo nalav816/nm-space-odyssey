@@ -38,7 +38,7 @@ export default function PlaceholderSprite({ spriteUrl, isPlaceable = true}: { sp
 
     return (
         <TintedSprite className="opacity-80"
-            tintColor={isPlaceable ? "green-light" : "red-light"}
+            tintColor={isPlaceable ? "green" : "red-light"}
             tintIntensity={.3}
             spriteUrl={spriteUrl}
             animate={controls}

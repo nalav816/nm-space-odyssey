@@ -7,7 +7,7 @@
         "astronautRoomCount": 2,
         "roomSpaceCap": 5,
         "rocketPlotCount": 2,
-        "plotHeightCap": 16,
+        "plotHeightCap": 8,
         "shop": {
             "astronauts": [
                 {

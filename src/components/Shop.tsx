@@ -92,7 +92,7 @@ const ShopItem = ({
                 }
             } else {
                 const placeholder = player.rockets[plot - 1].components.find((c, _) => isPlaceholder(c))!
-                if (isPlaceable(placeholder, player.rockets[plot - 1])) {
+                if (isPlaceable(placeholder, player.rockets[plot - 1], player.plotHeightCap)) {
                     const { player: newPlayer } = createRocketComponent(player, shopItem.name as RocketComponentName, plot)
                     const { player: newerPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot, true)
 

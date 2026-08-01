@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import Rocket from "./Rocket"
 import AreaMenu from "./AreaMenu"
-import { Rocket as RocketType } from "../services/rocketService"
+import { Rocket as RocketType, getRocketHeight } from "../services/rocketService"
 import { motion } from "motion/react"
 
 const RocketPlatform = ({ rocket }: { rocket: RocketType | null }) => {
@@ -20,6 +20,7 @@ const RocketPlatform = ({ rocket }: { rocket: RocketType | null }) => {
 
 export default function Launchpad({ className, plot, setPlot }: { className: string, plot: number, setPlot: React.Dispatch<React.SetStateAction<number>> }) {
     const [player, setPlayer] = usePlayer()
+    const currRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
 
     return (
         <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
@@ -28,7 +29,7 @@ export default function Launchpad({ className, plot, setPlot }: { className: str
                 <AreaMenu
                     areaCount={player.rocketPlotCount}
                     itemCapacity={player.plotHeightCap}
-                    items={player.rockets.filter((r, _) => r.occupiedArea == plot).length}
+                    items={currRocket ? getRocketHeight(currRocket) : 0}
                     setArea={setPlot}
                     currArea={plot}
                     isLaunchpad={true}
