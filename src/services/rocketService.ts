@@ -1,5 +1,5 @@
 import rocketData from "../data/rocketry.json"
-import {  OwnedEntity, getPrice, isPlaceholder as getIsPlaceholder} from "./entityService"
+import {  OwnedEntity, getPrice, isPlaceholder as getIsPlaceholder, isPlaceholder} from "./entityService"
 import { Player } from "./playerService"
 
 export type RocketComponentName = keyof typeof rocketData
@@ -32,8 +32,8 @@ export function isEngine(c: RocketComponent) {
     return rocketData[c.name].isEngine
 }
 
-export function isCommandModule(c: RocketComponent) {
-    return rocketData[c.name].isCommandModule
+export function isControlModule(c: RocketComponent) {
+    return rocketData[c.name].isControlModule
 }
 
 export function isNosecone(c: RocketComponent) {
@@ -66,12 +66,18 @@ export function createRocket(player: Player, plot: number, isPlaceholder: boolea
 }
 
 export function deleteRocket(player: Player, id: string): {player: Player, rocket: Rocket} {
+    const rocket = player.rockets.find((r, _) => r.id === id)!
+    let worth = 0
+
+    if(!isPlaceholder(rocket)) rocket.components.forEach((c, _) => worth += getPrice(c))
+
     return {
         player: {
             ...player,
-            rockets: player.rockets.filter((r, _) => r.id !== id)
+            rockets: player.rockets.filter((r, _) => r.id !== id),
+            netWorth: player.netWorth + worth
         },
-        rocket: player.rockets.find((r, _) => r.id === id)!
+        rocket: rocket
     }
 }
 
@@ -159,7 +165,7 @@ export function isPlaceable(c:RocketComponent, r: Rocket, heightCap: number) {
     
     //top component must now exist at this point
     if (isNosecone(topComponent)) return false
-    if (isCommandModule(topComponent) && !isNosecone(c)) return false
+    if (isControlModule(topComponent) && !isNosecone(c)) return false
 
     //Specific constraints
     //Engines cannot be placed ontop of things

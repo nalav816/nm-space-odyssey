@@ -53,7 +53,7 @@ export default function AreaMenu(
 
     return (
         <div className="relative z-40 px-4 py-2 w-full flex flex-col">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
                 <div className="gap-4 flex items-center">
                     <div className="text-md"> {areaName + " " + currArea}  </div>
                     <div className="flex gap-1">

@@ -42,7 +42,7 @@ export default function GameObjectMenu(
     const actionButtonName = isRocketObject ? "Configure" : "Assign Ship"
 
     return (
-        <div className={`flex flex-col items-center absolute -top-1/4 -translate-y-1/2 ${isXOffsetRight ? "right-full" : "left-full"} ml-1 p-2 gap-2 z-50`}>
+        <div className={`flex flex-col items-center absolute -top-2 -translate-y-1/2 ${isXOffsetRight ? "right-full" : "left-full"} ml-1 p-2 gap-2 z-50`}>
             <div className="absolute top-0 left-0 w-full h-full blur-xl bg-blue-lightest/25" />
             {isActionButton && <MenuButton className= "border-blue-light hover:to-blue-light to-blue from-blue" name={actionButtonName} onClick={onActionClick}/>}
             {isSellButton && <MenuButton className= "[animation-duration:240ms] border-red-light hover:to-red-light to-red from-red" name={sellButtonName} onClick={onSellClick}/>}

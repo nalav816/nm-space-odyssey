@@ -6,7 +6,11 @@ import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType } from "../services/shopService"
 import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, isPilot } from "../services/astronautService"
-import { Rocket, RocketComponent, RocketComponentName, createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, isEngine, isPlaceable } from "../services/rocketService"
+import { 
+    Rocket, RocketComponent, RocketComponentName, 
+    createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, 
+    isEngine, isNosecone, isControlModule, isFuelTank, isPlaceable 
+} from "../services/rocketService"
 import { Entity, getShopIcon, getPrice, getRating, isPlaceholder } from "../services/entityService"
 
 type Category = keyof ShopType;
@@ -31,6 +35,9 @@ const JobIndicator = ({ shopItem }: { shopItem: Entity }) => {
                 {isAstronaut(shopItem) && isScientist(shopItem as Astronaut) && (<img className="w-4 h-4 image-pixelated" src="/sprites/scientistIcon.png" />)}
                 {isAstronaut(shopItem) && isEngineer(shopItem as Astronaut) && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineerIcon.png" />)}
                 {!isAstronaut(shopItem) && isEngine(shopItem as RocketComponent) && (<img className="w-4 h-4 image-pixelated" src="/sprites/engineIcon.png" />)}
+                {!isAstronaut(shopItem) && isFuelTank(shopItem as RocketComponent) && (<img className="w-4 h-4 image-pixelated" src="/sprites/fuelTankIcon.png" />)}
+                {!isAstronaut(shopItem) && isNosecone(shopItem as RocketComponent) && (<img className="w-4 h-4 image-pixelated" src="/sprites/noseconeIcon.png" />)}
+                {!isAstronaut(shopItem) && isControlModule(shopItem as RocketComponent) && (<img className="w-4 h-4 image-pixelated" src="/sprites/controlModuleIcon.png" />)}
             </div>
         </div>
     )
@@ -126,7 +133,7 @@ const ShopItem = ({
                 "from-blue-light to-blue box-shadow hover:cursor-pointer hover:to-blue-light"}`
         }>
             <div className="absolute w-full h-full rounded " />
-            <div className={`z-30 h-16 min-w-16 bg-blue-dark border-r-2 border-blue relative`}>
+            <div className={`z-30 h-16 min-w-17 bg-blue-dark border-r-2 border-blue relative`}>
                 <div className="z-10 texture geometric-texture opacity-10" />
                 {unknown ?
                     (<ColoredSprite color="blue-darker" className="z-20 relative h-16 w-16 image-pixelated" spriteUrl={getShopIcon(shopItem)} />)

@@ -5,10 +5,10 @@
         "isHiddenOnLock": false,
         "price": 1,
         "modelUrl": "/sprites/makeshiftEngine.png",
-        "shopIconUrl": "/sprites/placeholderShopIcon.png",
+        "shopIconUrl": "/sprites/makeshiftEngineIcon.png",
         "isEngine": true,
         "isFuelTank": false,
-        "isCommandModule": false,
+        "isControlModule": false,
         "isNosecone": false
     },
     "Cardboard Fuel Tank": {
@@ -17,22 +17,22 @@
         "isHiddenOnLock": false,
         "price": 1,
         "modelUrl": "/sprites/cardboardFuelTank.png",
-        "shopIconUrl": "/sprites/placeholderShopIcon.png",
+        "shopIconUrl": "/sprites/cardboardFuelTankIcon.png",
         "isEngine": false,
         "isFuelTank": true,
-        "isCommandModule": false,
+        "isControlModule": false,
         "isNosecone": false
     },
-    "Trash Command Module": {
+    "Trash Control Module": {
         "rating": 1,
         "height": 2,
         "isHiddenOnLock": false,
         "price": 1,
-        "modelUrl": "/sprites/trashCommandModule.png",
-        "shopIconUrl": "/sprites/placeholderShopIcon.png",
+        "modelUrl": "/sprites/trashControlModule.png",
+        "shopIconUrl": "/sprites/trashControlModuleIcon.png",
         "isEngine": false,
         "isFuelTank": false,
-        "isCommandModule": true,
+        "isControlModule": true,
         "isNosecone": false
     },
     "Makeshift Nosecone": {
@@ -41,10 +41,10 @@
         "isHiddenOnLock": false,
         "price": 1,
         "modelUrl": "/sprites/nosecone.png",
-        "shopIconUrl": "/sprites/placeholderShopIcon.png",
+        "shopIconUrl": "/sprites/makeshiftNoseconeIcon.png",
         "isEngine": false,
         "isFuelTank": false,
-        "isCommandModule": true,
+        "isControlModule": false,
         "isNosecone": true
     }
 }

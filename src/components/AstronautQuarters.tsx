@@ -78,7 +78,7 @@ export default function AstronautQuarters({ className, room, setRoom }: { classN
                         }}
                     >
                         {new Array(player.astronautRoomCount).fill(0).map((_, i) => (
-                            <div key={i} className="min-w-full flex-col">
+                            <div key={i} className="min-w-full flex flex-col justify-end">
                                 <div className="flex items-end min-w-full">
                                     {new Array(player.roomSpaceCap).fill(0).map((_, j) => {
                                         const astronaut = player.astronauts.find((a: AstronautType) => a.occupiedArea == i + 1 && a.occupiedSlot == j + 1)
