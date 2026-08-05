@@ -9,7 +9,7 @@ import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, i
 import { 
     Rocket, RocketComponent, RocketComponentName, 
     createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, 
-    isEngine, isNosecone, isControlModule, isFuelTank, isPlaceable 
+    isEngine, isNosecone, isControlModule, isFuelTank, isValidPlacement 
 } from "../services/rocketService"
 import { Entity, getShopIcon, getPrice, getRating, isPlaceholder } from "../services/entityService"
 
@@ -99,7 +99,7 @@ const ShopItem = ({
                 }
             } else {
                 const placeholder = player.rockets[plot - 1].components.find((c, _) => isPlaceholder(c))!
-                if (isPlaceable(placeholder, player.rockets[plot - 1], player.plotHeightCap)) {
+                if (isValidPlacement(placeholder, player.rockets[plot - 1], player.plotHeightCap)) {
                     const { player: newPlayer } = createRocketComponent(player, shopItem.name as RocketComponentName, plot)
                     const { player: newerPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot, true)
 

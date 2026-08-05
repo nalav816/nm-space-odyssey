@@ -1,12 +1,12 @@
 import TintedSprite from "./TintedSprite"
 import PlaceholderSprite from "./PlaceholderSprite"
 import SelectableSprite from "./SelectableSprite"
-import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, isPlaceable, isEngine, deleteRocket } from "../services/rocketService"
+import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, isValidPlacement, isSellable, isEngine, deleteRocket } from "../services/rocketService"
 import { getModel, isPlaceholder } from "../services/entityService"
 import { useState } from "react"
 import GameObjectMenu from "./GameObjectMenu"
 import useSelect from "../hooks/useSelect"
-import { Player, savePlayerData} from "../services/playerService"
+import { Player, savePlayerData } from "../services/playerService"
 import { usePlayer } from "../hooks/usePlayer"
 
 const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: RocketType, component: RocketComponentType, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
@@ -17,9 +17,14 @@ const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: Roc
     const isPlaceholderAbove = isLast ? false : isPlaceholder(rocket.components[componentIndex + 1])
 
     const onSellClick = () => {
-        const newPlayer = deleteRocketComponent(player, component.id).player
-        setPlayer(newPlayer)
-        savePlayerData(newPlayer)
+        if (isSellable(component, rocket)) {
+            const newPlayer = deleteRocketComponent(player, component.id).player
+            setPlayer(newPlayer)
+            savePlayerData(newPlayer)
+        } else {
+            //will error handle in another ticket
+            console.log("cannot be sold")
+        }
     }
 
     const onSellAllClick = () => {
@@ -29,12 +34,12 @@ const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: Roc
     }
 
     return isPlaceholder(component) ? (
-        <PlaceholderSprite isPlaceable={isPlaceable(component, rocket, player.plotHeightCap)} spriteUrl={getModel(component)} />
+        <PlaceholderSprite isPlaceable={isValidPlacement(component, rocket, player.plotHeightCap)} spriteUrl={getModel(component)} />
     ) : (
         <div>
             {!isLast &&
                 (isPlaceholderAbove ?
-                    <PlaceholderSprite isPlaceable={isPlaceable(rocket.components[componentIndex + 1], rocket, player.plotHeightCap)} spriteUrl="/sprites/coupler.png" /> :
+                    <PlaceholderSprite isPlaceable={isValidPlacement(rocket.components[componentIndex + 1], rocket, player.plotHeightCap)} spriteUrl="/sprites/coupler.png" /> :
                     <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png" />)
             }
             <div className="relative">
