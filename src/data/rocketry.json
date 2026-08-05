@@ -23,7 +23,7 @@
         "isControlModule": false,
         "isNosecone": false
     },
-    "Trash Control Module": {
+    "DIY Control Module": {
         "rating": 1,
         "height": 2,
         "isHiddenOnLock": false,
@@ -35,7 +35,7 @@
         "isControlModule": true,
         "isNosecone": false
     },
-    "Makeshift Nosecone": {
+    "Paper Nosecone": {
         "rating": 1,
         "height": 2,
         "isHiddenOnLock": false,
