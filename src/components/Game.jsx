@@ -16,7 +16,7 @@ export default function Game() {
     return (
         <div className="select-none relative bg-radial-gradient w-full h-screen min-h-180 min-w-7xl flex flex-col items-center text-white font-jaro">
             <img className="h-full opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
-            <div className="texture opacity-4"/>
+
             <TitleBar/>
      
                 <div className="px-32 py-6 flex flex-1 min-h-0 w-full gap-8 max-w-7xl relative z-20">
