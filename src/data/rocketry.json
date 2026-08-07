@@ -1,0 +1,50 @@
+{
+    "Makeshift Engine": {
+        "rating": 1,
+        "height": 2,
+        "isHiddenOnLock": false,
+        "price": 1,
+        "modelUrl": "/sprites/makeshiftEngine.png",
+        "shopIconUrl": "/sprites/makeshiftEngineIcon.png",
+        "isEngine": true,
+        "isFuelTank": false,
+        "isControlModule": false,
+        "isNosecone": false
+    },
+    "Cardboard Fuel Tank": {
+        "rating": 1,
+        "height": 2,
+        "isHiddenOnLock": false,
+        "price": 1,
+        "modelUrl": "/sprites/cardboardFuelTank.png",
+        "shopIconUrl": "/sprites/cardboardFuelTankIcon.png",
+        "isEngine": false,
+        "isFuelTank": true,
+        "isControlModule": false,
+        "isNosecone": false
+    },
+    "DIY Control Module": {
+        "rating": 1,
+        "height": 2,
+        "isHiddenOnLock": false,
+        "price": 1,
+        "modelUrl": "/sprites/trashControlModule.png",
+        "shopIconUrl": "/sprites/trashControlModuleIcon.png",
+        "isEngine": false,
+        "isFuelTank": false,
+        "isControlModule": true,
+        "isNosecone": false
+    },
+    "Paper Nosecone": {
+        "rating": 1,
+        "height": 2,
+        "isHiddenOnLock": false,
+        "price": 1,
+        "modelUrl": "/sprites/nosecone.png",
+        "shopIconUrl": "/sprites/makeshiftNoseconeIcon.png",
+        "isEngine": false,
+        "isFuelTank": false,
+        "isControlModule": false,
+        "isNosecone": true
+    }
+}

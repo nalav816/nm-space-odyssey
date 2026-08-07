@@ -14,7 +14,8 @@ export default function useSpriteSize(spriteUrl:string) {
             setHeight(img.height * SPRITE_SCALE_FACTOR)
         }
 
-    }, [])
+    }, [spriteUrl])
 
+    
     return [width, height]
 }

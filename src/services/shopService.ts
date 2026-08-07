@@ -1,31 +1,16 @@
 import { Player } from "./playerService";
-
-export interface ShopItem  {
-    name: string;
-    rating: number;
-    price: number
-    iconUrl: string;
-    modelUrl: string;
-    isLocked: boolean;
-    dollarsPerSecond: number;
-    isEngineer: boolean;
-    isScientist: boolean;
-    isPilot: boolean;
-}
+import { Entity, getRating} from "./entityService";
 
 export interface Shop {
-    astronauts: ShopItem[];
-    rockets: ShopItem[];
+    astronauts: Entity[];
+    rocketry: Entity[];
 }
 
-function sortShopItems(a: ShopItem, b: ShopItem) {
-    if (a.rating !== b.rating) {
-        return a.rating - b.rating
-    }
+// function sortShopItems(a: Entity, b: Entity) {
+//     if (getRating(a.name) !== b.rating) {
+//         return a.rating - b.rating
+//     }
 
-    return a.price - b.price
-}
+//     return a.price - b.price
+// }
 
-function getPlayerShop(player: Player) {
-
-}

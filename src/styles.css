@@ -43,6 +43,7 @@ body {
   --color-red-dark: #771E2C;
   --color-red-light: #EB665F;
   --color-yellow: #D8C487;
+  --color-purple-light: #C595B0;
   --color-purple: #7d6096;
   --font-jaro: "Jaro", sans-serif;
 }
@@ -66,7 +67,7 @@ body {
   }
 
   .bg-radial-gradient {
-    background: radial-gradient(circle, var(--color-blue-darkest), var(--color-blue-darker));
+    background: radial-gradient(circle, var(--color-blue-darker), var(--color-blue-darkest));
   }
 
   .card-radial-gradient {

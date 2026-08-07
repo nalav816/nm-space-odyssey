@@ -6,7 +6,8 @@ import GameObjectMenu from "./GameObjectMenu"
 import { savePlayerData } from "../services/playerService"
 import { Player } from "../services/playerService"
 import { Astronaut as AstronautType } from "../services/astronautService"
-import { getPrice, getDollarsPerSecond, getModel, isScientist } from "../services/astronautService"
+import { getDollarsPerSecond, isScientist } from "../services/astronautService"
+import { getPrice, getModel } from "../services/entityService"
 import { GameContext } from "../context/GameProvider"
 import { createPortal } from "react-dom"
 
@@ -264,7 +265,7 @@ export default function Astronaut({ astronaut }: { astronaut: AstronautType }) {
             />
 
             {isSelected &&
-                <GameObjectMenu isXOffsetRight={astronaut.occupiedSlot == player.roomSpaceCap || astronaut.occupiedSlot == player.roomSpaceCap - 1} onActionClick={onActionClick} onSellClick={onSellClick} />
+                <GameObjectMenu isActionButton={true} isXOffsetRight={astronaut.occupiedSlot == player.roomSpaceCap || astronaut.occupiedSlot == player.roomSpaceCap - 1} onActionClick={onActionClick} onSellClick={onSellClick} />
             }
         </div>
 
