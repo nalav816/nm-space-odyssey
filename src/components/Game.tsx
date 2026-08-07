@@ -38,7 +38,7 @@ export default function Game() {
                         <Launchpad plot={plot} setPlot={setPlot} className="grow relative w-full min-h-0" />
                     </div>
 
-                    <div className="relative z-20 min-h-180 h-full w-80 flex flex-col gap-8">
+                    <div className="relative z-20 min-h-180 h-full min-w-80 w-80 flex flex-col gap-8">
                         <Shop 
                             className="hidden xl:flex basis-1/2 w-full min-h-0" 
                             plot = {plot}
