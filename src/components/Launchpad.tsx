@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import Rocket from "./Rocket"
 import AreaMenu from "./AreaMenu"
+import { Rocket as RocketIcon} from "lucide-react"
 import { Rocket as RocketType, getRocketHeight } from "../services/rocketService"
 import { motion } from "motion/react"
 
@@ -23,7 +24,7 @@ export default function Launchpad({ className, plot, setPlot }: { className: str
     const currRocket = player.rockets.find((r, _) => r.occupiedArea == plot)
 
     return (
-        <SectionCard iconUrl={"/sprites/launchpadIcon.png"} className={"flex flex-col " + className} sectionName="Launchpad">
+        <SectionCard icon={RocketIcon} className={"flex flex-col " + className} sectionName="Launchpad">
             <div className="relative z-20 rounded-b flex-1 min-h-0 flex-col flex justify-between card-radial-gradient">
                 <div className="texture opacity-5" />
                 <AreaMenu

@@ -5,6 +5,7 @@ import { usePlayer } from "../hooks/usePlayer"
 import { Player, savePlayerData } from "../services/playerService"
 import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType } from "../services/shopService"
+import { Store } from "lucide-react"
 import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, isPilot } from "../services/astronautService"
 import { 
     Rocket, RocketComponent, RocketComponentName, 
@@ -183,13 +184,13 @@ export default function Shop(
     const [category, setCategory] = useState<Category>("astronauts")
 
     return (
-        <SectionCard className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
+        <SectionCard icon={Store} className={"flex flex-col " + className} sectionName="Shop" iconUrl="/sprites/shopIcon.png">
             <div className="relative p-4 flex gap-2">
                 <CategoryButton setCategory={() => setCategory("astronauts")} category={"astronauts"} active={category == "astronauts"} />
                 <CategoryButton setCategory={() => setCategory("rocketry")} category={"rocketry"} active={category == "rocketry"} />
             </div>
 
-            <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 mb-4 justify-start flex-col gap-4 scrollbar-custom">
+            <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 pb-2   mb-4 justify-start flex-col gap-4 scrollbar-custom">
                 {player!.shop[category].map((shopItem: Entity, i: number) => (
                     <ShopItem
                         player={player!}

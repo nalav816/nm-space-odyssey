@@ -1,6 +1,7 @@
 import SectionCard from "./SectionCard"
+import { Podium } from "lucide-react"
 
-export default function Leaderboard({className}){
+export default function Leaderboard({className} : {className?:string}){
     const leaderboardData = [
         { name: "Alex Johnson", amount: 5000 },
         { name: "Sam Williams", amount: 4750 },
@@ -15,7 +16,7 @@ export default function Leaderboard({className}){
     ]
 
     return (
-        <SectionCard className = {`flex flex-col ${className}`} sectionName = "Leaderboard" iconUrl="/sprites/leaderboardIcon.png">
+        <SectionCard icon={Podium} className = {`flex flex-col ${className}`} sectionName = "Leaderboard">
             <div className="flex-1 min-h-0 flex flex-col my-2 pl-4 px-2 gap-2 overflow-y-auto scrollbar-custom mr-4">
                 {leaderboardData.map((entry, index) => (
                     <div key={index} className="p-2 bg-linear-to-b from-blue-light to-blue rounded box-shadow flex items-center justify-between text-sm text-white">

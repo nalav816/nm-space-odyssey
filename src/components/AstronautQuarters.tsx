@@ -7,7 +7,7 @@ import type { Player } from "../services/playerService"
 import TintedSprite from "./TintedSprite"
 import { usePlayer } from "../hooks/usePlayer"
 import { useEffect, useState, useRef } from "react"
-import { ArrowLeft } from "lucide-react"
+import { User } from "lucide-react"
 import { ArrowRight } from "lucide-react"
 import { motion } from "motion/react"
 import ColoredSprite from "./ColoredSprite"
@@ -55,7 +55,7 @@ export default function AstronautQuarters({ className, room, setRoom }: { classN
     }
 
     return (
-        <SectionCard iconUrl={"/sprites/astronautQuartersIcon.png"} className={"flex flex-col " + className} sectionName="Astronaut's Quarters">
+        <SectionCard icon={User} className={"flex flex-col " + className} sectionName="Astronaut's Quarters">
             <div className="rounded-b relative z-20 flex-1 flex-col flex justify-between card-radial-gradient">
                 <div className="z-20 texture opacity-5" />
                 <AreaMenu

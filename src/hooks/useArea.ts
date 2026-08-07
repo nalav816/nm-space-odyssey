@@ -4,7 +4,7 @@ import { usePlayer } from "./usePlayer";
 //area is the general term for both astronaut rooms and rocket plots
 export type AreaType = "room" | "plot"
 
-export function useArea(areaType: AreaType) {
+export function useArea(areaType: AreaType) : [number, React.Dispatch<React.SetStateAction<number>>] {
     const [player, _] = usePlayer();
     const entities = areaType == "room" ? player.astronauts : player.rockets
     const entityIds = useRef(new Set(entities.map(a => a.id)))
