@@ -36,7 +36,7 @@ export default function Science({ className } : {  className?: string }) {
     const available = player!.astronauts.some((a:Astronaut) => isScientist(a));
 
     return (
-        <SectionCard icon={Atom} className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
+        <SectionCard icon={Atom} className={"flex flex-col " + className} sectionName="Science">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
                     <div className="h-full rounded-b absolute z-40 bg-blue-darker w-full flex flex-col justify-center items-center">
