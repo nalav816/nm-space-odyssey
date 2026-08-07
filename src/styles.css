@@ -147,6 +147,7 @@ body {
 
   .scrollbar-custom::-webkit-scrollbar {
     width: 4px;
+    height: 4px;
   }
 
   .scrollbar-custom::-webkit-scrollbar-track {

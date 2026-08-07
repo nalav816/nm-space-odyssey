@@ -1,5 +1,6 @@
 import { usePlayer } from "../hooks/usePlayer";
 import { Astronaut, isScientist } from "../services/astronautService";
+import { Atom } from "lucide-react";
 import ColoredSprite from "./ColoredSprite";
 import SectionCard from "./SectionCard"
 
@@ -35,7 +36,7 @@ export default function Science({ className } : {  className?: string }) {
     const available = player!.astronauts.some((a:Astronaut) => isScientist(a));
 
     return (
-        <SectionCard className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
+        <SectionCard icon={Atom} className={"flex flex-col " + className} sectionName="Science" iconUrl="/sprites/scienceIcon.png">
             <div className="flex-1 min-h-0 flex flex-col w-full relative">
                 {!available && (
                     <div className="h-full rounded-b absolute z-40 bg-blue-darker w-full flex flex-col justify-center items-center">
