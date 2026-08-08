@@ -32,10 +32,8 @@ export default function TintedSprite({
     onMouseLeave?: () => void,
     onClick?: () => void
 }) {
-    const [width, height] = useSpriteSize(spriteUrl)
     
-
-    if(spriteUrl === "/sprites/makeshiftNosecone.png") console.log(width, height)
+    const [width, height] = useSpriteSize(spriteUrl)
 
     return (
         <motion.div
