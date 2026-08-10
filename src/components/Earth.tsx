@@ -45,7 +45,7 @@ export default function Earth({ }) {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <TintedSprite className="relative z-20" tintIntensity={isHovered ? 0.3 : 0} spriteUrl="/sprites/earth.png" />
+                <TintedSprite tintColor="blue-lightest" className="relative z-20" tintIntensity={isHovered ? 0.3 : 0} spriteUrl="/sprites/earth.png" />
             </motion.div>
 
             {particles.map((particle) => (
