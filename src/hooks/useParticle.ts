@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
-export interface DollarParticle {
+export interface Particle {
     id: string
     value: number | string
     originX: number
@@ -10,14 +10,14 @@ export interface DollarParticle {
     duration: number
 }
 
-export function useDollarParticle() {
-    const [particles, setParticles] = useState<DollarParticle[]>([])
+export function useParticle() {
+    const [particles, setParticles] = useState<Particle[]>([])
 
     const removeParticle = useCallback((particleId: string) => {
         setParticles((prev) => prev.filter((particle) => particle.id !== particleId))
     }, [])
 
-    const addParticle = useCallback((particle: Omit<DollarParticle, "id">) => {
+    const addParticle = useCallback((particle: Omit<Particle, "id">) => {
         const particleWithId = {
             ...particle,
             id: crypto.randomUUID(),
@@ -28,7 +28,7 @@ export function useDollarParticle() {
         window.setTimeout(() => {
             removeParticle(particleWithId.id)
         }, particle.duration * 1000)
-    }, [removeParticle])
+    }, [])
 
     useEffect(() => {
         return () => {

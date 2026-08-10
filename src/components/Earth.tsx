@@ -1,14 +1,14 @@
 import { motion } from "motion/react"
 import { useState } from "react"
-import { useDollarParticle } from "../hooks/useDollarParticle"
+import { useParticle } from "../hooks/useParticle"
 import { usePlayer } from "../hooks/usePlayer"
 import TintedSprite from "./TintedSprite"
 
 export default function Earth({ }) {
     const awardAmount = 1
-    const [, setPlayer] = usePlayer()
+    const [ _, setPlayer] = usePlayer()
     const [isHovered, setIsHovered] = useState(false)
-    const {particles, addParticle} = useDollarParticle()
+    const {particles, addParticle} = useParticle()
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setPlayer((prev) => ({

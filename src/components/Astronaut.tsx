@@ -2,7 +2,7 @@ import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef, useContext } from "react"
 import { usePlayer } from "../hooks/usePlayer"
-import { useDollarParticle } from "../hooks/useDollarParticle"
+import { useParticle } from "../hooks/useParticle"
 import GameObjectMenu from "./GameObjectMenu"
 import { savePlayerData } from "../services/playerService"
 import { Player } from "../services/playerService"
@@ -13,7 +13,7 @@ import { GameContext } from "../context/GameProvider"
 import { createPortal } from "react-dom"
 
 const IdleProductionHandler = ({ astronaut, setPlayer }: { astronaut: AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
-    const { particles, addParticle } = useDollarParticle()
+    const { particles, addParticle } = useParticle()
     const [setOnGameTick, _] = useContext(GameContext)!
     const floatDelay = useRef(Math.random() * 1)
     const floatDuration = useRef(Math.random() * 1 + 2)
