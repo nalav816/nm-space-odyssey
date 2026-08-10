@@ -1,36 +1,42 @@
 import { motion } from "motion/react"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useParticle } from "../hooks/useParticle"
 import { usePlayer } from "../hooks/usePlayer"
 import TintedSprite from "./TintedSprite"
 
 export default function Earth({ }) {
     const awardAmount = 1
-    const [ _, setPlayer] = usePlayer()
+    const [_, setPlayer] = usePlayer()
     const [isHovered, setIsHovered] = useState(false)
-    const {particles, addParticle} = useParticle()
+    const { particles, addParticle } = useParticle()
     const clickSound = new Audio("/audio/earthClick.mp3")
+    const debounce = useRef<NodeJS.Timeout | null>(null)
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setPlayer((prev) => ({
-            ...prev,
-            netWorth: prev.netWorth + awardAmount,
-        }))
+        if (!debounce.current) {
+            setPlayer((prev) => ({
+                ...prev,
+                netWorth: prev.netWorth + awardAmount,
+            }))
 
-        const rect = event.currentTarget.getBoundingClientRect()
-        const originX = event.clientX - rect.left - rect.width / 2
-        const originY = event.clientY - rect.top - rect.height / 2
+            const rect = event.currentTarget.getBoundingClientRect()
+            const originX = event.clientX - rect.left - rect.width / 2
+            const originY = event.clientY - rect.top - rect.height / 2
 
-        addParticle({
-            value: awardAmount,
-            originX,
-            originY,
-            driftX: -10 + Math.random() * 20,
-            driftY: -80 + Math.random() * -20,
-            duration: Math.random() * 0.5 + 1.2,
-        })
+            addParticle({
+                value: awardAmount,
+                originX,
+                originY,
+                driftX: -10 + Math.random() * 20,
+                driftY: -80 + Math.random() * -20,
+                duration: Math.random() * 0.5 + 1.2,
+            })
 
-        clickSound.play()
+            clickSound.play()
+            debounce.current = setTimeout(() => {
+                debounce.current = null
+            }, 100)
+        }
     }
 
     return (
