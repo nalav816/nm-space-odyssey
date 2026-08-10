@@ -9,6 +9,7 @@ export default function Earth({ }) {
     const [ _, setPlayer] = usePlayer()
     const [isHovered, setIsHovered] = useState(false)
     const {particles, addParticle} = useParticle()
+    const clickSound = new Audio("/audio/earthClick.mp3")
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setPlayer((prev) => ({
@@ -28,6 +29,8 @@ export default function Earth({ }) {
             driftY: -80 + Math.random() * -20,
             duration: Math.random() * 0.5 + 1.2,
         })
+
+        clickSound.play()
     }
 
     return (
