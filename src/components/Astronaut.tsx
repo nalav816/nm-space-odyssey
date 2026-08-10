@@ -2,6 +2,7 @@ import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
 import { useState, useEffect, useRef, useContext } from "react"
 import { usePlayer } from "../hooks/usePlayer"
+import { useParticle } from "../hooks/useParticle"
 import GameObjectMenu from "./GameObjectMenu"
 import { savePlayerData } from "../services/playerService"
 import { Player } from "../services/playerService"
@@ -12,29 +13,21 @@ import { GameContext } from "../context/GameProvider"
 import { createPortal } from "react-dom"
 
 const IdleProductionHandler = ({ astronaut, setPlayer }: { astronaut: AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
-    const [moneyEarnedParticles, setMoneyEarnedParticles] = useState(new Array());
+    const { particles, addParticle } = useParticle()
     const [setOnGameTick, _] = useContext(GameContext)!
     const floatDelay = useRef(Math.random() * 1)
     const floatDuration = useRef(Math.random() * 1 + 2)
 
-    const handleParticleDeletion = (particleId: number) => {
-        setMoneyEarnedParticles(prev => (
-            prev.filter(v => v.id != particleId)
-        ))
-    }
-
     useEffect(() => {
         const handlePayoutEffect = () => {
-            setMoneyEarnedParticles(prev => [
-                ...prev,
-                {
-                    id: crypto.randomUUID(),
-                    val: getDollarsPerSecond(astronaut),
-                    x: -10 + Math.random() * 20,
-                    y: -140 + Math.random() * -20,
-                    duration: Math.random() * .5 + 3,
-                }
-            ])
+            addParticle({
+                value: getDollarsPerSecond(astronaut),
+                originX: 0,
+                originY: 0,
+                driftX: -10 + Math.random() * 20,
+                driftY: -140 + Math.random() * -20,
+                duration: Math.random() * .5 + 3,
+            })
         }
 
         setOnGameTick(prev => ([
@@ -43,7 +36,7 @@ const IdleProductionHandler = ({ astronaut, setPlayer }: { astronaut: AstronautT
         ]))
 
         return () => setOnGameTick(prev => prev.filter(callback => callback !== handlePayoutEffect))
-    }, [])
+    }, [addParticle, astronaut, setOnGameTick])
 
     return (
         <motion.div className="absolute -top-16 w-24 flex justify-center"
@@ -67,32 +60,31 @@ const IdleProductionHandler = ({ astronaut, setPlayer }: { astronaut: AstronautT
                 className="absolute z-10 w-24 -top-8 opacity-80 left-0 h-24" src={"/imgs/flare.png"}
             />
 
-            {moneyEarnedParticles.map((p, _) => (
+            {particles.map((p) => (
                 <motion.div
                     key={p.id}
-                    className="absolute -top-5 text-green-light text-glow-green"
+                    className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-green-light text-glow-green"
                     initial={{
-                        x: 0,
-                        y: 0
+                        x: p.originX,
+                        y: p.originY,
+                        opacity: 1,
+                        scale: 1,
                     }}
                     animate={{
-                        x: p.x,
-                        y: p.y,
+                        x: p.originX + p.driftX,
+                        y: p.originY + p.driftY,
                         opacity: 0,
-                        scale: 0
+                        scale: 0,
                     }}
                     transition={{
                         duration: p.duration,
                         ease: "easeOut"
                     }}
-                    onAnimationComplete={() => handleParticleDeletion(p.id)}
 
                 >
-                    +{p.val}
+                    +{p.value}
                 </motion.div>
-            ))
-
-            }
+            ))}
 
 
         </motion.div>
