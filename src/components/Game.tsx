@@ -20,7 +20,7 @@ export default function Game() {
         <div className="select-none relative bg-radial-gradient w-full h-screen flex flex-col items-center text-white font-jaro">
             <img className="h-full opacity-10 w-full object-cover absolute z-0" src="/imgs/blackhole.jpeg"></img>
             <TitleBar />
-            <div className="px-32 py-6 flex flex-1 justify-center min-h-0 w-full gap-8 relative z-20 overflow-auto scrollbar-custom ">
+            <div className="px-28 py-6 flex flex-1 justify-center min-h-0 w-full gap-8 relative z-20 overflow-auto scrollbar-custom ">
                 <div className="w-80 min-h-180 h-full flex flex-col">
                     <div className="flex justify-between items-start w-full">
                         <div className="flex flex-col gap-2 pb-24">
