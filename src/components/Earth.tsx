@@ -40,19 +40,19 @@ export default function Earth({ }) {
     }
 
     return (
-        <button
+        <div
             className="relative p-1 rounded-full border-blue-dark border-dashed border-2 bg-blue-darker"
-            onClick={handleClick}
         >
-            <motion.div
+            <motion.button
                 whileTap={{ scale: 1.08 }}
                 transition={{ type: "spring", stiffness: 300, damping: 12 }}
-                className="relative z-20"
+                className="relative z-20 flex items-center justify-center"
+                onClick={handleClick}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <TintedSprite tintColor="blue-lightest" className="relative z-20" tintIntensity={isHovered ? 0.3 : 0} spriteUrl="/sprites/earth.png" />
-            </motion.div>
+            </motion.button>
 
             {particles.map((particle) => (
                 <motion.div
@@ -65,6 +65,6 @@ export default function Earth({ }) {
                     +{particle.value}
                 </motion.div>
             ))}
-        </button>
+        </div>
     )
 }

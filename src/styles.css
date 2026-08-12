@@ -161,4 +161,8 @@ body {
   .animate-floatIn {
     animation: floatIn ease-out .2s forwards;
   }
+
+  .font-jaro {
+    font-family: "Jaro";
+  }
 }

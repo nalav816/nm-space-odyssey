@@ -8,6 +8,7 @@ import GameObjectMenu from "./GameObjectMenu"
 import useSelect from "../hooks/useSelect"
 import { Player, savePlayerData } from "../services/playerService"
 import { usePlayer } from "../hooks/usePlayer"
+import { toast } from "./Toast"
 
 const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: RocketType, component: RocketComponentType, player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
     const [isMouseOver, setIsMouseOver] = useState(false)
@@ -23,6 +24,7 @@ const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: Roc
             savePlayerData(newPlayer)
         } else {
             //will error handle in another ticket
+            toast()
             console.log("cannot be sold")
         }
     }
