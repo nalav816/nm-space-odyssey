@@ -1,7 +1,7 @@
 import TintedSprite from "./TintedSprite"
 import PlaceholderSprite from "./PlaceholderSprite"
 import SelectableSprite from "./SelectableSprite"
-import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, isValidPlacement, isSellable, isEngine, deleteRocket } from "../services/rocketService"
+import { Rocket as RocketType, RocketComponent as RocketComponentType, deleteRocketComponent, validatePlacement, validateSale, isEngine, deleteRocket } from "../services/rocketService"
 import { getModel, isPlaceholder } from "../services/entityService"
 import { useState } from "react"
 import GameObjectMenu from "./GameObjectMenu"
@@ -16,16 +16,16 @@ const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: Roc
     const componentIndex = rocket.components.findIndex((c, _) => c.id == component.id)
     const isLast = componentIndex == rocket.components.length - 1
     const isPlaceholderAbove = isLast ? false : isPlaceholder(rocket.components[componentIndex + 1])
+    const isPlaceholderAboveValid = isPlaceholderAbove ? validatePlacement(rocket.components[componentIndex + 1], rocket, player.plotHeightCap).isValid : false
 
     const onSellClick = () => {
-        if (isSellable(component, rocket)) {
+        const res = validateSale(component, rocket)
+        if (res.isValid) {
             const newPlayer = deleteRocketComponent(player, component.id).player
             setPlayer(newPlayer)
             savePlayerData(newPlayer)
         } else {
-            //will error handle in another ticket
-            toast()
-            console.log("cannot be sold")
+            toast({title: "Sale Error", description:res.errorMessage})
         }
     }
 
@@ -36,12 +36,12 @@ const RocketComponent = ({ rocket, component, player, setPlayer }: { rocket: Roc
     }
 
     return isPlaceholder(component) ? (
-        <PlaceholderSprite isPlaceable={isValidPlacement(component, rocket, player.plotHeightCap)} spriteUrl={getModel(component)} />
+        <PlaceholderSprite isPlaceable={validatePlacement(component, rocket, player.plotHeightCap).isValid} spriteUrl={getModel(component)} />
     ) : (
         <div>
             {!isLast &&
                 (isPlaceholderAbove ?
-                    <PlaceholderSprite isPlaceable={isValidPlacement(rocket.components[componentIndex + 1], rocket, player.plotHeightCap)} spriteUrl="/sprites/coupler.png" /> :
+                    <PlaceholderSprite isPlaceable={isPlaceholderAboveValid} spriteUrl="/sprites/coupler.png" /> :
                     <TintedSprite tintIntensity={0} spriteUrl="/sprites/coupler.png" />)
             }
             <div className="relative">

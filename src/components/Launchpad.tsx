@@ -14,7 +14,7 @@ const RocketPlatform = ({ rocket }: { rocket: RocketType | null }) => {
     return (
         <div className="relative flex flex-col items-end">
             {rocket && (<Rocket rocket={rocket} />)}
-            <ColoredSprite spriteUrl="/sprites/launchpad.png" />
+            <ColoredSprite color="blue-dark" spriteUrl="/sprites/launchpad.png" />
         </div>
     )
 }
@@ -51,8 +51,7 @@ export default function Launchpad({ className, plot, setPlot }: { className: str
                                 <div className="flex-1 w-full min-h-0 px-4">
                                     <div className="h-full flex min-h-0 flex-col-reverse overflow-auto w-full scrollbar-custom ">
                                         <div className="flex justify-between items-end">
-                                            <ColoredSprite spriteUrl="/sprites/controlTower.png" />
-                                            <ColoredSprite spriteUrl="/sprites/gasStation.png" />
+                                            <ColoredSprite color="blue-dark" spriteUrl="/sprites/controlTower.png" />
                                             <RocketPlatform rocket={player.rockets[i]} />
                                         </div>
 
