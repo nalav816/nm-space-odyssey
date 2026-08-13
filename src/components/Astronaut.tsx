@@ -1,5 +1,6 @@
 import { motion } from "motion/react"
 import TintedSprite from "./TintedSprite"
+import SelectableSprite from "./SelectableSprite"
 import { useState, useEffect, useRef, useContext } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import { useParticle } from "../hooks/useParticle"
@@ -11,6 +12,7 @@ import { getDollarsPerSecond, isScientist } from "../services/astronautService"
 import { getPrice, getModel } from "../services/entityService"
 import { GameContext } from "../context/GameProvider"
 import { createPortal } from "react-dom"
+import useSelect from "../hooks/useSelect"
 
 const IdleProductionHandler = ({ astronaut, setPlayer }: { astronaut: AstronautType, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) => {
     const { particles, addParticle } = useParticle()
@@ -117,32 +119,12 @@ const DragIndicator = ({ dragType }: { dragType: DragType }) => {
 
 export default function Astronaut({ astronaut }: { astronaut: AstronautType }) {
     const [player, setPlayer] = usePlayer();
-    const MAX_TINT_INTENSITY = .2
     const [isMouseOver, setIsMouseOver] = useState(false)
-    const [isSelected, setIsSelected] = useState(false)
+    const [isSelected, setIsSelected] = useSelect(isMouseOver)
     const [isBeingDragged, setIsBeingDragged] = useState(false)
     const [dragType, setDragType] = useState(DragType.ActionDrag)
     const [mouse, setMouse] = useState({ x: 0, y: 0 })
     const dragTimer = useRef<null | NodeJS.Timeout>(null)
-    const selectionTimer = useRef<null | NodeJS.Timeout>(null)
-
-    const onMouseEnter = () => {
-        setIsMouseOver(true)
-    }
-
-    const onMouseLeave = () => {
-        setIsMouseOver(false)
-    }
-
-    const onClick = () => {
-        if (!selectionTimer.current) {
-            setIsSelected((prev) => !prev)
-            selectionTimer.current = setTimeout(() => {
-                selectionTimer.current = null
-            }, 50)
-        }
-
-    }
 
     const onActionClick = () => {
         setDragType(DragType.ActionDrag)
@@ -160,17 +142,6 @@ export default function Astronaut({ astronaut }: { astronaut: AstronautType }) {
         setPlayer!(newPlayer)
         savePlayerData(newPlayer)
     }
-
-    useEffect(() => {
-        const onClickAnywhere = (event: any) => {
-            if (isSelected && !isMouseOver) {
-                setIsSelected(false)
-            }
-        }
-
-        document.addEventListener("click", onClickAnywhere)
-        return () => document.removeEventListener("click", onClickAnywhere)
-    }, [isSelected, isMouseOver])
 
     useEffect(() => {
         const onKeyPressed = (e: any) => {
@@ -238,22 +209,13 @@ export default function Astronaut({ astronaut }: { astronaut: AstronautType }) {
 
             {isScientist(astronaut) && !isBeingDragged && <IdleProductionHandler astronaut={astronaut} setPlayer={setPlayer} />}
 
-            <TintedSprite
-                className={`relative z-30 hover:cursor-pointer image-pixelated text-white ${isBeingDragged ? "hidden pointer-events-none" : ""}`}
+            <SelectableSprite
+                className={`${isBeingDragged ? "hidden pointer-events-none" : ""}`}
                 spriteUrl={getModel(astronaut)}
-                tintColor="white"
-                tintIntensity={isSelected ? MAX_TINT_INTENSITY : 0}
-                tintAnimate={isMouseOver && !isSelected ? {
-                    opacity: ["0%", (MAX_TINT_INTENSITY * 100) + "%", "0%"]
-                } : {}}
-                tintTransition={isMouseOver && !isSelected ? {
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "linear",
-                } : {}}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                onClick={onClick}
+                isMouseOver={isMouseOver}
+                setIsMouseOver={setIsMouseOver}
+                isSelected={isSelected}
+                setIsSelected={setIsSelected}
             />
 
             {isSelected &&

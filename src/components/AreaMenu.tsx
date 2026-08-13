@@ -1,6 +1,7 @@
 import ColoredSprite from "./ColoredSprite";
 import { useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft } from "lucide-react";
+import { playSound } from "../services/audioSevice";
 
 const AreaButton = ({ number, setArea, isActive }: { number: number, setArea: React.Dispatch<React.SetStateAction<number>>, isActive: boolean }) => {
     const button = useRef<HTMLButtonElement>(null)
@@ -20,7 +21,10 @@ const AreaButton = ({ number, setArea, isActive }: { number: number, setArea: Re
         border border-dashed text-sm text-white h-8 w-8 rounded
         ${isActive ? "bg-blue-light border-blue" : "bg-blue border-blue-dark"}`
             }
-            onClick={() => setArea(number)}
+            onClick={() => {
+                playSound("uiClick", .4)
+                setArea(number)
+            }}
             ref={button}
         >
             <div className="w-full h-full texture geometric-texture opacity-10" />
@@ -63,14 +67,20 @@ export default function AreaMenu(
                 </div>
                 <div className="flex gap-2">
                 <button
-                    onClick={() => currArea > 1 && setArea(prev => prev - 1)}
+                    onClick={() => {
+                        playSound("uiClick", .4)
+                        currArea > 1 && setArea(prev => prev - 1)
+                    }}
                     disabled={currArea <= 1}
                     className="disabled:opacity-30 disabled:pointer-events-none"
                 >
                     <ArrowLeft className="transition-transform duration-200 hover:-translate-y-0.5 hover:text-blue-lightest text-blue-light h-4 w-4" />
                 </button>
                 <button
-                    onClick={() => currArea < areaCount && setArea(prev => prev + 1)}
+                    onClick={() => {
+                        playSound("uiClick", .4)
+                        currArea < areaCount && setArea(prev => prev + 1)
+                    }}
                     disabled={currArea >= areaCount}
                     className="disabled:opacity-30 disabled:pointer-events-none"
                 >

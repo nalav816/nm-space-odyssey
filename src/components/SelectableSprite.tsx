@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { playSound } from "../services/audioSevice"
 import TintedSprite from "./TintedSprite"
 
 const MAX_TINT_INTENSITY = .2
@@ -37,7 +38,10 @@ export default function SelectableSprite(
 
     const onClick = () => {
         if (!debounce.current) {
-            if (!isSelected && onSelection) onSelection()
+            if (!isSelected) {
+                if (onSelection) onSelection()
+                playSound("selection", .3)
+            }
             setIsSelected(prev => !prev)
             debounce.current = setTimeout(() => {
                 debounce.current = null
