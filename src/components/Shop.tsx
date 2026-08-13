@@ -1,16 +1,16 @@
 import ColoredSprite from "./ColoredSprite"
 import SectionCard from "./SectionCard"
+import { toast } from "./Toast"
 import { useState, useRef } from "react"
 import { usePlayer } from "../hooks/usePlayer"
 import { Player, savePlayerData } from "../services/playerService"
-import { getNextAvailableQuartersSlot } from "./AstronautQuarters"
 import { Shop as ShopType } from "../services/shopService"
 import { Store } from "lucide-react"
-import { Astronaut, getDollarsPerSecond, isAstronaut, isEngineer, isScientist, isPilot } from "../services/astronautService"
-import { 
-    Rocket, RocketComponent, RocketComponentName, 
-    createRocket, createRocketComponent, deleteRocket, deleteRocketComponent, 
-    isEngine, isNosecone, isControlModule, isFuelTank, isValidPlacement 
+import { Astronaut, purchaseAstronaut, isAstronaut, isScientist, isEngineer, isPilot, isVacantQuartersSpace } from "../services/astronautService"
+import {
+    Rocket, RocketComponent, RocketComponentName,
+    createRocket, createRocketComponent, deleteRocket, deleteRocketComponent,
+    isEngine, isNosecone, isControlModule, isFuelTank, validatePlacement
 } from "../services/rocketService"
 import { Entity, getShopIcon, getPrice, getRating, isPlaceholder } from "../services/entityService"
 
@@ -51,7 +51,7 @@ const ShopItem = ({
     plot,
     setPlot,
     unknown = false,
-    disabled = unknown || player.netWorth < getPrice(shopItem) || player.astronautRoomCount * player.roomSpaceCap <= player.astronauts.length
+    disabled = unknown || player.netWorth < getPrice(shopItem) 
 }: {
     player: Player,
     setPlayer: React.Dispatch<React.SetStateAction<Player>>,
@@ -76,36 +76,27 @@ const ShopItem = ({
     const onClick = async () => {
         if (!disabled && !debounce.current) {
             if (isAstronaut(shopItem)) {
-                const { room, slot } = getNextAvailableQuartersSlot(player);
-
-                if (getPrice(shopItem) <= player.netWorth) {
-                    const id = crypto.randomUUID()
-                    const newPlayer: Player = {
-                        ...player,
-                        netWorth: player.netWorth - getPrice(shopItem),
-                        astronauts: [...player.astronauts,
-                        {
-                            id: id,
-                            name: shopItem.name,
-                            lastCurrencyUpdate: Date.now(),
-                            isGeneratingDollars: isScientist(shopItem as Astronaut),
-                            dollarsPerSecond: getDollarsPerSecond(shopItem as Astronaut),
-                            occupiedSlot: slot,
-                            occupiedArea: room
-                        }],
+                if (isVacantQuartersSpace(player)){
+                    const result = purchaseAstronaut(player, shopItem.name as any);
+                    if (result) {
+                        setPlayer(result.player)
+                        savePlayerData(result.player)
                     }
-
-                    setPlayer(newPlayer)
-                    savePlayerData(newPlayer)
+                } else {
+                    toast({title: "Purchase Error", description: "Astronaut's Quarters are currently full. Fire a astronaut to create more space."})
                 }
+
             } else {
                 const placeholder = player.rockets[plot - 1].components.find((c, _) => isPlaceholder(c))!
-                if (isValidPlacement(placeholder, player.rockets[plot - 1], player.plotHeightCap)) {
+                const res = validatePlacement(placeholder, player.rockets[plot - 1], player.plotHeightCap)
+                if (res.isValid) {
                     const { player: newPlayer } = createRocketComponent(player, shopItem.name as RocketComponentName, plot)
                     const { player: newerPlayer } = createRocketComponent(newPlayer, shopItem.name as RocketComponentName, plot, true)
 
                     setPlayer(newerPlayer)
                     savePlayerData(newerPlayer)
+                } else {
+                    toast({ title: "Purchase Error", description: res.errorMessage })
                 }
             }
             debounce.current = setTimeout(() => {

@@ -13,36 +13,6 @@ import { motion } from "motion/react"
 import ColoredSprite from "./ColoredSprite"
 import AreaMenu from "./AreaMenu"
 
-export function getNextAvailableQuartersSlot(player: Player) {
-    let slot = 1
-    let room = 1
-
-    player.astronauts.sort((a: AstronautType, b: AstronautType) => {
-        if (a.occupiedArea != b.occupiedArea) {
-            return a.occupiedArea - b.occupiedArea
-        }
-
-        return a.occupiedSlot - b.occupiedSlot
-    })
-
-    for (const a of player.astronauts) {
-        if (a.occupiedSlot == slot && a.occupiedArea == room) {
-            slot += 1
-            if (slot > player.roomSpaceCap) {
-                slot = 1
-                room += 1
-            }
-        } else {
-            break
-        }
-    }
-
-    return {
-        room,
-        slot
-    }
-}
-
 export default function AstronautQuarters({ className, room, setRoom }: { className: string, room: number, setRoom: React.Dispatch<React.SetStateAction<number>> }) {
     const [player, setPlayer] = usePlayer();
 

@@ -1,5 +1,5 @@
 import rocketData from "../data/rocketry.json"
-import {  OwnedEntity, getPrice, isPlaceholder as getIsPlaceholder, isPlaceholder} from "./entityService"
+import { OwnedEntity, getPrice, isPlaceholder as getIsPlaceholder, isPlaceholder } from "./entityService"
 import { Player } from "./playerService"
 
 export type RocketComponentName = keyof typeof rocketData
@@ -14,7 +14,7 @@ export interface RocketComponent extends OwnedEntity {
 }
 
 //GETTERS
-export function getComponentHeight(c: RocketComponent) : number {
+export function getComponentHeight(c: RocketComponent): number {
     return rocketData[c.name].height
 }
 
@@ -45,7 +45,7 @@ export function isFuelTank(c: RocketComponent) {
 }
 
 //CRUD
-export function createRocket(player: Player, plot: number, isPlaceholder: boolean = false): {player: Player, rocket: Rocket} {
+export function createRocket(player: Player, plot: number, isPlaceholder: boolean = false): { player: Player, rocket: Rocket } {
     const id = isPlaceholder ? `placeholder-${crypto.randomUUID()}` : crypto.randomUUID()
     const newRocket = {
         id: id,
@@ -65,11 +65,11 @@ export function createRocket(player: Player, plot: number, isPlaceholder: boolea
     }
 }
 
-export function deleteRocket(player: Player, id: string): {player: Player, rocket: Rocket} {
+export function deleteRocket(player: Player, id: string): { player: Player, rocket: Rocket } {
     const rocket = player.rockets.find((r, _) => r.id === id)!
     let worth = 0
 
-    if(!isPlaceholder(rocket)) rocket.components.forEach((c, _) => worth += getPrice(c))
+    if (!isPlaceholder(rocket)) rocket.components.forEach((c, _) => worth += getPrice(c))
 
     return {
         player: {
@@ -81,7 +81,7 @@ export function deleteRocket(player: Player, id: string): {player: Player, rocke
     }
 }
 
-export function createRocketComponent(player: Player, name: RocketComponentName, plot: number, isPlaceholder: boolean = false): {player: Player, rocketComponent: RocketComponent} {
+export function createRocketComponent(player: Player, name: RocketComponentName, plot: number, isPlaceholder: boolean = false): { player: Player, rocketComponent: RocketComponent } {
     const id = isPlaceholder ? `placeholder-${crypto.randomUUID()}` : crypto.randomUUID()
     const newComponent = {
         name: name,
@@ -89,7 +89,7 @@ export function createRocketComponent(player: Player, name: RocketComponentName,
         occupiedArea: plot
     }
     const existingRocket = player.rockets.find((r, _) => r.occupiedArea == plot && !getIsPlaceholder(r))
-    const {player:newPlayer, rocket} = existingRocket ? {player: player, rocket:existingRocket} : createRocket(player, plot, isPlaceholder)
+    const { player: newPlayer, rocket } = existingRocket ? { player: player, rocket: existingRocket } : createRocket(player, plot, isPlaceholder)
 
     return {
         player: {
@@ -128,7 +128,7 @@ export function deleteRocketComponent(player: Player, id: string) {
                         }
                         return true
                     })
-                    
+
                 }
             )).filter((r, _) => !getIsPlaceholder(r) && r.components.length != 0),
             netWorth: getIsPlaceholder(component!) ? player.netWorth : player.netWorth + getPrice(component!),
@@ -137,8 +137,13 @@ export function deleteRocketComponent(player: Player, id: string) {
     }
 }
 
+export type ValidationResult = {
+    isValid: boolean,
+    errorMessage?: string
+}
+
 //Component constraints
-export function isValidPlacement(c:RocketComponent, r: Rocket, heightCap: number) {
+export function validatePlacement(c: RocketComponent, r: Rocket, heightCap: number): ValidationResult {
     //filters placeholders from placement consideration
     const rocket = {
         ...r,
@@ -153,56 +158,123 @@ export function isValidPlacement(c:RocketComponent, r: Rocket, heightCap: number
     //Height Constraints
     let height = getComponentHeight(c)
     let currentHeight = getRocketHeight(rocket, new Set([c.id]))
-    if (currentHeight + height > heightCap) return false
-    
-    if (isEngine(c) && !isEngineValid(partBelow)) return false
-    if (isFuelTank(c) && !isFuelTankValid(partBelow)) return false
-    if (isControlModule(c) && !isControlModuleValid(c, partBelow, rocket)) return false
-    if (isNosecone(c) && !isNoseconeValid(partAbove, partBelow)) return false
- 
-    return true
+    if (currentHeight + height > heightCap) {
+        return {
+            isValid: false,
+            errorMessage: "Rocket height limit can not be exceeded."
+        }
+    }
+
+    if (isEngine(c)) {
+        const res = validateEngine(partBelow)
+        if (!res.isValid) return res
+    } else {
+        if (!partBelow) {
+            return {
+                isValid: false,
+                errorMessage: "All rocket parts must be placed ontop of an engine."
+            }
+        }
+    }
+
+    if (isFuelTank(c)) {
+        const res = validateFuelTank(partBelow!)
+        if (!res.isValid) return res
+    }
+
+    if (isControlModule(c)) {
+        const res = validateControlModule(c, partBelow!, rocket)
+        if (!res.isValid) return res
+    }
+
+    if (isNosecone(c)) {
+        const res = validateNosecone(partAbove, partBelow!)
+        if (!res.isValid) return res
+    }
+
+    return {
+        isValid: true
+    }
 }
 
-export function isSellable(c: RocketComponent, r: Rocket) {
+export function validateSale(c: RocketComponent, r: Rocket) : ValidationResult{
     const rocketWithoutPart = {
         ...r,
         components: r.components.filter((component, _) => component.id !== c.id)
-    }  
+    }
 
-    for (const component of rocketWithoutPart.components){
+    let result : ValidationResult = {
+        isValid: true
+    }
+
+    for (const component of rocketWithoutPart.components) {
         //height cap does not matter because we are attempting to sell so the height will be decreased
         //and if the rocket already exists that means it fits within the confines
         //of whatever height constraints exists.
-        if (!isValidPlacement(component, rocketWithoutPart, 1000000000)) return false
+        const res = validatePlacement(component, rocketWithoutPart, 100000000)
+        if (!res.isValid) {
+            result.isValid = false
+            if (result.errorMessage) {
+                result.errorMessage += "• " + res.errorMessage
+            } else {
+                result.errorMessage = "The following constraints are violated without the part that was attempted to be sold: \n" + "• " + res.errorMessage
+            }
+        }
     }
 
-    return true
+    return result
 }
 
 //Engines must be the bottom most component
-function isEngineValid(partBelow : RocketComponent | null) {
-    return partBelow == null
+function validateEngine(partBelow: RocketComponent | null): ValidationResult {
+    if (!partBelow) {
+        return {
+            isValid: true
+        }
+    } else {
+        return {
+            isValid: false,
+            errorMessage: "Engines must be built at the bottom of a rocket."
+        }
+    }
 }
 
 //Fuel tanks can only be on top of other fuel tanks or an engine
-function isFuelTankValid(partBelow: RocketComponent | null) :  boolean {
-    if (!partBelow) return false
-    if (!isEngine(partBelow) && !isFuelTank(partBelow)) return false
-    return true
+function validateFuelTank(partBelow: RocketComponent): ValidationResult {
+    if (!isEngine(partBelow) && !isFuelTank(partBelow)) {
+        return {
+            isValid: false,
+            errorMessage: "Fuel tanks must be built on top of other fuel tanks or an engine."
+        }
+    }
+    return {isValid: true}
 }
 
 //Can only be one control module per rocket
-function isControlModuleValid(c: RocketComponent, partBelow: RocketComponent | null, rocket: Rocket) : boolean {
-    if (!partBelow) return false
-    if (rocket.components.find((c2, _) => isControlModule(c2) && c.id !== c2.id)) return false
-    return true
+function validateControlModule(c: RocketComponent, partBelow: RocketComponent, rocket: Rocket): ValidationResult {
+    if (rocket.components.find((c2, _) => isControlModule(c2) && c.id !== c2.id)) {
+        return {
+            isValid: false,
+            errorMessage: "Only one control module may exist per rocket."
+        }
+    }
+    return {isValid: true}
 }
 
 //Nosecones must be the top most component
 //Nosecones must be built ontop of a control module
-function isNoseconeValid(partAbove: RocketComponent | null, partBelow: RocketComponent | null) {
-    if (partAbove) return false
-    if (!partBelow) return false
-    if (!isControlModule(partBelow)) return false
-    return true
+function validateNosecone(partAbove: RocketComponent | null, partBelow: RocketComponent): ValidationResult {
+    if (partAbove) {
+        return {
+            isValid: false,
+            errorMessage: "Nosecones must be built at the top of a rocket."
+        }
+    }
+    if (!isControlModule(partBelow)) {
+        return {
+            isValid: false,
+            errorMessage: "Nosecones can only be built on top of a control module."
+        }
+    }
+    return {isValid: true}
 }
