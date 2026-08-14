@@ -2,12 +2,12 @@ import { Player, tick } from "../services/playerService";
 import { GameContext } from "../context/GameProvider";
 import { useEffect, useContext } from "react";
 
-export function usePlayerTick(setPlayer:React.Dispatch<React.SetStateAction<Player>>) {
+export function usePlayerTick(setPlayer: React.Dispatch<React.SetStateAction<Player>>) {
     const [setOnGameTick, _] = useContext(GameContext)!
 
     useEffect(() => {
         const handleTick = () => {
-            setPlayer(prev => tick(prev))
+            setPlayer(prev => tick(prev).player)
         }
 
         setOnGameTick(prev => ([

@@ -13,6 +13,7 @@ import {
     isEngine, isNosecone, isControlModule, isFuelTank, validatePlacement
 } from "../services/rocketService"
 import { Entity, getShopIcon, getPrice, getRating, isPlaceholder } from "../services/entityService"
+import { playSound } from "../services/audioSevice"
 
 type Category = keyof ShopType;
 
@@ -177,8 +178,14 @@ export default function Shop(
     return (
         <SectionCard icon={Store} className={"flex flex-col " + className} sectionName="Shop">
             <div className="relative p-4 flex gap-2">
-                <CategoryButton setCategory={() => setCategory("astronauts")} category={"astronauts"} active={category == "astronauts"} />
-                <CategoryButton setCategory={() => setCategory("rocketry")} category={"rocketry"} active={category == "rocketry"} />
+                <CategoryButton setCategory={() => {
+                    playSound("uiClick", .4)
+                    setCategory("astronauts")
+                }} category={"astronauts"} active={category == "astronauts"} />
+                <CategoryButton setCategory={() => {
+                    playSound("uiClick", .4)
+                    setCategory("rocketry")
+                }} category={"rocketry"} active={category == "rocketry"} />
             </div>
 
             <div className="flex items-stretch overflow-auto min-h-0 flex-1 mx-4 pb-2   mb-4 justify-start flex-col gap-4 scrollbar-custom">
