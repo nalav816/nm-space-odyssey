@@ -217,7 +217,7 @@ export function validateSale(c: RocketComponent, r: Rocket) : ValidationResult{
             if (result.errorMessage) {
                 result.errorMessage += "• " + res.errorMessage
             } else {
-                result.errorMessage = "The following constraints are violated without the part that was attempted to be sold: \n" + "• " + res.errorMessage
+                result.errorMessage = "The following constraint(s) are violated: \n" + "• " + res.errorMessage
             }
         }
     }

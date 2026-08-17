@@ -28,7 +28,7 @@ export default function Toast({ title = "Title", description} : {title?:string, 
             </div>
             <div className="px-3 py-2">
                 <div className="leading-tight relative z-20"> {title} </div>
-                {description && (<div className="whitespace-pre-line leading-tight relative text-xs text-blue-lightest"> {description} </div>)}
+                {description && (<div className="whitespace-pre-line leading-tight relative text-xs"> {description} </div>)}
 
             </div>
 
