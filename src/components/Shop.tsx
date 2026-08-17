@@ -82,6 +82,7 @@ const ShopItem = ({
                     if (result) {
                         setPlayer(result.player)
                         savePlayerData(result.player)
+                        playSound("astronautSpawn")
                     }
                 } else {
                     toast({title: "Purchase Error", description: "Astronaut's Quarters are currently full. Fire a astronaut to create more space."})
@@ -96,6 +97,7 @@ const ShopItem = ({
 
                     setPlayer(newerPlayer)
                     savePlayerData(newerPlayer)
+                    playSound("partSpawn")
                 } else {
                     toast({ title: "Purchase Error", description: res.errorMessage })
                 }

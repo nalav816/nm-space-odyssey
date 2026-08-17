@@ -5,6 +5,8 @@ type SoundName =
     | "toastError"
     | "moneyGenerated"
     | "uiClick"
+    | "astronautSpawn"
+    | "partSpawn"
 
 const sounds: Record<SoundName, HTMLAudioElement> = {
     selection: new Audio("/audio/selection.mp3"),
@@ -12,6 +14,8 @@ const sounds: Record<SoundName, HTMLAudioElement> = {
     toastError: new Audio("/audio/toastError.mp3"),
     moneyGenerated: new Audio("/audio/moneyGenerated.mp3"),
     uiClick: new Audio("/audio/uiClick.mp3"),
+    astronautSpawn: new Audio("/audio/astronautSpawn.mp3"),
+    partSpawn: new Audio("/audio/partSpawn.mp3"),
 }
 
 Object.values(sounds).forEach(audio => {
