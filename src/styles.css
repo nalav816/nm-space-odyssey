@@ -74,6 +74,10 @@ body {
     background: radial-gradient(circle, var(--color-blue-dark), var(--color-blue-darker));
   }
 
+  .popup-radial-gradient {
+    background: radial-gradient(circle, var(--color-blue), var(--color-blue-dark));
+  }
+
 
   .image-glow-green {
     filter: drop-shadow(0 0 10px var(--color-green));

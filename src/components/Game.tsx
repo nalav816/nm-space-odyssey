@@ -25,15 +25,15 @@ export default function Game() {
                     <div className="flex justify-between items-start w-full">
                         <div className="flex flex-col gap-2 pb-24">
                             <div className="text-4xl title-glow leading-none">
-                                <span className="text-2xl text-blue-light"> n&m </span>
+                                <span className="text-xl text-blue-light"> n&m </span>
                                 Space <br /> <span className="text-blue-lightest"> Odyssey </span> 
                             </div>
-                            <div className="leading-none text-sm">
+                            <div className="leading-none text-xs">
                                 <span className="text-blue-lightest"> {player.username}'s </span>Space Station
                             </div>
                             <div className="leading-none flex gap-4 items-center">
                                 <img className="h-8 w-8 image-pixelated image-glow-green" src="/sprites/cash.png" />
-                                <div className=" text-green-light text-glow-green"> ${player.netWorth} </div>
+                                <div className=" text-green-light text-sm text-glow-green"> ${player.netWorth} </div>
                             </div>
 
 
